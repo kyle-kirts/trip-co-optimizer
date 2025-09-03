@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "1612a10e-4664-4a39-85ea-70accb33ebac",
+		"name": "distances",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "25883428-1612a10e-4664-4a39-85ea-70accb33ebac"
+	},
+	"item": [
+		{
+			"name": "base: correct status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7e07c068-d0a3-4a72-b3b8-0aaf43db34be",
+						"exec": [
+							"pm.test(\"Response is HTTP404 status\", () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "2ab1f3b5-affe-435e-8fb9-da209c70b005",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"distances\",\n    \"places\": [],\n    \"earthRadius\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,40 @@
+{
+  "$id": "https://example.com/address.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "about",
+  "description": "About information for the client",
+  "type": "object",
+  "properties": {
+    "team": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "number": { 
+          "type": "string", 
+          "pattern": "^t[0-9]{1,2}$" 
+        },
+        "mission": { "type": "string" }
+      },
+      "required": ["name", "number", "mission"],
+      "additionalProperties": false
+    },
+    "people": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "netid": { "type": "string" },
+          "hometown": { "type": "string" },
+          "biography": { "type": "string" }
+        },
+        "required": ["name", "netid", "hometown", "biography"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["team", "people"],
+  "additionalProperties": false
+}
+

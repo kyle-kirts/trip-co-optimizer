@@ -1,0 +1,16 @@
+{
+  "team": {
+    "name": "teamname",
+    "number": "t00",
+    "mission": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Sit amet consectetur adipiscing elit quisque faucibus ex. Adipiscing elit quisque faucibus ex sapien vitae pellentesque."
+
+  },
+  "people": [
+      {
+        "name": "Dave Matthews",
+        "netid": "davematt",
+        "hometown": "Fort Collins",
+        "biography": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing elit quisque faucibus."
+      }
+    ]
+}
