@@ -106,7 +106,7 @@ function install_server_dependencies {
 }
 
 function build_server {
-  mvnd -f ${REPO_ROOT}/server --global-settings ${REPO_ROOT}/server/.m2/settings.xml -Drevision=${REVISION} -Dbuild.directory.prefix=${BUILD_DIRECTORY_PREFIX} package $@
+  mvn -f ${REPO_ROOT}/server --global-settings ${REPO_ROOT}/server/.m2/settings.xml -Drevision=${REVISION} -Dbuild.directory.prefix=${BUILD_DIRECTORY_PREFIX} package $@
   check_error $?
 }
 
