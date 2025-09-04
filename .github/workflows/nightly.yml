@@ -35,6 +35,8 @@ jobs:
 
     - name: Verify about images
       run: check-images
+      env:
+        NETIDS: ${{ vars.NETIDS }}
 
     - run: verify_workflows
 
@@ -69,6 +71,7 @@ jobs:
         GH_ORGANIZATION_NAME: ${{ github.repository_owner }}
         GH_REPOSITORY_NAME: ${{ github.event.repository.name }}
         GH_RUN_ID_NUMBER: ${{ github.run_id }}
+        NETIDS: ${{ vars.NETIDS }}
       run: alert enqueue ~/alertqueue.csv nightly 1
       if: failure()
 
