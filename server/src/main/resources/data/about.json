@@ -13,6 +13,12 @@
         "biography": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing elit quisque faucibus."
       },
       {
+        "name": "Autumn Luzovich",
+        "netid": "",
+        "hometown": "",
+        "biography": ""
+      },
+      {
         "name": "Kyle Kirts",
         "netid": "c837264016",
         "hometown": "Ames",
@@ -20,7 +26,7 @@
       },
       {
         "name": "Sky Vercauteren",
-        "netid": "vercauteren",
+        "netid": "",
         "hometown": "",
         "biography": ""
       }
