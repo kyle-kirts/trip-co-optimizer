@@ -11,6 +11,12 @@
         "netid": "davematt",
         "hometown": "Fort Collins",
         "biography": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing elit quisque faucibus."
+      },
+      {
+        "name": "",
+        "netid": "",
+        "hometown": "",
+        "biography": ""
       }
-    ]
+  ]
 }
