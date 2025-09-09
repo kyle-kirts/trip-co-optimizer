@@ -58,6 +58,10 @@ public class ConfigRequest extends Request {
 
     //TODO might need a few testing helpers for team, people, person
 
+    public String getMissionStatement() {
+        return team.mission;
+    }
+
     public boolean validFeature(String feature){
         return features.contains(feature);
     }
