@@ -1,6 +1,6 @@
 {
   "team": {
-    "name": "teamname",
+    "name": "Gold Rushers",
     "number": "t00",
     "mission": "Our objective is to be a welcoming team; we invite communication, transparency, and empathy. We will do this by leveraging in-person dialogue and including all members of the team as much as possible. Our success is not only code-based, but also highly dependent on our ability to communicate with one another. In addition to technical skills (e.g., Slack, Git, Java, Restful API's), we will strive to improve our soft-skills (e.g., communication, collaboration, organization, time management, adaptability, and others). We endeavor to be mindful of shortcomings and use them as opportunities. Our differences should be our strengths, not our weaknesses."
 
@@ -26,6 +26,12 @@
       },
       {
         "name": "Sky Vercauteren",
+        "netid": "",
+        "hometown": "",
+        "biography": ""
+      },
+      {
+        "name": "Ben Schlicting",
         "netid": "",
         "hometown": "",
         "biography": ""
