@@ -15,7 +15,7 @@
       {
         "name": "Autumn Luzovich",
         "netid": "luzovich",
-        "hometown": "",
+        "hometown": "Arvada",
         "biography": ""
       },
       {
@@ -26,13 +26,20 @@
       },
       {
         "name": "Sky Vercauteren",
-        "netid": "",
+        "netid": "vercauteren",
         "hometown": "",
         "biography": ""
       },
       {
         "name": "Ben Schlicting",
         "netid": "schlicting",
+        "hometown": "Fort Collins",
+        "biography": ""
+      },
+
+      {
+        "name": "person3",
+        "netid": "",
         "hometown": "",
         "biography": ""
       }
