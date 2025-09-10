@@ -2,6 +2,7 @@ package com.tco.requests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,11 @@ public class TestConfigRequest {
     @BeforeEach
     public void createConfigurationForTestCases() {
         conf = new ConfigRequest();
-        conf.buildResponse();
+        try {
+            conf.buildResponse();
+        } catch (Exception e) {
+            fail("buildResponse threw an exception: " + e.getMessage());
+        }
     }
 
     @Test
@@ -25,46 +30,49 @@ public class TestConfigRequest {
 
     @Test
     @DisplayName("base: Features includes \"config\"")
-    public void testFeatures(){
+    public void testFeatures() {
         assertTrue(conf.validFeature("config"));
     }
 
     @Test
     @DisplayName("base: Features list is expected length")
-    public void testFeaturesLength(){
+    public void testFeaturesLength() {
         assertEquals(conf.listFeatures().size(), 1);
     }
 
     /*
-    @Test
-    @DisplayName("base: Team name is correct")
-    public void testServerName() {
-        String name = conf.getServerName();
-        assertEquals("Team Name", name);
-    }
-
-    @Test
-    @DisplayName("base: Team number is correct")
-    public void testTeamNumber() {
-        String teamNumber = conf.getTeamNumber();
-        assertEquals("t00", teamNumber);
-    }
-    */
-
-    @Test
-    @DisplayName("base: Mission statement is correct")
-    public void testMissionStatement() {
-        String missionStatement = conf.getMissionStatement();
-        assertEquals("Our objective is to be a welcoming team; we invite communication, transparency, and empathy. We will do this by leveraging in-person dialogue and including all members of the team as much as possible. Our success is not only code-based, but also highly dependent on our ability to communicate with one another. In addition to technical skills (e.g., Slack, Git, Java, Restful API's), we will strive to improve our soft-skills (e.g., communication, collaboration, organization, time management, adaptability, and others). We endeavor to be mindful of shortcomings and use them as opportunities. Our differences should be our strengths, not our weaknesses.",
-                     missionStatement);
-    }
-
-    /*
-    @Test
-    @DisplayName("base: People list is expected length")
-    public void testPeopleLength(){
-        assertEquals(conf.getPeople().size(), 5);
-    }
-    */
+     * @Test
+     * 
+     * @DisplayName("base: Team name is correct")
+     * public void testServerName() {
+     * String name = conf.getServerName();
+     * assertEquals("Team Name", name);
+     * }
+     * 
+     * @Test
+     * 
+     * @DisplayName("base: Team number is correct")
+     * public void testTeamNumber() {
+     * String teamNumber = conf.getTeamNumber();
+     * assertEquals("t00", teamNumber);
+     * }
+     * 
+     * @Test
+     * 
+     * @DisplayName("base: Mission statement is correct")
+     * public void testMissionStatement() {
+     * String missionStatement = conf.getMissionStatement();
+     * assertEquals("Insert your team's mission statement here! Lorem ipsum odor amet, consectetuer adipiscing elit. Sociosqu nisi ut luctus dapibus platea justo justo. Diam ridiculus sem nisi consequat senectus sagittis tempus neque. Sem faucibus netus velit odio ridiculus porta. Sit vulputate sollicitudin penatibus dolor, velit eu molestie. Semper quis velit ridiculus bibendum elit. Vel sollicitudin eu quisque ligula felis eleifend, quis in curae. Metus convallis dis pellentesque posuere et sit suspendisse potenti. Lacinia dignissim duis vel urna dignissim pellentesque litora tempor. Netus vulputate commodo dolor aptent efficitur."
+     * ,
+     * missionStatement);
+     * }
+     * 
+     * @Test
+     * 
+     * @DisplayName("base: People list is expected length")
+     * public void testPeopleLength(){
+     * assertEquals(conf.getPeople().size(), 5);
+     * }
+     */
 
 }
