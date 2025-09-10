@@ -1,6 +1,6 @@
 {
   "team": {
-    "name": "teamname",
+    "name": "Gold Rushers",
     "number": "t00",
     "mission": "Our objective is to be a welcoming team; we invite communication, transparency, and empathy. We will do this by leveraging in-person dialogue and including all members of the team as much as possible. Our success is not only code-based, but also highly dependent on our ability to communicate with one another. In addition to technical skills (e.g., Slack, Git, Java, Restful API's), we will strive to improve our soft-skills (e.g., communication, collaboration, organization, time management, adaptability, and others). We endeavor to be mindful of shortcomings and use them as opportunities. Our differences should be our strengths, not our weaknesses."
 
@@ -15,7 +15,7 @@
       {
         "name": "Autumn Luzovich",
         "netid": "luzovich",
-        "hometown": "",
+        "hometown": "Arvada",
         "biography": ""
       },
       {
@@ -26,8 +26,8 @@
       },
       {
         "name": "Sky Vercauteren",
-        "netid": "",
-        "hometown": "",
+        "netid": "vercauteren",
+        "hometown": "Laramie",
         "biography": ""
       },
       {
@@ -35,6 +35,20 @@
         "netid": "schlicting",
         "hometown": "Fort Collins",
         "biography": "Hello I'm Ben! I transferred from front range last semester and this is my first year at CSU as a junior for computer science. I'm really into web/mobile development and have learned a lot from working at a startup with the goal eventually work there full time. In my free time I spend a lot of time play tennis actively playing on the CSU club team! I also love video games and I'm very excited to start playing Silksong this weeknd!"
+      },
+
+      {
+        "name": "person3",
+        "netid": "",
+        "hometown": "",
+        "biography": ""
+      },
+    
+      {
+        "name": "person1",
+        "netid": "",
+        "hometown": "",
+        "biography": ""
       }
     ]
 }
