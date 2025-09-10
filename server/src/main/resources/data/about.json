@@ -1,7 +1,7 @@
 {
   "team": {
     "name": "Gold Rushers",
-    "number": "t00",
+    "number": "t49",
     "mission": "Our objective is to be a welcoming team; we invite communication, transparency, and empathy. We will do this by leveraging in-person dialogue and including all members of the team as much as possible. Our success is not only code-based, but also highly dependent on our ability to communicate with one another. In addition to technical skills (e.g., Slack, Git, Java, Restful API's), we will strive to improve our soft-skills (e.g., communication, collaboration, organization, time management, adaptability, and others). We endeavor to be mindful of shortcomings and use them as opportunities. Our differences should be our strengths, not our weaknesses."
 
   },
@@ -16,7 +16,7 @@
         "name": "Autumn Luzovich",
         "netid": "luzovich",
         "hometown": "Arvada",
-        "biography": ""
+        "biography": "Hello there. I am a Junior in the Computer Science Department. Currently, I'm following a general concentration with an eventual slight focus on networking and cybersecurity. Outside of when I'm either at school, work, or sleeping, you'll find me dabbling in Single Sign-On servers, self-hosted multimedia and productivity tools, and developing my own websites — of which I am an enthusiast."
       },
       {
         "name": "Kyle Kirts",
@@ -28,7 +28,7 @@
         "name": "Sky Vercauteren",
         "netid": "vercauteren",
         "hometown": "Laramie",
-        "biography": ""
+        "biography": "Hey I'm Sky. A student at heart, dedicated to improving, discovering and incorporating new understandings. Versatile professional, with a passion for music and a creative background that expands my skillset. I got my bachelors in Computer Science from the University of Wyoming, and am taking this class in a multifaceted capacity to keep growing and having fun."
       },
       {
         "name": "Ben Schlicting",
@@ -38,16 +38,16 @@
       },
 
       {
-        "name": "person3",
-        "netid": "",
-        "hometown": "",
+        "name": "Carter Hickerson",
+        "netid": "carter64",
+        "hometown": "Danville",
         "biography": ""
       },
     
       {
-        "name": "person1",
-        "netid": "",
-        "hometown": "",
+        "name": "Jackson Sibold",
+        "netid": "jsibold",
+        "hometown": "Firestone",
         "biography": ""
       }
     ]
