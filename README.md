@@ -1,4 +1,4 @@
-# README
+# Team t49
 
 If you have not yet completed the instructions in [LOCAL-SETUP.md](./LOCAL-SETUP.md), start with them. They will help you download the tools required
 to run the code as described in this file.
