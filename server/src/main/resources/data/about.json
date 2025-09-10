@@ -7,12 +7,6 @@
   },
   "people": [
       {
-        "name": "Dave Matthews",
-        "netid": "davematt",
-        "hometown": "Fort Collins",
-        "biography": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing elit quisque faucibus."
-      },
-      {
         "name": "Autumn Luzovich",
         "netid": "luzovich",
         "hometown": "Arvada",
