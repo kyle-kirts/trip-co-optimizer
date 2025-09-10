@@ -49,15 +49,17 @@ public class TestConfigRequest {
         String teamNumber = conf.getTeamNumber();
         assertEquals("t00", teamNumber);
     }
+    */
 
     @Test
     @DisplayName("base: Mission statement is correct")
     public void testMissionStatement() {
         String missionStatement = conf.getMissionStatement();
-        assertEquals("Insert your team's mission statement here! Lorem ipsum odor amet, consectetuer adipiscing elit. Sociosqu nisi ut luctus dapibus platea justo justo. Diam ridiculus sem nisi consequat senectus sagittis tempus neque. Sem faucibus netus velit odio ridiculus porta. Sit vulputate sollicitudin penatibus dolor, velit eu molestie. Semper quis velit ridiculus bibendum elit. Vel sollicitudin eu quisque ligula felis eleifend, quis in curae. Metus convallis dis pellentesque posuere et sit suspendisse potenti. Lacinia dignissim duis vel urna dignissim pellentesque litora tempor. Netus vulputate commodo dolor aptent efficitur.",
+        assertEquals("Our objective is to be a welcoming team; we invite communication, transparency, and empathy. We will do this by leveraging in-person dialogue and including all members of the team as much as possible. Our success is not only code-based, but also highly dependent on our ability to communicate with one another. In addition to technical skills (e.g., Slack, Git, Java, Restful API's), we will strive to improve our soft-skills (e.g., communication, collaboration, organization, time management, adaptability, and others). We endeavor to be mindful of shortcomings and use them as opportunities. Our differences should be our strengths, not our weaknesses.",
                      missionStatement);
     }
 
+    /*
     @Test
     @DisplayName("base: People list is expected length")
     public void testPeopleLength(){
