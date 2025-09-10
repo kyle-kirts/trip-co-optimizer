@@ -13,6 +13,8 @@ if [[ $? != 0 ]]; then
   echo
 fi
 
+export CS314_TEAM=t49
+export CS314_TEAM="${CS314_TEAM:1}"
 export SERVER_PORT=$((0+${CS314_SERVER_BASE:-41300}+${CS314_TEAM:-0}))
 export CLIENT_PORT=$((0+${CS314_CLIENT_BASE:-43100}+${CS314_TEAM:-0}))
 echo Using client/server ports: $CLIENT_PORT / $SERVER_PORT
@@ -58,7 +60,7 @@ function get_default_prefix {
   if [[ -n "$NFS_MOUNTED" ]]; then
     export BUILD_DIRECTORY_PREFIX="/tmp/cs314-$(whoami)"
   else
-    export BUILD_DIRECTORY_PREFIX="${REPO_ROOT}"
+  export BUILD_DIRECTORY_PREFIX="${REPO_ROOT}"
   fi
 }
 
@@ -76,7 +78,7 @@ function copy_client_bundle_to_build_dir {
 
 function install_server_dependencies {
   if [[ -n "${NFS_MOUNTED}" ]]; then
-    pushd ${REPO_ROOT}/server > /dev/null
+  pushd ${REPO_ROOT}/server > /dev/null
     function _install_server_dependences {
       if [[ ! -e .m2/repository ]]; then
         mkdir -p ${BUILD_DIRECTORY_PREFIX}/server/.m2/repository
@@ -110,7 +112,7 @@ function build_server {
 
 function run_server {
   delayopen &
-  java -Dorg.slf4j.simpleLogger.log.com.tco=info -jar $BUILD_DIRECTORY_PREFIX/target/server-local.jar ${SERVER_PORT}
+  java -Dorg.slf4j.simpleLogger.log.com.tco=info -jar ${BUILD_DIRECTORY_PREFIX}/target/server-local.jar ${SERVER_PORT}
   check_error $?
 }
 
@@ -171,7 +173,7 @@ function set_newman {
     chmod +x "$LOCAL_NEWMAN"
   fi
 
-  NEWMAN_BIN="${GLOBAL_NEWMAN:-$LOCAL_NEWMAN}"
+  NEWMAN_BIN="${GLOBAL_NEWMAN:-${LOCAL_NEWMAN}}"
 }
 
 function postman_tests {
@@ -184,37 +186,37 @@ function postman_tests {
     echo Postman Collections not found
     echo =============================
   else
-    BASE_URL="http://localhost:"${SERVER_PORT}
+  BASE_URL="http://localhost:"${SERVER_PORT}
 
-    echo Starting server-local.jar on ${BASE_URL}
-    echo "Port ${SERVER_PORT} status before starting sever (1 normal): " `nc -z localhost ${SERVER_PORT} ; echo $?`
+  echo Starting server-local.jar on ${BASE_URL}
+  echo "Port ${SERVER_PORT} status before starting sever (1 normal): " `nc -z localhost ${SERVER_PORT} ; echo $?`
 
-    java -Dorg.slf4j.simpleLogger.log.com.tco=error -jar ${BUILD_DIRECTORY_PREFIX}/target/server-local.jar ${SERVER_PORT} &
+  java -Dorg.slf4j.simpleLogger.log.com.tco=error -jar ${BUILD_DIRECTORY_PREFIX}/target/server-local.jar ${SERVER_PORT} &
     bg_pid=$!
 
     #Sleep to give time for the server to run
     sleep 5 
-    echo "Port ${SERVER_PORT} status after starting sever (0 normal): " `nc -z localhost ${SERVER_PORT} ; echo $?`
+  echo "Port ${SERVER_PORT} status after starting sever (0 normal): " `nc -z localhost ${SERVER_PORT} ; echo $?`
 
-    for filename in ${REPO_ROOT}/Postman/*.json; do
+  for filename in ${REPO_ROOT}/Postman/*.json; do
       echo
       echo ===============================================
       echo Running Collection: $filename
       echo ===============================================
-      "$NEWMAN_BIN" run $filename --env-var "BASE_URL=${BASE_URL}"
+  "$NEWMAN_BIN" run $filename --env-var "BASE_URL=${BASE_URL}"
       
       if [[ $? == 1 ]]; then
         echo
         echo Error occured while running Postman tests from $filename
-        kill -9 ${bg_pid}
+  kill -9 ${bg_pid}
         exit 1
       fi
     done
 
     echo Successful
     echo
-    kill -9 ${bg_pid}
-    echo "Port ${SERVER_PORT} status after kill (1 normal): " `nc -z localhost ${SERVER_PORT} ; echo $?`
+  kill -9 ${bg_pid}
+  echo "Port ${SERVER_PORT} status after kill (1 normal): " `nc -z localhost ${SERVER_PORT} ; echo $?`
     sleep 2
   fi
 }
@@ -222,9 +224,9 @@ function postman_tests {
 function safeopen {
     kernel=$(uname -s)
     if [ $kernel == "Darwin" ]; then
-        open $1
+      open $1
     else
-        xdg-open $1
+      xdg-open $1
     fi
 }
 
@@ -233,7 +235,7 @@ function delayopen {
   if ! safeopen http://localhost:"$SERVER_PORT"; then
     echo "Error: failed to automatically open a web browser."
     echo "Are you on an unsupported dev environment?"
-    echo "Click here to launch the site: $site"
+  echo "Click here to launch the site: $site"
   fi
 }
 
@@ -264,11 +266,11 @@ if [[ -z "$CS314_ENV" ]]; then
 fi;
 
 # Remove target to avoid huge Maven shade warnings
-rm -rf ${BUILD_DIRECTORY_PREFIX}/target
+  rm -rf ${BUILD_DIRECTORY_PREFIX}/target
 
 if [[ -n "${NFS_MOUNTED}" ]]; then
   mkdir -p ${BUILD_DIRECTORY_PREFIX}/target
-  if [[ ! -L "${REPO_ROOT}/target" && -d "${REPO_ROOT}/target" ]]; then
+  if [[ ! -L ${REPO_ROOT}/target && -d ${REPO_ROOT}/target ]]; then
     echo "Cleaning NFS mounted target"
     rm -rf ${REPO_ROOT}/target
   fi
