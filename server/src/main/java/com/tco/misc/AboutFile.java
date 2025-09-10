@@ -1,12 +1,11 @@
 package com.tco.misc;
 
-public class Team {
+public class AboutFile {
 
-    String name;
-    String number;
-    String mission;
+    public Team team;
+    public People people;
 
-    private Team() {
+    private AboutFile() {
     } // prevent use of default constructor -- please use Gson to serialize this
 
 }

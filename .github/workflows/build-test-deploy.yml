@@ -70,6 +70,9 @@ jobs:
           exit 1
         fi
 
+    - name: Patch checker
+      run: patch-checker
+
     - name: Verify about images
       run: check-images
       env:
