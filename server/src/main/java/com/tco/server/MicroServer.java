@@ -49,7 +49,10 @@ public final class MicroServer {
         try {
             JSONValidator.validate(jsonString, requestType);
             Request requestObj = new Gson().fromJson(jsonString, requestType);
-            return buildJSONResponse(requestObj);
+            requestObj.buildResponse();
+            String jsonResponse = new Gson().toJson(requestObj);
+            log.trace("Response - {}", jsonResponse);
+            return jsonResponse;
         } catch (IOException | BadRequestException e) {
             log.info("Bad Request - {}", e.getMessage());
             httpResponse.status(HTTP_BAD_REQUEST);
@@ -65,13 +68,6 @@ public final class MicroServer {
         response.header("Access-Control-Allow-Origin", "*");
         response.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
         response.status(HTTP_OK);
-    }
-
-    private String buildJSONResponse(Request request) throws RequestException {
-        request.buildResponse();
-        String responseBody = new Gson().toJson(request);
-        log.trace("Response - {}", responseBody);
-        return responseBody;
     }
 
     private void logRequest(spark.Request request) {
