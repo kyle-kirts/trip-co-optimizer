@@ -5,6 +5,7 @@ import com.tco.misc.RequestException;
 import com.tco.misc.JSONValidator;
 import com.tco.requests.ConfigRequest;
 import com.tco.requests.Request;
+import com.tco.requests.DistancesRequest;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
