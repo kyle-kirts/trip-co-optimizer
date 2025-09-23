@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -81,4 +82,85 @@ public class TestMicroServer {
         HttpResponse response = postRequest("/api/invalid", invalidRequestJSON);
         assertEquals(404, response.getStatusLine().getStatusCode());
     }
+
+    // @Test
+    // @DisplayName("DistancesRequest: Valid distances request succeeds with 200 status")
+    // public void testValidDistancesRequest() throws IOException {
+    //     String requestBodyJSON = new JSONObject()
+    //         .put("requestType", "distances")
+    //         .put("places", new JSONArray())
+    //         .put("formula", "vincenty") // Is this considered standard? It's not in the Postman, but it is in the DistancesRequest class.
+    //         .put("earthRadius", 1)
+    //         .toString();
+    //     HttpResponse response = postRequest("/api/distances", requestBodyJSON);
+    //     assertEquals(200, response.getStatusLine().getStatusCode());
+    // }
+
+    // @Test
+    // @DisplayName("DistancesRequest: Invalid distances request with an empty object fails with 400 status")
+    // public void testInvalidDistancesRequestWithEmptyObject() throws IOException {
+    //     String invalidRequestJSON = "{ }";
+    //     HttpResponse response = postRequest("/api/distances", invalidRequestJSON);
+    //     assertEquals(400, response.getStatusLine().getStatusCode());
+    // }
+
+    // @Test
+    // @DisplayName("DistancesRequest: Invalid distances request with a wrong JSON object type [array]")
+    // public void testInvalidDistanceRequestWithEmptyArray() throws IOException {
+    //     String invalidRequestJSON = "[ ]";
+    //     HttpResponse response = postRequest("/api/distances", invalidRequestJSON);
+    //     assertEquals(400, response.getStatusLine().getStatusCode());
+    // }
+
+    // @Test
+    // @DisplayName("DistancesRequest: Invalid distances request with missing fields [earthRadius] fails with 400 status")
+    // public void testInvalidDistancesRequestWithMissingEarthRadius() throws IOException {
+    //     String invalidRequestJSON = new JSONObject()
+    //         .put("requestType", "distances")
+    //         .put("places", new JSONArray())
+    //         .put("formula", "vincenty")
+    //         .toString();
+    //     HttpResponse response = postRequest("/api/distances", invalidRequestJSON);
+    //     assertEquals(400, response.getStatusLine().getStatusCode());
+    // }
+    
+    // @Test
+    // @DisplayName("DistancesRequest: Invalid distances request with missing fields [formula] fails with 400 status")
+    // public void testInvalidDistancesRequestWithMissingFormula() throws IOException {
+    //     String invalidRequestJSON = new JSONObject()
+    //         .put("requestType", "distances")
+    //         .put("places", new JSONArray())
+    //         .put("earthRadius", 1)
+    //         .toString();
+    //     HttpResponse response = postRequest("/api/distances", invalidRequestJSON);
+    //     assertEquals(400, response.getStatusLine().getStatusCode());
+    // }
+    
+    // @Test
+    // @DisplayName("DistancesRequest: Invalid distances request with invalid fields [requestType, type] fails with 400 status")
+    // public void testInvalidDistancesRequestWithInvalidRequestType() throws IOException {
+    //     String invalidRequestJSON = new JSONObject()
+    //         .put("requestType", new JSONArray()
+    //             .put("wrong data!")
+    //             .put(1)
+    //         )
+    //         .put("places", new JSONArray())
+    //         .put("earthRadius", 1)
+    //         .toString();
+    //     HttpResponse response = postRequest("/api/distances", invalidRequestJSON);
+    //     assertEquals(400, response.getStatusLine().getStatusCode());
+    // }
+    
+    // @Test
+    // @DisplayName("DistancesRequest: Invalid distances request with invalid fields [formula] fails with 400 status")
+    // public void testInvalidDistancesRequestWithInvalidFormula() throws IOException {
+    //     String invalidRequestJSON = new JSONObject()
+    //         .put("requestType", "distances")
+    //         .put("places", new JSONArray())
+    //         .put("formula", "vicinity is what I used to call it")
+    //         .put("earthRadius", 1)
+    //         .toString();
+    //     HttpResponse response = postRequest("/api/distances", invalidRequestJSON);
+    //     assertEquals(400, response.getStatusLine().getStatusCode());
+    // }
 }
