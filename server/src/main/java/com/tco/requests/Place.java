@@ -9,7 +9,8 @@ public class Place extends HashMap<String,String> implements GeographicCoordinat
     public Place(){}
 
     public Place(String lat, String lon){
-        this.put(lat,lon);
+        this.put("latitude", lat);
+        this.put("longitude", lon);
     }
 
     @Override
