@@ -9,5 +9,10 @@ public class CalculatorFactory {
         
         return Arrays.asList("vincenty");
     }
+
+    public static DistanceCalculator getCalculator(String formula) {
+        // Temporary stub: return null or throw until calculators are implemented
+        throw new UnsupportedOperationException("getCalculator not implemented yet");
+    }
     
 }
