@@ -1,34 +1,48 @@
 {
   "team": {
-    "name": "teamname",
-    "number": "t00",
+    "name": "Gold Rushers",
+    "number": "t49",
     "mission": "Our objective is to be a welcoming team; we invite communication, transparency, and empathy. We will do this by leveraging in-person dialogue and including all members of the team as much as possible. Our success is not only code-based, but also highly dependent on our ability to communicate with one another. In addition to technical skills (e.g., Slack, Git, Java, Restful API's), we will strive to improve our soft-skills (e.g., communication, collaboration, organization, time management, adaptability, and others). We endeavor to be mindful of shortcomings and use them as opportunities. Our differences should be our strengths, not our weaknesses."
 
   },
   "people": [
       {
-        "name": "Dave Matthews",
-        "netid": "davematt",
-        "hometown": "Fort Collins",
-        "biography": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing elit quisque faucibus."
-      },
-      {
         "name": "Autumn Luzovich",
         "netid": "luzovich",
-        "hometown": "",
-        "biography": ""
+        "hometown": "Arvada",
+        "biography": "Hello there. I am a Junior in the Computer Science Department. Currently, I'm following a general concentration with an eventual slight focus on networking and cybersecurity. Outside of when I'm either at school, work, or sleeping, you'll find me dabbling in Single Sign-On servers, self-hosted multimedia and productivity tools, and developing my own websites — of which I am an enthusiast."
       },
       {
         "name": "Kyle Kirts",
-        "netid": "c837264016",
+        "netid": "kyle-kirts",
         "hometown": "Ames",
         "biography": "My name is Kyle Kirts and I am currently a Senior studying Computer Science at Colorado State University. I enjoy statistics, visualizing data and figuring out how to comprehend it all. My current goals are to expand my skills within the field of Computer Science while attending CSU. In my free time I enjoy watching and keeping up with soccer or cooking a new recipe."
       },
       {
         "name": "Sky Vercauteren",
-        "netid": "",
-        "hometown": "",
-        "biography": ""
+        "netid": "vercauteren",
+        "hometown": "Laramie",
+        "biography": "Hey I'm Sky. A student at heart, dedicated to improving, discovering and incorporating new understandings. Versatile professional, with a passion for music and a creative background that expands my skillset. I got my bachelors in Computer Science from the University of Wyoming, and am taking this class in a multifaceted capacity to keep growing and having fun."
+      },
+      {
+        "name": "Ben Schlicting",
+        "netid": "schlicting",
+        "hometown": "Fort Collins",
+        "biography": "Hello I'm Ben! I transferred from front range last semester and this is my first year at CSU as a junior for computer science. I'm really into web/mobile development and have learned a lot from working at a startup with the goal eventually work there full time. In my free time I spend a lot of time play tennis actively playing on the CSU club team! I also love video games and I'm very excited to start playing Silksong this weeknd!"
+      },
+
+      {
+        "name": "Carter Hickerson",
+        "netid": "carter64",
+        "hometown": "Danville",
+        "biography": "Hey! I am a Junior at CSU pursuing a degree in Computer Science with a concentration in AI and Machine learning, as well as a minor in Business. I grew up in California in the San Francisco Bay Area. In my free time, I love to do a variety of outdoor activities like hiking, fishing, and camping. I also enjoy reading and watching movies"
+      },
+    
+      {
+        "name": "Jackson Sibold",
+        "netid": "jsibold",
+        "hometown": "Firestone",
+        "biography": "Hello! I am Jackson I am a Junior here at CSU for Comp Sci. I really developing projects on my own and have been into coding for a long time now. I grew up here in Colorado just down south a bit in Firestone. In my free time I enjoy spending time with friends as well as I enjoy working on and driving cars. I really hope to get some good experience working in a team in this class and look forward to this opportunity to advance my professional skills."
       }
     ]
 }
