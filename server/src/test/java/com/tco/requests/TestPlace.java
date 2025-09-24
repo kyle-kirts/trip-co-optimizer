@@ -40,21 +40,7 @@ public class TestPlace {
     @DisplayName("vercauteren: a specific place object contains two strings")
     public void testOverloadedConstructorCordinateTypeString(){
         Place place = new Place("45.1111", "-105.2222");
-        Set<String> keys = place.keySet();
-        Iterator<String> it = keys.iterator();
-        assertTrue(it.next() instanceof String);
-        assertTrue(place.get("45.1111") instanceof String);
+        assertTrue(place.get("latitude") instanceof String);
+        assertTrue(place.get("longitude") instanceof String);
     }
-
-    @Test
-    @DisplayName("vercauteren: a specific place object does not contain doubles")
-    public void testOverloadedConstructorCordinateTypeDouble(){
-        Place place = new Place("45.1111", "-105.2222");
-        Set<String> keys = place.keySet();
-        Iterator<String> it = keys.iterator();
-        System.out.println(it.next() instanceof String);
-        //assertFalse(it.next() instanceof Double);
-       //assertFalse(place.get("45.1111") instanceof Double);
-    }
-
 }
