@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -81,4 +82,17 @@ public class TestMicroServer {
         HttpResponse response = postRequest("/api/invalid", invalidRequestJSON);
         assertEquals(404, response.getStatusLine().getStatusCode());
     }
+
+    // @Test
+    // @DisplayName("DistancesRequest: Valid distances request succeeds with 200 status")
+    // public void testValidDistancesRequest() throws IOException {
+    //     String requestBodyJSON = new JSONObject()
+    //         .put("requestType", "distances")
+    //         .put("places", new JSONArray())
+    //         .put("formula", "vincenty") // Is this considered standard? It's not in the Postman, but it is in the DistancesRequest class.
+    //         .put("earthRadius", 1)
+    //         .toString();
+    //     HttpResponse response = postRequest("/api/distances", requestBodyJSON);
+    //     assertEquals(200, response.getStatusLine().getStatusCode());
+    // }
 }

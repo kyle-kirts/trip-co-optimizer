@@ -1,6 +1,6 @@
 package com.tco.requests;
 
-import com.tco.misc.BadRequestException;
+import com.tco.misc.RequestException;
 
 public abstract class Request {
 
@@ -11,5 +11,5 @@ public abstract class Request {
     }
 
     // Overrideable Methods
-    public abstract void buildResponse() throws BadRequestException;
+    public abstract void buildResponse() throws RequestException;
 }
