@@ -84,7 +84,7 @@ public class TestMicroServer {
     }
 
     // @Test
-    // @DisplayName("DistancesRequest: Valid distances request succeeds with 200 status")
+    // @DisplayName("luzovich: Valid distances request succeeds with 200 status")
     // public void testValidDistancesRequest() throws IOException {
     //     String requestBodyJSON = new JSONObject()
     //         .put("requestType", "distances")
