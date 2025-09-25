@@ -3,10 +3,12 @@ package com.tco.requests;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.Iterator;
-import java.util.Set;
 
 public class TestPlace {
+
+    /**
+    * Constructor tests
+    */
 
     @Test
     @DisplayName("vercauteren: a new default place object exists")
@@ -35,4 +37,38 @@ public class TestPlace {
         Place place = new Place("45.1111", "-105.2222");
         assertFalse(place.isEmpty());
     }
+
+    /**
+     * latitude and longitude
+     */
+
+    @Test
+    @DisplayName("vercauteren: longitude of an empty object returns 0")
+    public void testLonRadiansEmpty(){
+        Place place = new Place();
+        assertTrue(place.lonRadians() == 0.0);
+    }
+
+    @Test
+    @DisplayName("vercauteren: longitude of an specific object exists")
+    public void testLonRadiansExists(){
+        Place place = new Place("45.1111", "-105.2222");
+        assertDoesNotThrow(() -> {place.lonRadians();});
+    }
+
+    @Test
+    @DisplayName("vercauteren: longitude of a specific object returns a double")
+    public void testLonRadiansDouble(){
+        Place place = new Place("45.1111", "-105.2222");
+        assertTrue((place.lonRadians()%1) != 0);
+    } 
+
+    @Test
+    @DisplayName("vercauteren: longitude of a specific object is converted to radians")
+    public void testLonRadiansValid(){
+        Place place = new Place("45.1111", "-105.2222");
+        double radians = -1.8364738361919775;
+        System.out.println(place.lonRadians());
+        assertTrue(place.lonRadians() == radians);
+    } 
 }
