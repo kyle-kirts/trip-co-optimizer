@@ -9,12 +9,13 @@ public class Place extends HashMap<String,String> implements GeographicCoordinat
     public Place(){}
 
     public Place(String lat, String lon){
-        // TODO convert from string to double and put in hash map
+        this.put("latitude", lat);
+        this.put("longitude", lon);
     }
 
     @Override
     public double lonRadians(){
-        // TODO
+        // QUESTION - What is the defualt return if this value is not set??
         return 0.0; // TEMP
     }
 
