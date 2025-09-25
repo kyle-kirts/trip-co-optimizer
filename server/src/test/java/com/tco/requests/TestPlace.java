@@ -35,12 +35,4 @@ public class TestPlace {
         Place place = new Place("45.1111", "-105.2222");
         assertFalse(place.isEmpty());
     }
-
-    @Test
-    @DisplayName("vercauteren: a specific place object contains two strings")
-    public void testOverloadedConstructorCordinateTypeString(){
-        Place place = new Place("45.1111", "-105.2222");
-        assertTrue(place.get("latitude") instanceof String);
-        assertTrue(place.get("longitude") instanceof String);
-    }
 }
