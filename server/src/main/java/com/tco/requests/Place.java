@@ -15,8 +15,13 @@ public class Place extends HashMap<String,String> implements GeographicCoordinat
 
     @Override
     public double latRadians(){
-        // TODO
-        return 0.0; // TEMP
+        double latRad = 0.0;
+        if(this.get("latitude") != null){
+            Double latDegrees = Double.parseDouble(this.get("latitude"));
+            latRad = latDegrees * Math.PI;
+            latRad = latRad / 180;
+        }
+        return latRad;
     }
 
     @Override
