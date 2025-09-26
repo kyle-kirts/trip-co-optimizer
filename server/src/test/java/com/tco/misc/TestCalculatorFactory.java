@@ -15,10 +15,17 @@ public class TestCalculatorFactory {
     }
 
     @Test
-    @DisplayName("getCalculator() not yet implemented")
-    public void testGetCalculatorThrows() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            CalculatorFactory.getCalculator("vincenty");
-        });
+    @DisplayName("Factory returns a VincentyCalculator for 'vincenty'")
+    public void testVincentyCalculator() {
+        DistanceCalculator calc = CalculatorFactory.getCalculator("vincenty");
+        assertNotNull(calc, "Expected a non-null calculator for vincenty");
+        assertTrue(calc instanceof VincentyCalculator, "Expected a VincentyCalculator instance");
+    }
+
+    @Test
+    @DisplayName("Factory returns null for unknown formula")
+    public void testUnknownFormulaReturnsNull() {
+        DistanceCalculator calc = CalculatorFactory.getCalculator("unknown");
+        assertNull(calc, "Expected null for an unsupported formula");
     }
 }
