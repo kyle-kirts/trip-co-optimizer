@@ -41,6 +41,15 @@ public class TestConfigRequest {
     // }
 
     @Test
+    @DisplayName("luzovich: \"distances\" double-implies \"formulae\"")
+    public void testFeatureDistancesDoubleImpliesFormulae() {
+        assertTrue(
+            !(conf.validFeature("distances") || conf.hasProperty("formulae")) ||
+            (conf.validFeature("distances") && conf.hasProperty("formulae"))
+        );
+    }
+    
+    @Test
     @DisplayName("luzovich: Features list is expected length")
     public void testFeaturesLength() {
         assertEquals(conf.listFeatures().size(), 1); // assertEquals(conf.listFeatures().size(), 2);
