@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
+import com.tco.misc.CalculatorFactory;
 import com.tco.misc.InternalRequestException;
 import com.tco.misc.JSONReader;
 import com.tco.misc.RequestException;
@@ -19,6 +20,7 @@ public class ConfigRequest extends Request {
     private static final transient Logger log = LoggerFactory.getLogger(ConfigRequest.class);
 
     private List<String> features;
+    private List<String> formulae;
     private Team team;
     private People people;
 
@@ -26,6 +28,7 @@ public class ConfigRequest extends Request {
     public void buildResponse() throws RequestException {
         processAboutFile();
         features = listFeatures();
+        formulae = listFormulae();
         log.trace("buildResponse -> {}", this);
     }
 
@@ -34,6 +37,12 @@ public class ConfigRequest extends Request {
         features.add("config");
         // features.add("distances");
         return features;
+    }
+
+    public List<String> listFormulae() {
+        if (!features.contains("distances")) return null;
+        formulae = CalculatorFactory.getSupportedFormulae();
+        return formulae;
     }
 
     private void processAboutFile() throws InternalRequestException {
@@ -57,5 +66,16 @@ public class ConfigRequest extends Request {
 
     public boolean validFeature(String feature) {
         return features.contains(feature);
+    }
+
+    public boolean hasProperty(String property) {
+        switch (property) {
+            case "formulae":
+                if (formulae != null) {
+                    return true;
+                }
+            default:
+                return false;
+        }
     }
 }
