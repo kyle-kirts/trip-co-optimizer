@@ -12,7 +12,16 @@ public class CalculatorFactory {
 
     public static DistanceCalculator getCalculator(String formula) {
         // Temporary stub: return null or throw until calculators are implemented
-        throw new UnsupportedOperationException("getCalculator not implemented yet");
+        if (formula == null) {
+            return null;
+        }
+
+        switch (formula.toLowerCase()) {
+            case "vincenty":
+                return new VincentyCalculator();
+            default:
+                return null;
+        }
     }
     
 }
