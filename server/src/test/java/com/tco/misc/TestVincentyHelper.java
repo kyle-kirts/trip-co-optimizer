@@ -9,7 +9,7 @@ public class TestVincentyHelper {
 
     @Test
     @DisplayName("jsibold: Validate actual vs expected value")
-    public void testComputeX() {
+    public void testComputeDenominator() {
         VincentyHelper helper = new VincentyHelper();
 
         GeographicCoordinate from = new GeographicCoordinate(){
@@ -20,12 +20,12 @@ public class TestVincentyHelper {
             public double latRadians(){return 40.01499;}
             public double lonRadians(){return -105.2705;}};
 
-        double actual = helper.computeX(from, to);
+        double actual = helper.computeDenominator(from, to);
         assertEquals(0.9502513357399416, actual); 
     }
     @Test
     @DisplayName("jsibold: Validate actual vs expected value")
-    public void testComputeY() {
+    public void testComputeNumerator() {
         VincentyHelper helper = new VincentyHelper();
 
         GeographicCoordinate from = new GeographicCoordinate(){
@@ -36,7 +36,7 @@ public class TestVincentyHelper {
             public double latRadians(){return 40.01499;}
             public double lonRadians(){return -105.2705;}};
 
-        double actual = helper.computeY(from, to);
+        double actual = helper.computeNumerator(from, to);
         assertEquals(0.3114841872783539, actual); 
     }
 }
