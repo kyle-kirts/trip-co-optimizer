@@ -20,7 +20,8 @@ public class VincentyHelper{
     }
 
     public double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to) {
-
-        return 0D;
+        double numerator = computeNumerator(from, to);
+        double denominator = computeDenominator(from, to);
+        return Math.atan2(numerator, denominator);
     }
 }
