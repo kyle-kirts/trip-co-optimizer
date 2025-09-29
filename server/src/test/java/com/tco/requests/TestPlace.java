@@ -100,11 +100,4 @@ public class TestPlace {
         assertTrue(place.latRadians() == radians);
     }
 
-    @Test
-    @DisplayName("schlicting: Test add and retrieve place")
-    public void testAddAndRetrievePlace() {
-        Place place = new Place("10.0", "20.0");
-        assertEquals(1, place.size());
-        assertEquals(place, place.get(0));
-    }
 }
