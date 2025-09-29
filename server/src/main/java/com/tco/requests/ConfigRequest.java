@@ -35,7 +35,7 @@ public class ConfigRequest extends Request {
     public List<String> listFeatures() {
         features = new ArrayList<>();
         features.add("config");
-        // features.add("distances");
+        features.add("distances");
         return features;
     }
 

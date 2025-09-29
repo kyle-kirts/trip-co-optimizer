@@ -34,11 +34,11 @@ public class TestConfigRequest {
         assertTrue(conf.validFeature("config"));
     }
 
-    // @Test
-    // @DisplayName("luzovich: Features includes \"distances\"")
-    // public void testFeaturesDistancesExists() {
-    //     assertTrue(conf.validFeature("distances"));
-    // }
+    @Test
+    @DisplayName("luzovich: Features includes \"distances\"")
+    public void testFeaturesDistancesExists() {
+        assertTrue(conf.validFeature("distances"));
+    }
 
     @Test
     @DisplayName("luzovich: \"distances\" double-implies \"formulae\"")
@@ -52,7 +52,7 @@ public class TestConfigRequest {
     @Test
     @DisplayName("luzovich: Features list is expected length")
     public void testFeaturesLength() {
-        assertEquals(conf.listFeatures().size(), 1); // assertEquals(conf.listFeatures().size(), 2);
+        assertEquals(conf.listFeatures().size(), 2);
     }
 
     /*
