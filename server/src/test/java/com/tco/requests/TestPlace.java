@@ -99,4 +99,5 @@ public class TestPlace {
         double radians = 0.787337224196414;
         assertTrue(place.latRadians() == radians);
     }
+
 }
