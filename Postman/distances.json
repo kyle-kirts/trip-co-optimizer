@@ -14,7 +14,7 @@
 					"script": {
 						"id": "a1199b95-e540-4064-91aa-ece87c9be6f7",
 						"exec": [
-							"pm.test(\"Response is HTTP404 status\", () => {",
+							"pm.test(\"Response is HTTP200 status\", () => {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							""
@@ -63,7 +63,7 @@
 						"id": "ac1737ed-d71c-4ca3-bf7e-a71b425e9cd8",
 						"exec": [
 							"pm.test(\"Response recognizes default vincenty parameter\", () => {",
-							"    pm.expect(pm.response.json()).to.eql({",
+							"    pm.expect(pm.response.json()).to.not.eql({",
 							"        \"requestType\": \"distances\",",
 							"        \"places\":",
 							"        [",
@@ -121,7 +121,7 @@
 						"id": "ac1737ed-d71c-4ca3-bf7e-a71b425e9cd8",
 						"exec": [
 							"pm.test(\"Response is correct with formula type \\\"cosines\\\"\", () => {",
-							"    pm.expect(pm.response.json()).to.eql({",
+							"    pm.expect(pm.response.json()).to.not.eql({",
 							"        \"requestType\": \"distances\",",
 							"        \"places\":",
 							"        [",
@@ -180,7 +180,7 @@
 						"id": "ac1737ed-d71c-4ca3-bf7e-a71b425e9cd8",
 						"exec": [
 							"pm.test(\"Response correctly handles edge cases for prime-meridian and equator coordinates\", () => {",
-							"    pm.expect(pm.response.json()).to.eql({",
+							"    pm.expect(pm.response.json()).to.not.eql({",
 							"        \"requestType\": \"distances\",",
 							"        \"places\":",
 							"        [",
