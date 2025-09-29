@@ -10,9 +10,9 @@ public class VincentyHelper{
         
     }
     public double computeNumerator (GeographicCoordinate from, GeographicCoordinate to){
-    double lat1 = from.latRadians();
-    double lat2 = to.latRadians();
-    double diffLon = to.lonRadians() - from.lonRadians();
+        double lat1 = from.latRadians();
+        double lat2 = to.latRadians();
+        double diffLon = to.lonRadians() - from.lonRadians();
 
         return Math.sqrt(
             Math.pow(Math.cos(lat2) * Math.sin(diffLon), 2) +
