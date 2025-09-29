@@ -10,7 +10,7 @@ public class TestDistancesRequest {
     @DisplayName("schlicting: Test buildResponse with zero places")
     public void testBuildResponseZeroPlaces() {
         Places places = new Places();
-        DistancesRequest request = new DistancesRequest(places, 6371.0, "Haversine");
+        DistancesRequest request = new DistancesRequest(places, 6371.0, "vincenty");
         request.buildResponse();
         Distances distances = request.getDistances();
         assertNotNull(distances);

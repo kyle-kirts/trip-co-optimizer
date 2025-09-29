@@ -19,7 +19,7 @@ public class DistancesRequest extends Request {
         this.places = new Places();
         this.earthRadius = 6371.0;
         this.distances = new Distances();
-        this.formula = "Haversine";
+        this.formula = "vincenty";
     }
 
     public DistancesRequest(Places places, Double earthRadius, String formula) {
