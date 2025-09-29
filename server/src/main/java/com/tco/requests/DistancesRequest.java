@@ -35,15 +35,13 @@ public class DistancesRequest extends Request {
 
     @Override
     public void buildResponse() {
-            DistanceCalculator calculator = new CalculatorFactory().getCalculator(this.formula);
-            long tripLength = this.places.size();
-            distances.add(tripLength);
-            for(int i = 0; i<tripLength; i++)
-            {
-                GeographicCoordinate thisPlace = this.places.get(i);
-                GeographicCoordinate nextPlace = (i+1<tripLength) ? this.places.get(i+1): this.places.get(0);
-                this.distances.add(calculator.between(thisPlace, nextPlace, this.earthRadius));
-          
-           }
+        DistanceCalculator calculator = new CalculatorFactory().getCalculator(this.formula);
+        int tripLength = this.places.size();
+        for(int i = 0; i<tripLength; i++)
+        {
+            GeographicCoordinate thisPlace = this.places.get(i);
+            GeographicCoordinate nextPlace = (i+1<tripLength) ? this.places.get(i+1): this.places.get(0);
+            this.distances.add(calculator.between(thisPlace, nextPlace, this.earthRadius));
+       }
     }
 }
