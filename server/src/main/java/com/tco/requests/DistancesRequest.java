@@ -35,7 +35,7 @@ public class DistancesRequest extends Request {
 
     @Override
     public void buildResponse() {
-        DistanceCalculator calculator = new CalculatorFactory().getCalculator(this.formula);
+        DistanceCalculator calculator = CalculatorFactory.getCalculator(this.formula);
         int tripLength = this.places.size();
         for(int i = 0; i<tripLength; i++)
         {
