@@ -13,7 +13,7 @@ public class TestAbstractHelper {
         AbstractHelper calculatorhelper = new AbstractHelper() {};
         double earthRadius = 0;
 
-        assertEquals(calculatorhelper.computeDistance(null, null, earthRadius), 0);
+        assertEquals(calculatorhelper.computeDistance(null, null, earthRadius), 0L);
 
     }
 
