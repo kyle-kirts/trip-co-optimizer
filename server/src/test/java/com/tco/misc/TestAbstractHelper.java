@@ -21,4 +21,6 @@ public class TestAbstractHelper {
 
         assertEquals(0L, calculatorhelper.computeDistance(null, null, earthRadius));
     }
+
 }
+
