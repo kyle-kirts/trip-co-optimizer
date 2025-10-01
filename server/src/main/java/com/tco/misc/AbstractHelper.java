@@ -3,14 +3,14 @@ package com.tco.misc;
 public abstract class AbstractHelper {
     
     public long computeDistance(GeographicCoordinate from, GeographicCoordinate to, double earthRadius){
-        double centralAngle = calculateCentralAngle(from, to);
-        double distance = calculateDistance(earthRadius, centralAngle);
+        double centralAngle = computeCentralAngle(from, to);
+        double distance = computeDistance(earthRadius, centralAngle);
         return Math.round(distance);
     }
-    protected double calculateDistance(double earthRadius, double centralAngle) {
+    protected double computeDistance(double earthRadius, double centralAngle) {
         return earthRadius * centralAngle;
     }
 
-    protected abstract double calculateCentralAngle(GeographicCoordinate from, GeographicCoordinate to);
+    protected abstract double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to);
 
 }
