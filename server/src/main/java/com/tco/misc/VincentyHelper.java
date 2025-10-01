@@ -19,7 +19,7 @@ public class VincentyHelper extends AbstractHelper{
             Math.pow(Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(diffLon), 2));
     }
     @Override
-    protected double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to){
+    public double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to){
         double numerator = computeNumerator(from, to);
         double denominator = computeDenominator(from, to);
         return Math.atan2(numerator, denominator);
