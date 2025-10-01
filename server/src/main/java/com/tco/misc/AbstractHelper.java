@@ -2,11 +2,15 @@ package com.tco.misc;
 
 public abstract class AbstractHelper {
     
-    public double calculateDistance(double earthRadius, double centralAngle) {
-        return earthRadius*centralAngle;
+    public long computeDistance(GeographicCoordinate from, GeographicCoordinate to, double earthRadius){
+        double centralAngle = calculateCentralAngle(from, to);
+        double distance = calculateDistance(earthRadius, centralAngle);
+        return Math.round(distance);
+    }
+    protected double calculateDistance(double earthRadius, double centralAngle) {
+        return earthRadius * centralAngle;
     }
 
-    public double calculateCentralAngle() {
-        return 0.0;
-    }
+    protected abstract double calculateCentralAngle(GeographicCoordinate from, GeographicCoordinate to);
+
 }
