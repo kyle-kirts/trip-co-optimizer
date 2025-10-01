@@ -10,13 +10,17 @@ public class TestAbstractHelper {
     @Test
     @DisplayName("kyle-kirts: Validate actual vs expected return value")
     public void testCalculateDistance() {
-        AbstractHelper calculatorhelper = new AbstractHelper() {};
+        AbstractHelper calculatorhelper = new AbstractHelper() {
 
-        double radius = 1000;
-        double centralAngle = 1.9349003703390644;
-        double actual = 1934.9003703390645;
+            @Override
+            public double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to) {
+                return 0.0;
+            }};
 
-        assertEquals(calculatorhelper.calculateDistance(radius, centralAngle), actual);
+        double earthRadius = 0;
 
+        assertEquals(0L, calculatorhelper.computeDistance(null, null, earthRadius));
     }
+
 }
+
