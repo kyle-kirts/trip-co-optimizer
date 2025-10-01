@@ -19,9 +19,15 @@ public class VincentyHelper{
             Math.pow(Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(diffLon), 2));
     }
 
-    public double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to) {
+    public double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to){
         double numerator = computeNumerator(from, to);
         double denominator = computeDenominator(from, to);
         return Math.atan2(numerator, denominator);
+    }
+
+    public long computeDistance(GeographicCoordinate from, GeographicCoordinate to, double earthRadius){
+        double centralAngle = computeCentralAngle(from, to);
+        double distance = earthRadius * centralAngle;
+        return Math.round(distance);
     }
 }
