@@ -1,15 +1,15 @@
 package com.tco.misc;
 
-public class VincentyHelper{
+public class VincentyHelper extends AbstractHelper{
 
-    public double computeDenominator (GeographicCoordinate from, GeographicCoordinate to){
+    private double computeDenominator (GeographicCoordinate from, GeographicCoordinate to){
         double lat1 = from.latRadians();
         double lat2 = to.latRadians();
         double diffLon = to.lonRadians() - from.lonRadians();
         return Math.sin(lat1) *Math.sin(lat2) +Math.cos(lat1) * Math.cos(lat2) * Math.cos(diffLon);
         
     }
-    public double computeNumerator (GeographicCoordinate from, GeographicCoordinate to){
+    private double computeNumerator (GeographicCoordinate from, GeographicCoordinate to){
         double lat1 = from.latRadians();
         double lat2 = to.latRadians();
         double diffLon = to.lonRadians() - from.lonRadians();
@@ -18,16 +18,11 @@ public class VincentyHelper{
             Math.pow(Math.cos(lat2) * Math.sin(diffLon), 2) +
             Math.pow(Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(diffLon), 2));
     }
-
-    public double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to){
+    @Override
+    protected double calculateCentralAngle(GeographicCoordinate from, GeographicCoordinate to){
         double numerator = computeNumerator(from, to);
         double denominator = computeDenominator(from, to);
         return Math.atan2(numerator, denominator);
     }
 
-    public long computeDistance(GeographicCoordinate from, GeographicCoordinate to, double earthRadius){
-        double centralAngle = computeCentralAngle(from, to);
-        double distance = earthRadius * centralAngle;
-        return Math.round(distance);
-    }
 }
