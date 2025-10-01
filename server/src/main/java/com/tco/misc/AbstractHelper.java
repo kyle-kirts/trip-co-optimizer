@@ -6,7 +6,5 @@ public abstract class AbstractHelper {
         return Math.round(earthRadius*computeCentralAngle(from, to));
     }
 
-    public double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to) {
-        return 0.0;
-    }
+    public abstract double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to);
 }
