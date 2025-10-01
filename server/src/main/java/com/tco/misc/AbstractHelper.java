@@ -7,5 +7,4 @@ public abstract class AbstractHelper {
     }
 
     public abstract double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to);
-
 }
