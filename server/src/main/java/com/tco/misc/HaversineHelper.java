@@ -1,8 +1,8 @@
 package com.tco.misc;
 
-public class HaversineHelper {
+public class HaversineHelper extends AbstractHelper{
   
-  public static double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to){
+  public double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to){
     double lat1 = from.latRadians();
     double lat2 = to.latRadians();
     double lon1 = from.lonRadians();
