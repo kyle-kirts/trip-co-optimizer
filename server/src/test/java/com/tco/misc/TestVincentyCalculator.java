@@ -30,4 +30,18 @@ public class TestVincentyCalculator {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("schlicting: VincentyCalculator.between() test")
+    public void testBetweenWithAnotherKnownData() {
+        VincentyCalculator calculator = new VincentyCalculator();
+
+        calculator.between(new GeographicCoordinate() {
+            public double latRadians() { return Math.toRadians(34.052235); }
+            public double lonRadians() { return Math.toRadians(-118.243683); }
+        }, new GeographicCoordinate() {
+            public double latRadians() { return Math.toRadians(40.712776); }
+            public double lonRadians() { return Math.toRadians(-74.005974); }
+        }, 6371000);
+    }
 }
