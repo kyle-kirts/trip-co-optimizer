@@ -1,6 +1,5 @@
 package com.tco.misc;
 
-<<<<<<< HEAD
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -70,8 +69,4 @@ public class TestCosineHelper {
 
         assertEquals(0.3851186477566681, helper.computeCentralAngle(from, to));
     }
-=======
-public class TestCosineHelper {
-    
->>>>>>> main
 }
