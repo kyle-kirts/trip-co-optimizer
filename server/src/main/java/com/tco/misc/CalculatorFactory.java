@@ -7,18 +7,18 @@ public class CalculatorFactory {
 
    public static List<String> getSupportedFormulae() {
         
-        return Arrays.asList("vincenty");
+        return Arrays.asList("vincenty", "haversine", "cosines");
     }
 
     public static DistanceCalculator getCalculator(String formula) {
-        // Temporary stub: return null or throw until calculators are implemented
-        if (formula == null) {
-            return null;
-        }
 
         switch (formula.toLowerCase()) {
             case "vincenty":
                 return new VincentyCalculator();
+            case "haversine":
+                return new HaversineCalculator();
+            case "cosines":
+                return new CosineCalculator();
             default:
                 return null;
         }
