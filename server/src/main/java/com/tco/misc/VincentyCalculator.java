@@ -9,7 +9,5 @@ public class VincentyCalculator implements DistanceCalculator {
 
     @Override
     public long between(GeographicCoordinate from, GeographicCoordinate to, double earthRadius){
-        double centralAngle = helper.computeCentralAngle(from, to);
-        double distance = earthRadius * centralAngle;
-        return Math.round(distance);
+        return helper.computeDistance(from, to, earthRadius);
     }}
