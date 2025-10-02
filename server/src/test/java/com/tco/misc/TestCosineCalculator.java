@@ -10,14 +10,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestCosineCalculator {
 
     @Test
-    @DisplayName("Constructor creates a non-null CosineCalculator")
+    @DisplayName("carter64: Constructor creates a non-null CosineCalculator")
     public void testConstructorCreatesObject() {
         CosineCalculator calc = new CosineCalculator();
         assertNotNull(calc, "CosineCalculator instance should not be null");
     }
 
     @Test
-    @DisplayName("Constructor initializes helper field")
+    @DisplayName("carter64: Constructor initializes helper field")
     public void testHelperInitialized() throws Exception {
         CosineCalculator calc = new CosineCalculator();
 
