@@ -2,8 +2,9 @@ package com.tco.misc;
 
 import java.lang.Math;
 
-public class CosineHelper {
-    
+public class CosineHelper extends AbstractHelper {
+
+    @Override
     public double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to) {
 
         double longitudeDelta = to.lonRadians() - from.lonRadians();
