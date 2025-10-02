@@ -6,9 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class TestCosinesHelper {
+public class TestCosineHelper {
 
-    private static CosinesHelper helper;
+    private static CosineHelper helper;
     
     public GeographicCoordinate coordinateMaker(double latitude, double longitude) {
         return new GeographicCoordinate() {
@@ -22,9 +22,9 @@ public class TestCosinesHelper {
     }
 
     @BeforeEach
-    @DisplayName("luzovich: set up CosinesHelper for each test")
+    @DisplayName("luzovich: set up CosineHelper for each test")
     public void createHelper() {
-        helper = new CosinesHelper();
+        helper = new CosineHelper();
     }
     
     @Test
