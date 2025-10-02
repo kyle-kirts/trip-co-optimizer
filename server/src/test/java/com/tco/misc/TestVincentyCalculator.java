@@ -30,4 +30,5 @@ public class TestVincentyCalculator {
 
         assertEquals(expected, actual);
     }
+
 }
