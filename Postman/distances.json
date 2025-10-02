@@ -238,7 +238,8 @@
 					"script": {
 						"id": "009f1cd4-e96a-4926-98b1-a1e022ab8661",
 						"exec": [
-							"pm.test(\"Test response contains Distances field\", () => {pm.expect(body).to.have.property('distances');});"
+							"json = pm.response.json()",
+							"pm.test(\"Test response contains distances field\", () => {pm.expect(json).to.have.property('distances');});"
 						],
 						"type": "text/javascript",
 						"packages": {},
