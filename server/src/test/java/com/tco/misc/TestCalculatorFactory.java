@@ -15,7 +15,7 @@ public class TestCalculatorFactory {
     }
 
     @Test
-    @DisplayName("Factory returns a VincentyCalculator for 'vincenty'")
+    @DisplayName("carter64: Factory returns a VincentyCalculator for 'vincenty'")
     public void testVincentyCalculator() {
         DistanceCalculator calc = CalculatorFactory.getCalculator("vincenty");
         assertNotNull(calc, "Expected a non-null calculator for vincenty");
@@ -23,7 +23,7 @@ public class TestCalculatorFactory {
     }
 
     @Test
-    @DisplayName("Factory returns null for unknown formula")
+    @DisplayName("carter64: Factory returns null for unknown formula")
     public void testUnknownFormulaReturnsNull() {
         DistanceCalculator calc = CalculatorFactory.getCalculator("unknown");
         assertNull(calc, "Expected null for an unsupported formula");
