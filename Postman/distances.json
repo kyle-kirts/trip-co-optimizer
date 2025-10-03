@@ -234,6 +234,52 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "kyle-kirts: xindi.json distance test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "009f1cd4-e96a-4926-98b1-a1e022ab8661",
+						"exec": [
+							"json = pm.response.json()",
+							"pm.test(\"Test response contains distances field\", () => {pm.expect(json).to.have.property('distances');});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "457c84c7-ef56-4c93-a99a-48e646335908",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"requestType\": \"distances\",\n\n  \"places\": [\n    { \"name\": \"EquatorPrime\", \"latitude\": \"0.0\",       \"longitude\": \"0.0\" },\n    { \"name\": \"NW\",      \"latitude\": \"0.0001\",    \"longitude\": \"-0.0001\" },\n    { \"name\": \"SE\",      \"latitude\": \"-0.0001\",   \"longitude\": \"0.0001\" },\n    { \"name\": \"NE\",    \"latitude\": \"10.0\",      \"longitude\": \"179.9999\" },\n    { \"name\": \"SW\",    \"latitude\": \"-10.0\",     \"longitude\": \"-179.9999\" },\n    { \"name\": \"North Pole\",\"latitude\": \"89.9999\",  \"longitude\": \"0.0\" }\n  ],\n  \"earthRadius\": 7777777.0,\n  \"formula\": \"vincenty\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
