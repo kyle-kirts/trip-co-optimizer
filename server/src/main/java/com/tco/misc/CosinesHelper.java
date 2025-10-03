@@ -2,7 +2,7 @@ package com.tco.misc;
 
 import java.lang.Math;
 
-public class CosineHelper extends AbstractHelper {
+public class CosinesHelper extends AbstractHelper {
 
     @Override
     public double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to) {
