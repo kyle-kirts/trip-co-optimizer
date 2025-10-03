@@ -1,10 +1,10 @@
 package com.tco.misc;
 
-public class CosineCalculator implements DistanceCalculator {
-    private final CosineHelper helper;
+public class CosinesCalculator implements DistanceCalculator {
+    private final CosinesHelper helper;
 
-    public CosineCalculator() {
-        this.helper = new CosineHelper();
+    public CosinesCalculator() {
+        this.helper = new CosinesHelper();
     }
 
     @Override

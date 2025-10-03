@@ -18,7 +18,7 @@ public class CalculatorFactory {
             case "haversine":
                 return new HaversineCalculator();
             case "cosines":
-                return new CosineCalculator();
+                return new CosinesCalculator();
             default:
                 return null;
         }
