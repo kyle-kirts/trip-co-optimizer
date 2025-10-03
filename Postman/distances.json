@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "983076dd-c58d-4c41-8380-20b6b7d1d168",
+		"_postman_id": "191c8e73-8e29-4f29-89de-27a3e47ec925",
 		"name": "distances",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_uid": "48546433-983076dd-c58d-4c41-8380-20b6b7d1d168"
+		"_uid": "48547255-191c8e73-8e29-4f29-89de-27a3e47ec925"
 	},
 	"item": [
 		{
@@ -12,9 +12,9 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a1199b95-e540-4064-91aa-ece87c9be6f7",
+						"id": "2e681a9c-1867-45fe-bcaf-147841929d22",
 						"exec": [
-							"pm.test(\"Response is HTTP200 status\", () => {",
+							"pm.test(\"Response is HTTP404 status\", () => {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							""
@@ -25,7 +25,7 @@
 					}
 				}
 			],
-			"id": "4bc0dc2c-150f-453f-bc5e-e5361f233d27",
+			"id": "6233ff50-8293-4f86-b4aa-a39870ac30c1",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -55,27 +55,34 @@
 			"response": []
 		},
 		{
-			"name": "luzovich: default formulae \"vincenty\"",
+			"name": "Sky location test #1",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "ac1737ed-d71c-4ca3-bf7e-a71b425e9cd8",
+						"id": "8c7e9f0d-b96c-4962-b1b1-9033568631e3",
 						"exec": [
-							"pm.test(\"Response recognizes default vincenty parameter\", () => {",
-							"    pm.expect(pm.response.json()).to.not.eql({",
-							"        \"requestType\": \"distances\",",
-							"        \"places\":",
-							"        [",
-							"            {\"name\":\"Seattle\", \"latitude\":\"47.6097\", \"longitude\":\"-122.3327\"},",
-							"            {\"name\":\"Athens\", \"latitude\":\"38.7616\", \"longitude\":\"24.2622\"},",
-							"            {\"name\":\"Cape Town\", \"latitude\":\"-33.9069\", \"longitude\":\"18.4202\"},",
-							"            {\"name\":\"La Paz\", \"latitude\":\"-16.4847\", \"longitude\":\"-68.1230\"}",
-							"        ],",
-							"        \"earthRadius\": 1234.56,",
-							"        \"distances\": [1028, 877, 1573, 1421]",
-							"    });",
+							"pm.test(\"vercauteren: Expect the given earthRadius to not be overwritten\", () => {\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"earthRadius\", 9999999999);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"vercauteren: Expect the distances math to be the same\", () => {\r",
+							"    pm.expect(pm.response.json().distances).to.eql([60923, 31381020001, 60923, 31381020001]);\r",
+							"\r",
+							"    //pm.expect(pm.response.json()).to.have.property(\"distances\",  [ 60923, 31381020001, 60923, 31381020001]);\r",
 							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "18777704-45ba-4e2e-8be6-128e17560f5c",
+						"exec": [
+							""
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -83,7 +90,7 @@
 					}
 				}
 			],
-			"id": "edda9a71-1a28-432b-b939-0ec151b4a759",
+			"id": "01ba389e-38a4-477e-89df-d29dad88d602",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -92,7 +99,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"requestType\": \"distances\",\n    \"places\":\n    [\n        {\"name\":\"Seattle\", \"latitude\":\"47.6097\", \"longitude\":\"-122.3327\"},\n        {\"name\":\"Athens\", \"latitude\":\"38.7616\", \"longitude\":\"24.2622\"},\n        {\"name\":\"Cape Town\", \"latitude\":\"-33.9069\", \"longitude\":\"18.4202\"},\n        {\"name\":\"La Paz\", \"latitude\":\"-16.4847\", \"longitude\":\"-68.1230\"}\n    ],\n    \"earthRadius\": 1234.56\n}",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n        {\"name\": \"Place 1\", \"latitude\": \"89.9\", \"longitude\": \"0.1\"},\r\n        {\"name\": \"Place 2\", \"latitude\": \"89.9\", \"longitude\": \"-0.1\"},\r\n        {\"name\": \"Place 3\", \"latitude\": \"-89.9\", \"longitude\": \"0.1\"},\r\n        {\"name\": \"Place 4\", \"latitude\": \"-89.9\", \"longitude\": \"-0.1\"}\r\n    ],\r\n    \"earthRadius\": 9999999999,\r\n    \"formula\": \"vincenty\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -113,28 +120,33 @@
 			"response": []
 		},
 		{
-			"name": "luzovich: correct response with formula \"cosines\"",
+			"name": "Sky location test #2",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "ac1737ed-d71c-4ca3-bf7e-a71b425e9cd8",
+						"id": "c5e9ca67-f0e2-456f-a146-be1e898cc024",
 						"exec": [
-							"pm.test(\"Response is correct with formula type \\\"cosines\\\"\", () => {",
-							"    pm.expect(pm.response.json()).to.not.eql({",
-							"        \"requestType\": \"distances\",",
-							"        \"places\":",
-							"        [",
-							"            {\"name\":\"place1\", \"latitude\":\"41.882\", \"longitude\":\"-87.617\"},",
-							"            {\"name\":\"place2\", \"latitude\":\"14.599\", \"longitude\":\"120.985\"},",
-							"            {\"name\":\"place3\", \"latitude\":\"-10.486\", \"longitude\":\"105.633\"},",
-							"            {\"name\":\"place4\", \"latitude\":\"-22.908\", \"longitude\":\"-43.195\"}",
-							"        ],",
-							"        \"earthRadius\": 6741,",
-							"        \"formula\": \"cosines\",",
-							"        \"distances\": [267263, 197781, 908413, 517079]",
-							"    });",
+							"pm.test(\"vercauteren: Expect the given earthRadius to not be overwritten\", () => {\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"earthRadius\", 35792134831);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"vercauteren: Expect the distances math to be the same\", () => {\r",
+							"    pm.expect(pm.response.json().distances).to.eql([56222153921, 56222153921, 56222153921, 56222153921]);\r",
+							"    //pm.expect(pm.response.json()).to.have.property(\"distances\", [56222153921, 56222153921, 56222153921, 56222153921]);\r",
 							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "846b022b-b54f-4a59-b846-44bd237b7b47",
+						"exec": [
+							""
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -142,7 +154,7 @@
 					}
 				}
 			],
-			"id": "8c685d83-03b0-42a4-ba98-63a49432f3e0",
+			"id": "33273df3-faf7-42a5-8c3e-e2e932073ee9",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -151,7 +163,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"requestType\": \"distances\",\n    \"places\":\n    [\n        {\"name\":\"place1\", \"latitude\":\"41.882\", \"longitude\":\"-87.617\"},\n        {\"name\":\"place2\", \"latitude\":\"14.599\", \"longitude\":\"120.985\"},\n        {\"name\":\"place3\", \"latitude\":\"-10.486\", \"longitude\":\"105.633\"},\n        {\"name\":\"place4\", \"latitude\":\"-22.908\", \"longitude\":\"-43.195\"}\n    ],\n    \"earthRadius\": 6741,\n    \"formula\": \"cosines\"\n}",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n        {\"name\":\"place1\",\"latitude\":\"0.0\",\"longitude\":\"90.00\"},\r\n        {\"name\":\"place2\",\"latitude\":\"90.0\",\"longitude\":\"0.0\"},\r\n        {\"name\":\"place3\",\"latitude\":\"0.0\",\"longitude\":\"-90.00\"},\r\n        {\"name\":\"place4\",\"latitude\":\"-90.0\",\"longitude\":\"0.0\"}\r\n    ],\r\n    \"earthRadius\":35792134831,\r\n    \"formula\": \"vincenty\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -172,27 +184,20 @@
 			"response": []
 		},
 		{
-			"name": "luzovich: handle edge cases for prime-meridian and equatorial coordinates",
+			"name": "Sky location test #3",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "ac1737ed-d71c-4ca3-bf7e-a71b425e9cd8",
+						"id": "6eee8645-61e1-4850-a603-ad41d4a89bbe",
 						"exec": [
-							"pm.test(\"Response correctly handles edge cases for prime-meridian and equator coordinates\", () => {",
-							"    pm.expect(pm.response.json()).to.not.eql({",
-							"        \"requestType\": \"distances\",",
-							"        \"places\":",
-							"        [",
-							"            {\"name\":\"place1\",\"latitude\":\"0.0\",\"longitude\":\"45.00\"},",
-							"            {\"name\":\"place2\",\"latitude\":\"45.0\",\"longitude\":\"0.0\"},",
-							"            {\"name\":\"place3\",\"latitude\":\"0.0\",\"longitude\":\"-45.00\"},",
-							"            {\"name\":\"place4\",\"latitude\":\"-45.0\",\"longitude\":\"0.0\"}",
-							"        ],",
-							"        \"earthRadius\":35792134831,",
-							"        \"formula\": \"vincenty\",",
-							"        \"distances\": [37481460,37481460,37481460,37481460]",
-							"    });",
+							"pm.test(\"vercauteren: Expect the given earthRadius to not be overwritten\", () => {\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"earthRadius\", 6000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"vercauteren: Expect the distances math to be the same\", () => {\r",
+							"    pm.expect(pm.response.json().distances).to.eql([4640, 13756, 4712, 14765]);\r",
+							"    //pm.expect(pm.response.json()).to.have.property('distances', [4640, 13756, 4712, 14765]);\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -201,7 +206,7 @@
 					}
 				}
 			],
-			"id": "fbb7e4f1-590b-4098-8991-6ef2635fadb3",
+			"id": "74aaaec6-6003-4dd7-b5c8-b0781c9d4041",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -210,7 +215,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"requestType\": \"distances\",\n    \"places\":\n    [\n        {\"name\":\"place1\",\"latitude\":\"0.0\",\"longitude\":\"45.00\"},\n        {\"name\":\"place2\",\"latitude\":\"45.0\",\"longitude\":\"0.0\"},\n        {\"name\":\"place3\",\"latitude\":\"0.0\",\"longitude\":\"-45.00\"},\n        {\"name\":\"place4\",\"latitude\":\"-45.0\",\"longitude\":\"0.0\"}\n    ],\n    \"earthRadius\":35792134831,\n    \"formula\": \"vincenty\"\n}",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n        {\"name\": \"place1\", \"latitude\": \"89\", \"longitude\": \"1\"},\r\n        {\"name\": \"place2\", \"latitude\": \"45\", \"longitude\": \"-45.005\"},\r\n        {\"name\": \"place3\", \"latitude\": \"-85\", \"longitude\": \"0.001\"},\r\n        {\"name\": \"place4\", \"latitude\": \"-50\", \"longitude\": \"-179.05\"}\r\n    ],\r\n    \"earthRadius\": 6000,\r\n    \"formula\": \"vincenty\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

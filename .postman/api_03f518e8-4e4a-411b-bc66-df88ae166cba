@@ -10,7 +10,7 @@ id = 03f518e8-4e4a-411b-bc66-df88ae166cba
 [config.relations.collections]
 rootDirectory = Postman
 files[] = {"id":"48546433-d7a55522-321f-4869-bd05-a4aad819ef17","path":"config.json","metaData":{}}
-files[] = {"id":"48546433-983076dd-c58d-4c41-8380-20b6b7d1d168","path":"distances.json","metaData":{}}
+files[] = {"id":"48547255-191c8e73-8e29-4f29-89de-27a3e47ec925","path":"distances.json","metaData":{}}
 files[] = {"id":"48546433-af756873-0aae-463c-8c6e-4c6789b42fd2","path":"find.json","metaData":{}}
 files[] = {"id":"48546433-99f1cd07-bd70-4c63-a341-43abc333fc7a","path":"tour.json","metaData":{}}
 
