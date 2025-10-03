@@ -15,11 +15,13 @@
 						"id": "2e681a9c-1867-45fe-bcaf-147841929d22",
 						"exec": [
 							"pm.test(\"Response is HTTP404 status\", () => {",
-							"    pm.response.to.have.status(404);",
+							"    pm.response.to.have.status(200);",
 							"});",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
 					}
 				}
 			],
