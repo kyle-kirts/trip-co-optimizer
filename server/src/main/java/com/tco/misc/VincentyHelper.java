@@ -1,6 +1,6 @@
 package com.tco.misc;
 
-public class VincentyHelper extends AbstractHelper{
+public class VincentyHelper extends AbstractCalculatorHelper{
 
     protected double computeDenominator (GeographicCoordinate from, GeographicCoordinate to){
         double lat1 = from.latRadians();

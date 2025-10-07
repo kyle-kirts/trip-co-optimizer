@@ -19,7 +19,7 @@ public class TestAbstractHelper {
     @Test
     @DisplayName("kyle-kirts: Validate actual vs expected return value")
     public void testCalculateDistance() {
-        AbstractHelper calculatorhelper = new AbstractHelper() {
+        AbstractCalculatorHelper calculatorhelper = new AbstractCalculatorHelper() {
 
             @Override
             public double computeCentralAngle(GeographicCoordinate from, GeographicCoordinate to) {
