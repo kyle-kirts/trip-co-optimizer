@@ -55,7 +55,7 @@
 			"response": []
 		},
 		{
-			"name": "Sky location test #1",
+			"name": "vercauteren: location test #1",
 			"event": [
 				{
 					"listen": "test",
@@ -120,7 +120,7 @@
 			"response": []
 		},
 		{
-			"name": "Sky location test #2",
+			"name": "vercauteren: location test #2",
 			"event": [
 				{
 					"listen": "test",
@@ -184,7 +184,7 @@
 			"response": []
 		},
 		{
-			"name": "Sky location test #3",
+			"name": "vercauteren: location test #3",
 			"event": [
 				{
 					"listen": "test",
