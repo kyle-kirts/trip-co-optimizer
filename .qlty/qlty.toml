@@ -35,8 +35,7 @@ test_patterns = [
   "**/test/**",
 ]
 
-[smells]
-mode = "comment"
+smells.mode = "comment"
 
 [smells.boolean_logic]
 enabled = false
@@ -46,6 +45,7 @@ enabled = false
 
 [smells.function_parameters]
 enabled = true
+threshold = 5
 
 [smells.return_statements]
 enabled = true
@@ -57,6 +57,7 @@ threshold = 8
 
 [smells.file_complexity]
 enabled = true
+threshold = 50
 
 [smells.duplication]
 enabled = true
@@ -66,7 +67,11 @@ nodes_threshold = 7
 [[plugin]]
 name = "pmd"
 enabled = true
-package_file = "/.qlty/ruleset214pmd.xml"
+mode = "comment"
+package_file = ".qlty/configs/ruleset214pmd.xml"
+
+[plugins.definitions.pmd.drivers.lint-java]
+script = "pmd check --rulesets .qlty/configs/ruleset214pmd.xml --format sarif --dir ${target}"
 
 [[source]]
 name = "default"
