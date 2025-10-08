@@ -17,5 +17,12 @@ public class TestDistancesRequest {
         assertEquals(0, distances.size());
     }
 
-    
+    @Test
+    @DisplayName("schlicting: Test DistancesRequest() for 0 places")
+    public void testDistancesRequestZeroPlaces() {
+        Places places = new Places();
+        DistancesRequest request = new DistancesRequest(places, 6371.0, "vincenty");
+        assertNotNull(request.getDistances());
+        assertEquals(0, request.getDistances().size());
+    }
 }
