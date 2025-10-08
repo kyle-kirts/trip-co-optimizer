@@ -9,19 +9,31 @@ public class Place extends HashMap<String,String> implements GeographicCoordinat
     public Place(){}
 
     public Place(String lat, String lon){
-        // TODO convert from string to double and put in hash map
-    }
-
-    @Override
-    public double lonRadians(){
-        // TODO
-        return 0.0; // TEMP
+        this.put("latitude", lat);
+        this.put("longitude", lon);
     }
 
     @Override
     public double latRadians(){
-        // TODO
-        return 0.0; // TEMP
+        double latRad = 0.0;
+        if(this.get("latitude") != null){
+            Double latDegrees = Double.parseDouble(this.get("latitude"));
+            latRad = latDegrees * Math.PI;
+            latRad = latRad / 180;
+        }
+        return latRad;
+    }
+
+    @Override
+    public double lonRadians(){
+        // QUESTION - What is the defualt return if this value is not set??
+        double lonRad = 0.0;
+        if(this.get("longitude") != null){
+            Double lonDegrees = Double.parseDouble(this.get("longitude"));
+            lonRad = lonDegrees * Math.PI;
+            lonRad = lonRad / 180;
+        }
+        return lonRad;
     }
 
 }

@@ -7,12 +7,21 @@ public class CalculatorFactory {
 
    public static List<String> getSupportedFormulae() {
         
-        return Arrays.asList("vincenty");
+        return Arrays.asList("vincenty", "haversine", "cosines");
     }
 
     public static DistanceCalculator getCalculator(String formula) {
-        // Temporary stub: return null or throw until calculators are implemented
-        throw new UnsupportedOperationException("getCalculator not implemented yet");
+
+        switch (formula.toLowerCase()) {
+            case "vincenty":
+                return new VincentyCalculator();
+            case "haversine":
+                return new HaversineCalculator();
+            case "cosines":
+                return new CosinesCalculator();
+            default:
+                return null;
+        }
     }
     
 }
