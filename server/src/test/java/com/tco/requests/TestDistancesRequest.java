@@ -25,4 +25,13 @@ public class TestDistancesRequest {
         assertNotNull(request.getDistances());
         assertEquals(0, request.getDistances().size());
     }
+
+    @Test
+    @DisplayName("luzovich: Test DistancesRequest for omitted default formulae of \"vincenty\"")
+    public void testDistancesRequestDefaultFormulaOmitted() {
+        Places places = new Places();
+        DistancesRequest request = new DistancesRequest(places, 6371.0, "");
+        request.buildResponse();
+        assertNull(request.getFormula());
+    }
 }
