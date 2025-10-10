@@ -34,4 +34,15 @@ public class TestDistancesRequest {
         request.buildResponse();
         assertNull(request.getFormula());
     }
+
+    @Test
+    @DisplayName("schlicting: Test DistancesRequest() for 1 places")
+    public void testDistancesRequestOnePlace() {
+        Places places = new Places();
+        places.add(new Place("0.0", "0.0"));
+        DistancesRequest request = new DistancesRequest(places, 6371.0, "vincenty");
+        request.buildResponse(); 
+        assertNotNull(request.getDistances());
+        assertEquals(1, request.getDistances().size());
+    }
 }
