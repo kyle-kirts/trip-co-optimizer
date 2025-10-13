@@ -14,7 +14,7 @@
 					"script": {
 						"id": "2e681a9c-1867-45fe-bcaf-147841929d22",
 						"exec": [
-							"pm.test(\"Response is HTTP404 status\", () => {",
+							"pm.test(\"Response is HTTP200 status\", () => {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							""
@@ -287,10 +287,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "57bb4bbd-7b74-4af4-82f0-c49fb9e0dfe0",
+						"id": "dd9aec85-9a68-471b-bea5-978e4b394b4d",
 						"exec": [
-							"pm.test(\"vercauteren: Ben Dignose API test\", () => {\r",
-							"    pm.expect(pm.response.json()).to.have.property(\"earthRadius\", 235);\r",
+							"pm.test(\"vercauteren: Expect the distances to all be 0'\", () => {\r",
+							"    pm.expect(pm.response.json().distances).to.eql([0,0,0]);\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -299,7 +299,7 @@
 					}
 				}
 			],
-			"id": "3c3beada-3cc9-4f52-9e6d-657163fb57b2",
+			"id": "a178396c-96a8-4457-8668-39a1330bc27b",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -308,7 +308,203 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n        {\"name\":\"Kaohsiung Liugui District\",\"latitude\":\"23.0476\",\"longitude\":\"120.6832\"},\r\n        {\"name\":\"Moqhaka Nu\",\"latitude\":\"-27.9537\",\"longitude\":\"27.3768\"},\r\n        {\"name\":\"San Angelo\",\"latitude\":\"31.4871\",\"longitude\":\"-100.3994\"},\r\n        {\"name\":\"Ayacucho\",\"latitude\":\"-37.1657\",\"longitude\":\"-58.5939\"}\r\n    ],\r\n    \"earthRadius\":235,\r\n    \"formula\": \"vincenty\"\r\n}",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n        {\"name\": \"Place 1\", \"latitude\": \"1.0\", \"longitude\": \"1.0\"},\r\n        {\"name\": \"Place 2\", \"latitude\": \"1.0\", \"longitude\": \"1.0\"},\r\n        {\"name\": \"Place 3\", \"latitude\": \"1.0\", \"longitude\": \"1.0\"}\r\n    ],\r\n    \"earthRadius\": 90,\r\n    \"formula\": \"vincenty\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Empty places",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f86b69d8-3b77-47ff-8aad-3dc84d377b15",
+						"exec": [
+							"pm.test(\"vercauteren: Expect the distances to be an empty array\", () => {\r",
+							"   pm.expect(pm.response.json().distances).to.eql([]);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "03e6abc6-1c6e-41f6-a5dd-bf42c54031df",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n    ],\r\n    \"earthRadius\": 90,\r\n    \"formula\": \"vincenty\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Single Place",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f86b69d8-3b77-47ff-8aad-3dc84d377b15",
+						"exec": [
+							"pm.test(\"vercauteren: Expect the distances to be a single '0'\", () => {\r",
+							"   pm.expect(pm.response.json().distances).to.eql([0]);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "d8bd25e2-d139-4fa9-9f4f-ef8c9b696ac8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n        {\"name\": \"Place 1\", \"latitude\": \"0\", \"longitude\": \"0\"}\r\n    ],\r\n    \"earthRadius\": 90,\r\n    \"formula\": \"vincenty\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Haversine form",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f86b69d8-3b77-47ff-8aad-3dc84d377b15",
+						"exec": [
+							"pm.test(\"vercauteren: Expect the formula to be 'Haversine'\", () => {\r",
+							"   pm.expect(pm.response.json().formula).to.eql(\"haversine\");\r",
+							"   pm.expect(pm.response.json()).to.have.property(\"formula\", \"haversine\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "5b7572bd-4888-42d7-a7c0-77c2b35a324f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n        {\"name\": \"Place 1\", \"latitude\": \"89.9\", \"longitude\": \"0.1\"},\r\n        {\"name\": \"Place 2\", \"latitude\": \"89.9\", \"longitude\": \"0.1\"}\r\n    ],\r\n    \"earthRadius\": 90,\r\n    \"formula\": \"haversine\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Cosines form",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f86b69d8-3b77-47ff-8aad-3dc84d377b15",
+						"exec": [
+							"pm.test(\"vercauteren: Expect the formula to be 'Cosines'\", () => {\r",
+							"   pm.expect(pm.response.json().formula).to.eql(\"cosines\");\r",
+							"   pm.expect(pm.response.json()).to.have.property(\"formula\", \"cosines\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "7a781d1a-78aa-45e8-a082-388bb56d10af",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n        {\"name\": \"Place 1\", \"latitude\": \"89.9\", \"longitude\": \"0.1\"},\r\n        {\"name\": \"Place 2\", \"latitude\": \"89.9\", \"longitude\": \"0.1\"}\r\n    ],\r\n    \"earthRadius\": 90,\r\n    \"formula\": \"cosines\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
