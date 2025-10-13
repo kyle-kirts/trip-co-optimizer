@@ -25,4 +25,34 @@ public class TestDistancesRequest {
         assertNotNull(request.getDistances());
         assertEquals(0, request.getDistances().size());
     }
+
+    @Test
+    @DisplayName("luzovich: Test DistancesRequest for omitted default formulae of \"vincenty\"")
+    public void testDistancesRequestDefaultFormulaOmitted() {
+        Places places = new Places();
+        DistancesRequest request = new DistancesRequest(places, 6371.0, "");
+        request.buildResponse();
+        assertNull(request.getFormula());
+    }
+
+    @Test
+    @DisplayName("schlicting: Test DistancesRequest() for 1 places")
+    public void testDistancesRequestOnePlace() {
+        Places places = new Places();
+        places.add(new Place("0.0", "0.0"));
+        DistancesRequest request = new DistancesRequest(places, 6371.0, "vincenty");
+        request.buildResponse(); 
+        assertNotNull(request.getDistances());
+        assertEquals(1, request.getDistances().size());
+    }
+
+    // @Test
+    // @DisplayName("schlicting: Test DistancesRequest() for null things")
+    // public void testDistancesRequestNullThings() {
+    //     DistancesRequest request = new DistancesRequest(null, null, null);
+    //     request.buildResponse();
+    //     assertNotNull(request.getDistances());
+    //     assertEquals(0, request.getDistances().size());
+    //     assertNull(request.getFormula());
+    // }
 }
