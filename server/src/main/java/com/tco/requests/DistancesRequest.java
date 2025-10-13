@@ -17,6 +17,7 @@ public class DistancesRequest extends Request {
     private String formula;
 
     public DistancesRequest() {
+        this.requestType = "distances";
         this.places = new Places();
         this.earthRadius = 6371.0;
         this.distances = new Distances();
@@ -24,6 +25,7 @@ public class DistancesRequest extends Request {
     }
 
     public DistancesRequest(Places places, Double earthRadius, String formula) {
+        this.requestType = "distances";
         this.places = places;
         this.earthRadius = earthRadius;
         this.distances = new Distances();
