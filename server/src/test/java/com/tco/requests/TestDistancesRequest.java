@@ -45,4 +45,14 @@ public class TestDistancesRequest {
         assertNotNull(request.getDistances());
         assertEquals(1, request.getDistances().size());
     }
+
+    // @Test
+    // @DisplayName("schlicting: Test DistancesRequest() for null things")
+    // public void testDistancesRequestNullThings() {
+    //     DistancesRequest request = new DistancesRequest(null, null, null);
+    //     request.buildResponse();
+    //     assertNotNull(request.getDistances());
+    //     assertEquals(0, request.getDistances().size());
+    //     assertNull(request.getFormula());
+    // }
 }
