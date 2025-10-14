@@ -55,4 +55,16 @@ public class TestDistancesRequest {
     //     assertEquals(0, request.getDistances().size());
     //     assertNull(request.getFormula());
     // }
+
+    @Test
+    @DisplayName("schlicting: Test DistancesRequest() for 2 places")
+    public void testDistancesRequestTwoPlaces() {
+        Places places = new Places();
+        places.add(new Place("0.0", "0.0"));
+        places.add(new Place("1.0", "1.0"));
+        DistancesRequest request = new DistancesRequest(places, 6371.0, "vincenty");
+        request.buildResponse();
+        assertNotNull(request.getDistances());
+        assertEquals(2, request.getDistances().size());
+    }
 }
