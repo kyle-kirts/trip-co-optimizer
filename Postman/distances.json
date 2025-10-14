@@ -282,15 +282,17 @@
 			"response": []
 		},
 		{
-			"name": "vercauteren: testing identical location",
+			"name": "schlicting: Ben Diagnose API",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "dd9aec85-9a68-471b-bea5-978e4b394b4d",
 						"exec": [
-							"pm.test(\"vercauteren: Expect the distances to all be 0'\", () => {\r",
-							"    pm.expect(pm.response.json().distances).to.eql([0,0,0]);\r",
+							"pm.test(\"schlicting: Ben Diagnose API test\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property('places');\r",
+							"    pm.expect(json.places[0]).to.have.property('latitude');\r",
 							"});"
 						],
 						"type": "text/javascript",
