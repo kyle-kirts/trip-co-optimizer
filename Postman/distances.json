@@ -282,16 +282,16 @@
 			"response": []
 		},
 		{
-			"name": "luzovich: Places of size \"2\" should only have distances of size \"1\"",
+			"name": "luzovich: Places of size \"2\" should have distances of size \"2\"",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "a241a550-46f4-4f06-9949-ff0190d33274",
 						"exec": [
-							"pm.test(\"luzovich: Distances array should only wrap around to base index of \\\"0\\\" when the size of Places is greater than 2.\", () => {",
+							"pm.test(\"luzovich: Distances array should match size of places array when size is 2.\", () => {",
 							"",
-							"    pm.expect(pm.response.json().distances.length).to.eql(1);",
+							"    pm.expect(pm.response.json().distances.length).to.eql(2);",
 							"});"
 						],
 						"type": "text/javascript",
