@@ -282,6 +282,54 @@
 			"response": []
 		},
 		{
+			"name": "luzovich: Places of size \"2\" should have distances of size \"2\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a241a550-46f4-4f06-9949-ff0190d33274",
+						"exec": [
+							"pm.test(\"luzovich: Distances array should match size of places array when size is 2.\", () => {",
+							"",
+							"    pm.expect(pm.response.json().distances.length).to.eql(2);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "6264a77d-72fd-46ec-88ed-ba75290b50f8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"distances\",\n    \"places\": [\n        {\n            \"latitude\": \"0.0\",\n            \"longitude\": \"1.0\"\n        },\n        {\n            \"latitude\": \"1.0\",\n            \"longitude\":\"0.0\"\n        }\n    ],\n    \"earthRadius\": 1234,\n    \"formula\": \"vincenty\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "schlicting: Ben Diagnose API",
 			"event": [
 				{
