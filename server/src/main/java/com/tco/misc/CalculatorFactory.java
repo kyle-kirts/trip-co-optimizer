@@ -12,6 +12,8 @@ public class CalculatorFactory {
 
     public static DistanceCalculator getCalculator(String formula) {
 
+        if (formula == null) return new VincentyCalculator();
+
         switch (formula.toLowerCase()) {
             case "vincenty":
                 return new VincentyCalculator();
