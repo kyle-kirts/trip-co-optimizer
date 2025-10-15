@@ -20,7 +20,7 @@ public class CalculatorFactory {
             case "cosines":
                 return new CosinesCalculator();
             default:
-                return return new VincentyCalculator();
+                return new VincentyCalculator();
         }
     }
     
