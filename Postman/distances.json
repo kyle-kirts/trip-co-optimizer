@@ -236,7 +236,7 @@
 			"response": []
 		},
 		{
-			"name": "kyle-kirts: xindi.json distance test",
+			"name": "kyle-kirts: Vincenty",
 			"event": [
 				{
 					"listen": "test",
@@ -244,7 +244,9 @@
 						"id": "009f1cd4-e96a-4926-98b1-a1e022ab8661",
 						"exec": [
 							"json = pm.response.json()",
-							"pm.test(\"Test response contains distances field\", () => {pm.expect(json).to.have.property('distances');});"
+							"pm.test(\"Test response contains distances field\", () => {pm.expect(json).to.have.property('distances');});",
+							"pm.test(\"Test response contains distances field\", () => {pm.expect(json.distances).to.eql([19,38,23077142,2714956,",
+							"13574795,12217290]);});"
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -262,6 +264,102 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n  \"requestType\": \"distances\",\n\n  \"places\": [\n    { \"name\": \"EquatorPrime\", \"latitude\": \"0.0\",       \"longitude\": \"0.0\" },\n    { \"name\": \"NW\",      \"latitude\": \"0.0001\",    \"longitude\": \"-0.0001\" },\n    { \"name\": \"SE\",      \"latitude\": \"-0.0001\",   \"longitude\": \"0.0001\" },\n    { \"name\": \"NE\",    \"latitude\": \"10.0\",      \"longitude\": \"179.9999\" },\n    { \"name\": \"SW\",    \"latitude\": \"-10.0\",     \"longitude\": \"-179.9999\" },\n    { \"name\": \"North Pole\",\"latitude\": \"89.9999\",  \"longitude\": \"0.0\" }\n  ],\n  \"earthRadius\": 7777777.0,\n  \"formula\": \"vincenty\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kyle-kirts: Haversine",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "28735172-c54c-437b-ac4f-ba98b47d5d00",
+						"exec": [
+							"json = pm.response.json()",
+							"pm.test(\"Test response contains distances field\", () => {pm.expect(json).to.have.property('distances');});",
+							"pm.test(\"Test response contains distances field\", () => {pm.expect(json.distances).to.eql([19,38,23077142,2714956,",
+							"13574795,12217290]);});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "c37ad99c-f743-4f80-b40c-2eb49d9fe36e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"requestType\": \"distances\",\n\n  \"places\": [\n    { \"name\": \"EquatorPrime\", \"latitude\": \"0.0\",       \"longitude\": \"0.0\" },\n    { \"name\": \"NW\",      \"latitude\": \"0.0001\",    \"longitude\": \"-0.0001\" },\n    { \"name\": \"SE\",      \"latitude\": \"-0.0001\",   \"longitude\": \"0.0001\" },\n    { \"name\": \"NE\",    \"latitude\": \"10.0\",      \"longitude\": \"179.9999\" },\n    { \"name\": \"SW\",    \"latitude\": \"-10.0\",     \"longitude\": \"-179.9999\" },\n    { \"name\": \"North Pole\",\"latitude\": \"89.9999\",  \"longitude\": \"0.0\" }\n  ],\n  \"earthRadius\": 7777777.0,\n  \"formula\": \"haversine\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kyle-kirts: Cosines",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "066b67ec-066a-4063-9f3c-35c12cd152fe",
+						"exec": [
+							"json = pm.response.json()",
+							"pm.test(\"Test response contains distances field\", () => {pm.expect(json).to.have.property('distances');});",
+							"pm.test(\"Test response contains distances field\", () => {pm.expect(json.distances).to.eql([19,38,23077142,2714956,",
+							"13574795,12217290]);});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "f846c23c-d606-4c3a-b11e-01f36f36bf82",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"requestType\": \"distances\",\n\n  \"places\": [\n    { \"name\": \"EquatorPrime\", \"latitude\": \"0.0\",       \"longitude\": \"0.0\" },\n    { \"name\": \"NW\",      \"latitude\": \"0.0001\",    \"longitude\": \"-0.0001\" },\n    { \"name\": \"SE\",      \"latitude\": \"-0.0001\",   \"longitude\": \"0.0001\" },\n    { \"name\": \"NE\",    \"latitude\": \"10.0\",      \"longitude\": \"179.9999\" },\n    { \"name\": \"SW\",    \"latitude\": \"-10.0\",     \"longitude\": \"-179.9999\" },\n    { \"name\": \"North Pole\",\"latitude\": \"89.9999\",  \"longitude\": \"0.0\" }\n  ],\n  \"earthRadius\": 7777777.0,\n  \"formula\": \"cosines\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
