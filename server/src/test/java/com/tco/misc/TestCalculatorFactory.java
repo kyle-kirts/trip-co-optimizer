@@ -23,9 +23,16 @@ public class TestCalculatorFactory {
     }
 
     @Test
-    @DisplayName("carter64: Factory returns null for unknown formula")
-    public void testUnknownFormulaReturnsNull() {
+    @DisplayName("carter64: Factory returns default vincenty for unknown formula")
+    public void testUnknownFormulaReturnsVincenty() {
         DistanceCalculator calc = CalculatorFactory.getCalculator("unknown");
-        assertNull(calc, "Expected null for an unsupported formula");
+        assertTrue(calc instanceof VincentyCalculator, "Expected a VincentyCalculator instance");
+    }
+
+    @Test
+    @DisplayName("luzovich: Factory returns vincenty for empty (default) formula")
+    public void testBlankFormulaYieldsVincenty() {
+        DistanceCalculator calc = CalculatorFactory.getCalculator(null);
+        assertTrue(calc instanceof VincentyCalculator, "Expected default formula to be of type VincentyCalculator");
     }
 }

@@ -10,4 +10,5 @@ public class VincentyCalculator implements DistanceCalculator {
     @Override
     public long between(GeographicCoordinate from, GeographicCoordinate to, double earthRadius){
         return helper.computeDistance(from, to, earthRadius);
-    }}
+    }
+}

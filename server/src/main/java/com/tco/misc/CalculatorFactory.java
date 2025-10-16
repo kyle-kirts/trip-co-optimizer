@@ -5,13 +5,15 @@ import java.util.Arrays;
 
 public class CalculatorFactory {
 
-   public static List<String> getSupportedFormulae() {
+    public static List<String> getSupportedFormulae() {
         
         return Arrays.asList("vincenty", "haversine", "cosines");
     }
 
     public static DistanceCalculator getCalculator(String formula) {
 
+        if (formula == null) return new VincentyCalculator();
+        
         switch (formula.toLowerCase()) {
             case "vincenty":
                 return new VincentyCalculator();
@@ -20,8 +22,7 @@ public class CalculatorFactory {
             case "cosines":
                 return new CosinesCalculator();
             default:
-                return null;
+                return new VincentyCalculator();
         }
     }
-    
 }
