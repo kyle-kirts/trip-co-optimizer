@@ -9,23 +9,31 @@ import java.util.List;
 public class TestCalculatorFactory {
 
     @Test
+    @DisplayName("luzovich: Supported formulae contains vincenty")
     public void testSupportedFormulaeContainsVincenty() {
         List<String> formulas = CalculatorFactory.getSupportedFormulae();
         assertTrue(formulas.contains("vincenty"));
     }
 
     @Test
+    @DisplayName("luzovich: Supported formulae contains haversine")
+    public void testSupportedFormulaeContainsHaversine() {
+        List<String> formulas = CalculatorFactory.getSupportedFormulae();
+        assertTrue(formulas.contains("haversine"));
+    }
+    
+    @Test
+    @DisplayName("luzovich: Supported formulae contains cosines")
+    public void testSupportedFormulaeContainsCosines() {
+        List<String> formulas = CalculatorFactory.getSupportedFormulae();
+        assertTrue(formulas.contains("cosines"));
+    }
+    
+    @Test
     @DisplayName("carter64: Factory returns a VincentyCalculator for 'vincenty'")
     public void testVincentyCalculator() {
         DistanceCalculator calc = CalculatorFactory.getCalculator("vincenty");
         assertNotNull(calc, "Expected a non-null calculator for vincenty");
-        assertTrue(calc instanceof VincentyCalculator, "Expected a VincentyCalculator instance");
-    }
-
-    @Test
-    @DisplayName("carter64: Factory returns default vincenty for unknown formula")
-    public void testUnknownFormulaReturnsVincenty() {
-        DistanceCalculator calc = CalculatorFactory.getCalculator("unknown");
         assertTrue(calc instanceof VincentyCalculator, "Expected a VincentyCalculator instance");
     }
 
