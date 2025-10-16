@@ -20,7 +20,8 @@
 							""
 						],
 						"type": "text/javascript",
-						"packages": {}
+						"packages": {},
+						"requests": {}
 					}
 				}
 			],
@@ -33,7 +34,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"requestType\": \"tour\"\n}",
+					"raw": "{\n    \"requestType\": \"tour\",\n    \"places\": [],\n    \"earthRadius\": 1,\n    \"response\": 1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
