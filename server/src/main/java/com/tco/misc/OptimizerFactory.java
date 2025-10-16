@@ -1,5 +1,10 @@
 package com.tco.misc;
 
 public class OptimizerFactory{
-    //public static getOptimizer() should go here.
+    
+    public TourOptimizer get(Integer N, Double response) {
+
+        return new NoOptimizer();
+    }
+
 }
