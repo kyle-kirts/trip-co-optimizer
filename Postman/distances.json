@@ -14,7 +14,7 @@
 					"script": {
 						"id": "2e681a9c-1867-45fe-bcaf-147841929d22",
 						"exec": [
-							"pm.test(\"Response is HTTP404 status\", () => {",
+							"pm.test(\"Response is HTTP200 status\", () => {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							""
@@ -55,7 +55,7 @@
 			"response": []
 		},
 		{
-			"name": "Sky location test #1",
+			"name": "vercauteren: location test #1",
 			"event": [
 				{
 					"listen": "test",
@@ -120,7 +120,7 @@
 			"response": []
 		},
 		{
-			"name": "Sky location test #2",
+			"name": "vercauteren: location test #2",
 			"event": [
 				{
 					"listen": "test",
@@ -184,7 +184,7 @@
 			"response": []
 		},
 		{
-			"name": "Sky location test #3",
+			"name": "vercauteren: location test #3",
 			"event": [
 				{
 					"listen": "test",
@@ -236,7 +236,7 @@
 			"response": []
 		},
 		{
-			"name": "kyle-kirts: xindi.json distance test",
+			"name": "kyle-kirts: Vincenty",
 			"event": [
 				{
 					"listen": "test",
@@ -244,7 +244,9 @@
 						"id": "009f1cd4-e96a-4926-98b1-a1e022ab8661",
 						"exec": [
 							"json = pm.response.json()",
-							"pm.test(\"Test response contains distances field\", () => {pm.expect(json).to.have.property('distances');});"
+							"pm.test(\"Test response contains distances field\", () => {pm.expect(json).to.have.property('distances');});",
+							"pm.test(\"Test response contains distances field\", () => {pm.expect(json.distances).to.eql([19,38,23077142,2714956,",
+							"13574795,12217290]);});"
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -262,6 +264,395 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n  \"requestType\": \"distances\",\n\n  \"places\": [\n    { \"name\": \"EquatorPrime\", \"latitude\": \"0.0\",       \"longitude\": \"0.0\" },\n    { \"name\": \"NW\",      \"latitude\": \"0.0001\",    \"longitude\": \"-0.0001\" },\n    { \"name\": \"SE\",      \"latitude\": \"-0.0001\",   \"longitude\": \"0.0001\" },\n    { \"name\": \"NE\",    \"latitude\": \"10.0\",      \"longitude\": \"179.9999\" },\n    { \"name\": \"SW\",    \"latitude\": \"-10.0\",     \"longitude\": \"-179.9999\" },\n    { \"name\": \"North Pole\",\"latitude\": \"89.9999\",  \"longitude\": \"0.0\" }\n  ],\n  \"earthRadius\": 7777777.0,\n  \"formula\": \"vincenty\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kyle-kirts: Haversine",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "28735172-c54c-437b-ac4f-ba98b47d5d00",
+						"exec": [
+							"json = pm.response.json()",
+							"pm.test(\"Test response contains distances field\", () => {pm.expect(json).to.have.property('distances');});",
+							"pm.test(\"Test response contains distances field\", () => {pm.expect(json.distances).to.eql([19,38,23077142,2714956,",
+							"13574795,12217290]);});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "c37ad99c-f743-4f80-b40c-2eb49d9fe36e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"requestType\": \"distances\",\n\n  \"places\": [\n    { \"name\": \"EquatorPrime\", \"latitude\": \"0.0\",       \"longitude\": \"0.0\" },\n    { \"name\": \"NW\",      \"latitude\": \"0.0001\",    \"longitude\": \"-0.0001\" },\n    { \"name\": \"SE\",      \"latitude\": \"-0.0001\",   \"longitude\": \"0.0001\" },\n    { \"name\": \"NE\",    \"latitude\": \"10.0\",      \"longitude\": \"179.9999\" },\n    { \"name\": \"SW\",    \"latitude\": \"-10.0\",     \"longitude\": \"-179.9999\" },\n    { \"name\": \"North Pole\",\"latitude\": \"89.9999\",  \"longitude\": \"0.0\" }\n  ],\n  \"earthRadius\": 7777777.0,\n  \"formula\": \"haversine\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kyle-kirts: Cosines",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "066b67ec-066a-4063-9f3c-35c12cd152fe",
+						"exec": [
+							"json = pm.response.json()",
+							"pm.test(\"Test response contains distances field\", () => {pm.expect(json).to.have.property('distances');});",
+							"pm.test(\"Test response contains distances field\", () => {pm.expect(json.distances).to.eql([19,38,23077142,2714956,",
+							"13574795,12217290]);});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "f846c23c-d606-4c3a-b11e-01f36f36bf82",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"requestType\": \"distances\",\n\n  \"places\": [\n    { \"name\": \"EquatorPrime\", \"latitude\": \"0.0\",       \"longitude\": \"0.0\" },\n    { \"name\": \"NW\",      \"latitude\": \"0.0001\",    \"longitude\": \"-0.0001\" },\n    { \"name\": \"SE\",      \"latitude\": \"-0.0001\",   \"longitude\": \"0.0001\" },\n    { \"name\": \"NE\",    \"latitude\": \"10.0\",      \"longitude\": \"179.9999\" },\n    { \"name\": \"SW\",    \"latitude\": \"-10.0\",     \"longitude\": \"-179.9999\" },\n    { \"name\": \"North Pole\",\"latitude\": \"89.9999\",  \"longitude\": \"0.0\" }\n  ],\n  \"earthRadius\": 7777777.0,\n  \"formula\": \"cosines\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "luzovich: Places of size \"2\" should have distances of size \"2\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a241a550-46f4-4f06-9949-ff0190d33274",
+						"exec": [
+							"pm.test(\"luzovich: Distances array should match size of places array when size is 2.\", () => {",
+							"",
+							"    pm.expect(pm.response.json().distances.length).to.eql(2);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "6264a77d-72fd-46ec-88ed-ba75290b50f8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"distances\",\n    \"places\": [\n        {\n            \"latitude\": \"0.0\",\n            \"longitude\": \"1.0\"\n        },\n        {\n            \"latitude\": \"1.0\",\n            \"longitude\":\"0.0\"\n        }\n    ],\n    \"earthRadius\": 1234,\n    \"formula\": \"vincenty\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "schlicting: Ben Diagnose API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd9aec85-9a68-471b-bea5-978e4b394b4d",
+						"exec": [
+							"pm.test(\"schlicting: Ben Diagnose API test\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property('places');\r",
+							"    pm.expect(json.places[0]).to.have.property('latitude');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "a178396c-96a8-4457-8668-39a1330bc27b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n        {\"name\": \"Place 1\", \"latitude\": \"1.0\", \"longitude\": \"1.0\"},\r\n        {\"name\": \"Place 2\", \"latitude\": \"1.0\", \"longitude\": \"1.0\"},\r\n        {\"name\": \"Place 3\", \"latitude\": \"1.0\", \"longitude\": \"1.0\"}\r\n    ],\r\n    \"earthRadius\": 90,\r\n    \"formula\": \"vincenty\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Empty places",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f86b69d8-3b77-47ff-8aad-3dc84d377b15",
+						"exec": [
+							"pm.test(\"vercauteren: Expect the distances to be an empty array\", () => {\r",
+							"   pm.expect(pm.response.json().distances).to.eql([]);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "03e6abc6-1c6e-41f6-a5dd-bf42c54031df",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n    ],\r\n    \"earthRadius\": 90,\r\n    \"formula\": \"vincenty\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Single Place",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f86b69d8-3b77-47ff-8aad-3dc84d377b15",
+						"exec": [
+							"pm.test(\"vercauteren: Expect the distances to be a single '0'\", () => {\r",
+							"   pm.expect(pm.response.json().distances).to.eql([0]);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "d8bd25e2-d139-4fa9-9f4f-ef8c9b696ac8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n        {\"name\": \"Place 1\", \"latitude\": \"0\", \"longitude\": \"0\"}\r\n    ],\r\n    \"earthRadius\": 90,\r\n    \"formula\": \"vincenty\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Haversine form",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f86b69d8-3b77-47ff-8aad-3dc84d377b15",
+						"exec": [
+							"pm.test(\"vercauteren: Expect the formula to be 'Haversine'\", () => {\r",
+							"   pm.expect(pm.response.json().formula).to.eql(\"haversine\");\r",
+							"   pm.expect(pm.response.json()).to.have.property(\"formula\", \"haversine\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "5b7572bd-4888-42d7-a7c0-77c2b35a324f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n        {\"name\": \"Place 1\", \"latitude\": \"89.9\", \"longitude\": \"0.1\"},\r\n        {\"name\": \"Place 2\", \"latitude\": \"89.9\", \"longitude\": \"0.1\"}\r\n    ],\r\n    \"earthRadius\": 90,\r\n    \"formula\": \"haversine\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Cosines form",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f86b69d8-3b77-47ff-8aad-3dc84d377b15",
+						"exec": [
+							"pm.test(\"vercauteren: Expect the formula to be 'Cosines'\", () => {\r",
+							"   pm.expect(pm.response.json().formula).to.eql(\"cosines\");\r",
+							"   pm.expect(pm.response.json()).to.have.property(\"formula\", \"cosines\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "7a781d1a-78aa-45e8-a082-388bb56d10af",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n        {\"name\": \"Place 1\", \"latitude\": \"89.9\", \"longitude\": \"0.1\"},\r\n        {\"name\": \"Place 2\", \"latitude\": \"89.9\", \"longitude\": \"0.1\"}\r\n    ],\r\n    \"earthRadius\": 90,\r\n    \"formula\": \"cosines\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
