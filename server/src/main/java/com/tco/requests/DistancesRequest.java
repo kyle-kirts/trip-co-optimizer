@@ -42,8 +42,8 @@ public class DistancesRequest extends Request {
 
     @Override
     public void buildResponse() throws BadRequestException {
+        if ((this.formula != null) && (!CalculatorFactory.getSupportedFormulae().contains(this.formula))) throw new BadRequestException();
         DistanceCalculator calculator = CalculatorFactory.getCalculator(this.formula);
-        if (calculator == null) throw new BadRequestException();
         int tripLength = this.places.size();
         for(int i = 0; i<tripLength; i++)
         {
