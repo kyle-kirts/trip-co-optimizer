@@ -38,6 +38,22 @@ public class TestCalculatorFactory {
     }
 
     @Test
+    @DisplayName("luzovich: Factory returns a HaversineCalculator for 'haversine'")
+    public void testHaversineCalculator() {
+        DistanceCalculator calc = CalculatorFactory.getCalculator("haversine");
+        assertNotNull(calc, "Expected a non-null calculator for haversine");
+        assertTrue(calc instanceof HaversineCalculator, "Expected a HaversineCalculator instance");
+    }
+    
+    @Test
+    @DisplayName("luzovich: Factory returns a CosinesCalculator for 'cosines'")
+    public void testCosinesCalculator() {
+        DistanceCalculator calc = CalculatorFactory.getCalculator("cosines");
+        assertNotNull(calc, "Expected a non-null calculator for cosines");
+        assertTrue(calc instanceof CosinesCalculator, "Expected a CosinesCalculator instance");
+    }
+    
+    @Test
     @DisplayName("luzovich: Factory returns vincenty for empty (default) formula")
     public void testBlankFormulaYieldsVincenty() {
         DistanceCalculator calc = CalculatorFactory.getCalculator(null);
