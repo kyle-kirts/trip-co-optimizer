@@ -36,4 +36,11 @@ public class Place extends HashMap<String,String> implements GeographicCoordinat
         return lonRad;
     }
 
+    @Override
+    public getPlaceInfo(String municipality, String country, String region){
+        this.put("municipality", municipality);
+        this.put("country", country);
+        this.put("region", region);
+    }
+
 }
