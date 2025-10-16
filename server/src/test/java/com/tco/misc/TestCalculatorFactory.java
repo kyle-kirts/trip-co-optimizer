@@ -28,4 +28,11 @@ public class TestCalculatorFactory {
         DistanceCalculator calc = CalculatorFactory.getCalculator("unknown");
         assertTrue(calc instanceof VincentyCalculator, "Expected a VincentyCalculator instance");
     }
+
+    @Test
+    @DisplayName("luzovich: Factory returns vincenty for empty (default) formula")
+    public void testBlankFormulaYieldsVincenty() {
+        DistanceCalculator calc = CalculatorFactory.getCalculator(null);
+        assertTrue(calc instanceof VincentyCalculator, "Expected default formula to be of type VincentyCalculator");
+    }
 }

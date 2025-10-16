@@ -5,11 +5,11 @@ import org.slf4j.LoggerFactory;
 import com.tco.misc.CalculatorFactory;
 import com.tco.misc.DistanceCalculator;
 import com.tco.misc.GeographicCoordinate;
+import com.tco.misc.BadRequestException;
 
 public class DistancesRequest extends Request {
 
     private static final transient Logger log = LoggerFactory.getLogger(DistancesRequest.class);
-    private static final transient String DEFAULT_FORMULA = "vincenty";
 
     private Places places;
     private Double earthRadius;
@@ -21,7 +21,7 @@ public class DistancesRequest extends Request {
         this.places = new Places();
         this.earthRadius = 6371.0;
         this.distances = new Distances();
-        this.formula = "";
+        this.formula = null;
     }
 
     public DistancesRequest(Places places, Double earthRadius, String formula) {
@@ -41,8 +41,9 @@ public class DistancesRequest extends Request {
     }
 
     @Override
-    public void buildResponse() {
-        DistanceCalculator calculator = CalculatorFactory.getCalculator((!this.formula.equals("")) ? this.formula : DEFAULT_FORMULA);
+    public void buildResponse() throws BadRequestException {
+        if ((this.formula != null) && (!CalculatorFactory.getSupportedFormulae().contains(this.formula))) throw new BadRequestException();
+        DistanceCalculator calculator = CalculatorFactory.getCalculator(this.formula);
         int tripLength = this.places.size();
         for(int i = 0; i<tripLength; i++)
         {
@@ -50,7 +51,5 @@ public class DistancesRequest extends Request {
             GeographicCoordinate nextPlace = (i+1<tripLength) ? this.places.get(i+1): this.places.get(0);
             this.distances.add(calculator.between(thisPlace, nextPlace, this.earthRadius));
         }
-
-        if (this.formula.equals("")) this.formula = null;
     }
 }
