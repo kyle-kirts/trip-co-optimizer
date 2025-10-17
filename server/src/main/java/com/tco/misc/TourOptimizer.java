@@ -4,10 +4,9 @@ import com.tco.requests.Places;
 
 public abstract class TourOptimizer {
 
-    public int TourOptimizer() {
+    public TourOptimizer() {
         construct();
         improve();
-        return 0;
     }
 
     public int construct() {
