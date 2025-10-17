@@ -18,7 +18,7 @@ class Benchmark {
 		} catch (FileNotFoundException e) {};
     }
 
-    	private static void runBenchmarks(int n, PrintStream log) {
+    private static void runBenchmarks(int n, PrintStream log) {
 		System.out.println(n);
 		new ArrLstDefN().time(n, log);
 		new ArrLstSet().time(n, log);
@@ -30,4 +30,24 @@ class Benchmark {
 		new ArrN().time(n, log);
 		log.flush();
 	}
+
+    class ArrLstDefN extends BenchmarkRunner {
+
+	    ArrayList<Long> array;
+
+	    public String name() {
+		    return "new ArrayList<Long>() create/add";
+	    }
+
+	    public void init(int n) { }
+
+	    public void create(int n) {
+		    array = new ArrayList<>();
+	    }
+
+	    public void add(int value) {
+		    array.add((long) value);
+	    }
+    }
+
 }
