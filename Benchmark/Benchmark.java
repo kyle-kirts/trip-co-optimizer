@@ -17,4 +17,17 @@ class Benchmark {
 			}
 		} catch (FileNotFoundException e) {};
     }
+
+    	private static void runBenchmarks(int n, PrintStream log) {
+		System.out.println(n);
+		new ArrLstDefN().time(n, log);
+		new ArrLstSet().time(n, log);
+		new ArrLst1().time(n, log);
+		new ArrLstN().time(n, log);
+		new ArrLong1().time(n, log);
+		new ArrLongN().time(n, log);
+		new Arr1().time(n, log);
+		new ArrN().time(n, log);
+		log.flush();
+	}
 }
