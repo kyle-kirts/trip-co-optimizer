@@ -4,6 +4,10 @@ import com.tco.requests.Places;
 
 public abstract class TourOptimizer {
 
+    public int TourOptimizer() {
+        return 0;
+    }
+
     public int construct() {
         Places places = new Places();
         return 0;
