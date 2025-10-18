@@ -3,6 +3,10 @@ package com.tco.misc;
 import com.tco.requests.Places;
 
 public abstract class TourOptimizer {
+    protected boolean[] visited;
+    protected boolean[] unvisited;
+    protected int[] order;
+    protected double[][] distances;
 
     public TourOptimizer() {
         construct();
