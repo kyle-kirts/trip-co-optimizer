@@ -2,6 +2,7 @@ package performance;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -31,23 +32,29 @@ class Benchmark {
 		log.flush();
 	}
 
-    class ArrLstDefN extends BenchmarkRunner {
+	class ArrLstDefN extends BenchmarkRunner {
 
-	    ArrayList<Long> array;
+		long[] array;
+		int size;
 
-	    public String name() {
-		    return "new ArrayList<Long>() create/add";
-	    }
+		public char name() {
+			return 'P';
+		}
 
-	    public void init(int n) { }
+		public void init(int n) { }
 
-	    public void create(int n) {
-		    array = new ArrayList<>();
-	    }
+		public void create(int n) {
+			array = new long[n];
+			size = n;
+		}
 
-	    public void add(int value) {
-		    array.add((long) value);
-	    }
-    }
-
+		public void add(int value) {
+			if (size == array.length) {
+				long[] newArray = new long[size * 2];
+				System.arraycopy(array, 0, newArray, 0, size);
+				array = newArray;
+			}
+			array[size++] = value;
+		}
+	}
 }
