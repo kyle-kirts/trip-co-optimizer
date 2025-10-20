@@ -33,7 +33,7 @@ class Benchmark {
 
     abstract static class BenchmarkRunner {
 
-	public abstract String name();
+	public abstract char name();
 	public abstract void init(int n);
 	public abstract void create(int n);
 	public abstract void add(int value);
@@ -86,23 +86,31 @@ class Benchmark {
 	}
 }
 
-    class ArrLstDefN extends BenchmarkRunner {
+	class ArrLstDefN extends BenchmarkRunner {
 
-	    ArrayList<Long> array;
+		long[] array;
+		int size;
 
-	    public String name() {
-		    return "new ArrayList<Long>() create/add";
-	    }
+		@Override
+		public char name() {
+			return 'P';
+		}
 
-	    public void init(int n) { }
+		public void init(int n) { }
 
-	    public void create(int n) {
-		    array = new ArrayList<>();
-	    }
+		public void create(int n) {
+			array = new long[n];
+			size = n;
+		}
 
-	    public void add(int value) {
-		    array.add((long) value);
-	    }
-    }
+		public void add(int value) {
+			if (size == array.length) {
+				long[] newArray = new long[size * 2];
+				System.arraycopy(array, 0, newArray, 0, size);
+				array = newArray;
+			}
+			array[size++] = value;
+		}
+	}
 
 }
