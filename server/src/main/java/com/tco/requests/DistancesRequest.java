@@ -49,10 +49,9 @@ public class DistancesRequest extends Request {
         {
             GeographicCoordinate thisPlace = this.places.get(i);
             GeographicCoordinate nextPlace = (i+1<tripLength) ? this.places.get(i+1): this.places.get(0);
-            if(thisPlace.equals(nextPlace)){this.distances.add(0l);}
-            else{
-                this.distances.add(calculator.between(thisPlace, nextPlace, this.earthRadius));
-            }
+
+            if (thisPlace.equals(nextPlace)) this.distances.add(0l);
+            else this.distances.add(calculator.between(thisPlace, nextPlace, this.earthRadius));
         }
     }
 }
