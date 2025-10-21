@@ -1,6 +1,7 @@
 package com.tco.misc;
 
 import com.tco.requests.Places;
+import java.util.Arrays;
 
 public abstract class TourOptimizer {
     protected Places places;
@@ -12,11 +13,11 @@ public abstract class TourOptimizer {
     public TourOptimizer() {
     }
 
-    private initialize(Places locations) 
+    private void initialize(Places locations) 
     {
         places = locations;
         unvisited = new boolean[locations.size()];
-        Arrays.fill(univisited,true);
+        Arrays.fill(unvisited,true);
         order = new int[locations.size()];
         duration = 0;
         // populateDistances() or something.
