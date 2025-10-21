@@ -10,7 +10,9 @@ public abstract class TourOptimizer {
     public TourOptimizer() {
     }
 
-    public abstract Places construct(Places places, double radius, String formula, Places response);
+    public Places construct(Places places, double radius, String formula, Double response) {
+        return places;
+    }
 
     public void improve() {
     };
