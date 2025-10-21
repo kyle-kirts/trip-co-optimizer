@@ -98,4 +98,19 @@ public class TestDistancesRequest {
         assertNotNull(request.getDistances());
         assertEquals(2, request.getDistances().size());
     }
+
+    @Test
+    @DisplayName("luzovich: Test DistanceRequest() for 2 duplicate places")
+    public void testDistancesRequestTwoDuplicatePlaces() {
+        Places places = new Places();
+        places.add(new Place("-19.27", "92.5"));
+        places.add(new Place("-19.27", "92.5"));
+        DistancesRequest request = new DistancesRequest(places, 123456789123456789123456789.0, "vincenty");
+        try {
+            request.buildResponse();
+        } catch (Exception e) {
+            fail("buildResponse threw an exception: " + e);
+        }
+        assertEquals(0L, request.getDistances().get(0));
+    }
 }
