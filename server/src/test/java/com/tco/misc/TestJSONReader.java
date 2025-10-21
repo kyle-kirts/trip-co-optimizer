@@ -19,7 +19,7 @@ public class TestJSONReader {
   }
 
   @Test
-  @DisplayName("luzovich: Invalid JSON yield parse error and IOException")
+  @DisplayName("luzovich: Invalid JSON yields parse error and IOException")
   public void testInvalidJSONInputYieldsException() {
 
     assertThrows(InternalRequestException.class, () -> JSONReader.fetchValidatedJSONFile("/data/faulty.json", AboutFile.class));
