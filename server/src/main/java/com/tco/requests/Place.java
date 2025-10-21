@@ -42,6 +42,18 @@ public class Place extends HashMap<String,String> implements GeographicCoordinat
         return lonRad;
     }
 
+    public boolean equals(Place against)
+    {
+        if(this.latRadians() == against.latRadians())
+        {
+            if(this.lonRadians() == against.lonRadians())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Place(String municipality, String country, String region){
         this.put("municipality", municipality);
         this.put("country", country);
