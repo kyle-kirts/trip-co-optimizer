@@ -8,14 +8,9 @@ public abstract class TourOptimizer {
     protected double[][] distances;
 
     public TourOptimizer() {
-        construct();
-        improve();
     }
 
-    public int construct() {
-        Places places = new Places();
-        return 0;
-    }
+    public abstract Places construct(Places places, double radius, String formula, Places response);
 
     public void improve() {
     };
