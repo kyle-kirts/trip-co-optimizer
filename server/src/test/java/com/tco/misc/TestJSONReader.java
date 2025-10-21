@@ -1,13 +1,8 @@
 package com.tco.misc;
 
-import com.tco.misc.JSONReader;
-import com.tco.misc.AboutFile;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
-
-import com.tco.misc.InternalRequestException;
 
 public class TestJSONReader {
 
