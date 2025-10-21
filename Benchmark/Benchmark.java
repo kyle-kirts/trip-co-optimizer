@@ -2,6 +2,7 @@ package performance;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -18,7 +19,7 @@ class Benchmark {
 		} catch (FileNotFoundException e) {};
     }
 
-    	private static void runBenchmarks(int n, PrintStream log) {
+    private static void runBenchmarks(int n, PrintStream log) {
 		System.out.println(n);
 		new ArrLstDefN().time(n, log);
 		new ArrLstSet().time(n, log);
@@ -29,5 +30,31 @@ class Benchmark {
 		new Arr1().time(n, log);
 		new ArrN().time(n, log);
 		log.flush();
+	}
+
+	class ArrLstDefN extends BenchmarkRunner {
+
+		long[] array;
+		int size;
+
+		public char name() {
+			return 'P';
+		}
+
+		public void init(int n) { }
+
+		public void create(int n) {
+			array = new long[n];
+			size = n;
+		}
+
+		public void add(int value) {
+			if (size == array.length) {
+				long[] newArray = new long[size * 2];
+				System.arraycopy(array, 0, newArray, 0, size);
+				array = newArray;
+			}
+			array[size++] = value;
+		}
 	}
 }
