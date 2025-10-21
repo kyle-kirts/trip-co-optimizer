@@ -20,6 +20,7 @@ public abstract class TourOptimizer {
         Arrays.fill(unvisited,true);
         order = new int[locations.size()];
         duration = 0;
+        distances = new long[locations.size()][locations.size()]; //This line could either be here, or in the following method. shouldnt matter either way. 
         // populateDistances() or something.
     }
 
