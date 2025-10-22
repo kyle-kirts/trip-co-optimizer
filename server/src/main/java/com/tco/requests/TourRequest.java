@@ -6,6 +6,8 @@ import com.tco.misc.BadRequestException;
 import com.tco.misc.CalculatorFactory;
 import com.tco.misc.OptimizerFactory;
 import com.tco.misc.TourOptimizer;
+import com.tco.misc.Places;
+
 
 public class TourRequest extends Request {
 

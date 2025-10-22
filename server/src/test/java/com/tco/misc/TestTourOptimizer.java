@@ -1,7 +1,5 @@
 package com.tco.misc;
 
-import com.tco.requests.Places;
-import com.tco.requests.Place;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

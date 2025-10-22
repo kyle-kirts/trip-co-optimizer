@@ -6,6 +6,8 @@ import com.tco.misc.CalculatorFactory;
 import com.tco.misc.DistanceCalculator;
 import com.tco.misc.GeographicCoordinate;
 import com.tco.misc.BadRequestException;
+import com.tco.misc.Places;
+import com.tco.misc.Distances;
 
 public class DistancesRequest extends Request {
 

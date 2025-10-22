@@ -6,9 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.tco.requests.Place;
-import com.tco.requests.Places;
-
 public class TestNoOptimizer {
     
     @Test
