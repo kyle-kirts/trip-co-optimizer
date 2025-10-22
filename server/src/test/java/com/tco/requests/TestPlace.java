@@ -100,4 +100,21 @@ public class TestPlace {
         assertTrue(place.latRadians() == radians);
     }
 
+    @Test
+    @DisplayName("luzovich: Test equal method is true")
+    public void testEqualsTrue() {
+        Place place1 = new Place("39.6", "129.33");
+        Place place2 = new Place("39.6", "129.33");
+
+        assertTrue(place1.equals(place2));
+    }
+
+    @Test
+    @DisplayName("luzovich: Test equal method is false")
+    public void testEqualsFalse() {
+        Place place1 = new Place("25.7", "1.093");
+        Place place2 = new Place("29.2", "95.4");
+
+        assertFalse(place1.equals(place2));
+    }
 }

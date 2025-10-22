@@ -12,17 +12,19 @@ public class CalculatorFactory {
 
     public static DistanceCalculator getCalculator(String formula) {
 
-        if (formula == null) return new VincentyCalculator();
-        
-        switch (formula.toLowerCase()) {
-            case "vincenty":
-                return new VincentyCalculator();
-            case "haversine":
-                return new HaversineCalculator();
-            case "cosines":
-                return new CosinesCalculator();
-            default:
-                return new VincentyCalculator();
+        DistanceCalculator calculator = null;
+
+        if (formula == null || formula.equals("vincenty")) {
+
+            calculator = new VincentyCalculator();
+        } else if (formula.equals("haversine")) {
+
+            calculator = new HaversineCalculator();
+        } else if (formula.equals("cosines")) {
+
+            calculator = new CosinesCalculator();
         }
+
+        return calculator;
     }
 }
