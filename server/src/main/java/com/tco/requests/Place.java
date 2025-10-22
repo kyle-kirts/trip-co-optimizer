@@ -48,4 +48,9 @@ public class Place extends HashMap<String,String> implements GeographicCoordinat
         return false;
     }
 
+    @Override
+    public String toString() {
+
+        return this.get("latitude") + ", " + this.get("longitude");
+    }
 }
