@@ -1,11 +1,7 @@
 package com.tco.misc;
 
 public class VincentyCalculator implements DistanceCalculator {
-    private final VincentyHelper helper;
-
-    public VincentyCalculator() {
-        this.helper = new VincentyHelper();
-    }
+    private final VincentyHelper helper = new VincentyHelper();
 
     @Override
     public long between(GeographicCoordinate from, GeographicCoordinate to, double earthRadius){
