@@ -29,4 +29,7 @@ public class TestTourRequest {
         assertEquals(1000.0, tour.getEarthRadius());
         assertEquals(3.0, tour.getResponseTime());
     }
+
+    @Test
+    @DisplayName("luzovich: Build response ")
 }
