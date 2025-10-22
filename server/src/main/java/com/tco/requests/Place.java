@@ -8,12 +8,6 @@ public class Place extends HashMap<String,String> implements GeographicCoordinat
 
     public Place(){}
 
-    public interface PlaceInformation {
-        public String municipality();
-        public String country();
-        public String region();
-    }
-
     public Place(String lat, String lon){
         this.put("latitude", lat);
         this.put("longitude", lon);
@@ -52,12 +46,6 @@ public class Place extends HashMap<String,String> implements GeographicCoordinat
             }
         }
         return false;
-    }
-
-    public Place(String municipality, String country, String region){
-        this.put("municipality", municipality);
-        this.put("country", country);
-        this.put("region", region); 
     }
 
     @Override
