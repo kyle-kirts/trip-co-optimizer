@@ -48,4 +48,48 @@ public class TestTourOptimizer {
         optimizer.initializeDistances(places, 7777777.0, "vincenty");
         assertArrayEquals(expected, optimizer.getDistances());
     }
+
+    @Test
+    @DisplayName("kyle-kirts: Check closest returns Integer.MAX_VALUE when unvisited = false")
+    public void testClosestNoUnvisited() {
+        TourOptimizer optimizer = new TourOptimizer() {};
+        boolean[] visited = {true};
+
+        optimizer.setVisited(visited);
+        
+        assertEquals(Integer.MAX_VALUE, optimizer.closest( 0));
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: Check closest returns expected from 2 unvisited")
+    public void testClosestTwoOptions() {
+        TourOptimizer optimizer = new TourOptimizer() {};
+        boolean[] visited = {true, false, false};
+        long[][] distances = {{0L, 1L, 100L}, 
+                              {1L, 0L, 99L}, 
+                              {100L, 99L, 0L}};
+        
+        optimizer.setVisited(visited);
+        optimizer.setDistances(distances);
+
+        assertEquals(1, optimizer.closest( 0));
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: Check closest returns expected from 5 unvisited")
+    public void testClosestFiveOptions() {
+        TourOptimizer optimizer = new TourOptimizer() {};
+        boolean[] visited = {true, false, false, true, false, false, false};
+        long[][] distances = {{0, 10, 20, 1, 30, 40, 50},
+                              {10, 0, 10, 9, 20, 30, 40},
+                              {20, 10, 0, 19, 10, 20, 30},
+                              {1, 9, 19, 0, 29, 39, 49},
+                              {30, 20, 10, 29, 0, 10, 20},
+                              {40, 30, 20, 39, 10, 0, 10},
+                              {50, 40, 30, 49, 20, 10, 0}};
+
+        optimizer.setVisited(visited);
+        optimizer.setDistances(distances);
+        assertEquals(1, optimizer.closest( 3));
+    }
 }

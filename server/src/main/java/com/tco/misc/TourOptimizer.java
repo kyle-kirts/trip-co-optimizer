@@ -1,10 +1,12 @@
 package com.tco.misc;
 
 import com.tco.requests.Places;
+
 import java.util.Arrays;
+import java.util.Random;
 
 public abstract class TourOptimizer {
-    protected boolean[] unvisited; 
+    protected boolean[] visited; 
     protected int[] order;
     protected long[][] distances;
     protected long currentTotalDistance; 
@@ -14,8 +16,8 @@ public abstract class TourOptimizer {
 
     private void initialize(Places places, double radius, String formula) 
     {
-        unvisited = new boolean[places.size()];
-        Arrays.fill(unvisited,true);
+        visited = new boolean[places.size()];
+        Arrays.fill(visited,false);
         order = new int[places.size()];
         currentTotalDistance = 0;
         initializeDistances(places, radius, formula);
@@ -45,8 +47,39 @@ public abstract class TourOptimizer {
         }
     }
 
+    public int closest(int next) {
+        int best = Integer.MAX_VALUE;
+        Long minDistance = null;
+        
+        for (int i = 0; i < visited.length; i++) {
+            if (visited[i] == false && i != next) {
+                Long distance = distances[next][i];
+                if (minDistance == null || distance < minDistance) {
+                    minDistance = distance;
+                    best = i;
+                } 
+                if (distance == minDistance) {
+                    Random random = new Random();
+                    int nonse = random.nextInt();
+                    if (nonse % 2 == 0) { best = i;}
+                }
+                
+            }
+        }
+        
+        return best;
+    }
+
     // Methods used for testing
     public long[][] getDistances() {
         return distances;
+    }
+
+    public void setDistances(long[][] testDistances) {
+        this.distances = testDistances;
+    }
+
+    public void setVisited(boolean[] testVisited) {
+        this.visited = testVisited;
     }
 }
