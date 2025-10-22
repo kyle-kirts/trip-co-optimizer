@@ -60,4 +60,9 @@ public class Place extends HashMap<String,String> implements GeographicCoordinat
         this.put("region", region); 
     }
 
+    @Override
+    public String toString() {
+
+        return this.get("latitude") + ", " + this.get("longitude");
+    }
 }
