@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.tco.misc.BadRequestException;
+import com.tco.misc.Distances;
+import com.tco.misc.Places;
+import com.tco.misc.Place;
 
 public class TestDistancesRequest {
     @Test

@@ -2,6 +2,9 @@ package com.tco.requests;
 
 import java.util.ArrayList;
 
+import com.tco.misc.Places;
+import com.tco.misc.Place;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.assertAll;

@@ -1,6 +1,5 @@
 package com.tco.misc;
 
-import com.tco.requests.Places;
 import java.util.Arrays;
 
 public abstract class TourOptimizer {
