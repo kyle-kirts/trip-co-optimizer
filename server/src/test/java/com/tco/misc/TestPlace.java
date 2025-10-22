@@ -1,8 +1,10 @@
-package com.tco.requests;
+package com.tco.misc;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class TestPlace {
 
@@ -36,6 +38,22 @@ public class TestPlace {
     public void testOverloadedConstructorIsEmpty(){
         Place place = new Place("45.1111", "-105.2222");
         assertFalse(place.isEmpty());
+    }
+
+    @Test
+    @DisplayName("vercauteren: a specific place object *equals* an equivalent object")
+    public void testEquivalence(){
+        Place place = new Place("45.1111", "-105.2222");
+        Place place2 = new Place("45.1111", "-105.2222");
+        assertTrue(place.equals(place2));
+    }
+
+    @Test
+    @DisplayName("vercauteren: a specific place object *does not equals* an unequivalent object")
+    public void testFalseEquivalence(){
+        Place place = new Place("45.1111", "-105.2222");
+        Place place2 = new Place("0.0", "-105.2222");
+        assertFalse(place.equals(place2));
     }
 
     /**
