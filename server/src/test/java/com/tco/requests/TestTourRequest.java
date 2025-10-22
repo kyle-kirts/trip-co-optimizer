@@ -46,7 +46,7 @@ public class TestTourRequest {
     }
 
     @Test
-    @DisplayName("luzovich: Case constructor sets values")
+    @DisplayName("luzovich: Base constructor sets values")
     public void testBaseConstructor() {
         TourRequest tour = new TourRequest();
         assertEquals(6371.0, tour.getEarthRadius());
@@ -70,7 +70,7 @@ public class TestTourRequest {
     }
 
     @Test
-    @DisplayName("luzovich: Build response yield proper NoOpt distance")
+    @DisplayName("luzovich: Build response yields proper NoOpt distance")
     public void testBuildResponseNoOptCorrect() {
 
         Place subPlace1 = new Place("0.0", "0.0");
