@@ -9,14 +9,16 @@ public abstract class TourOptimizer {
     protected long[][] distances;
     protected long currentTotalDistance;
 
-    public boolean allVisited()
-    {
-        for(boolean v:visited) if(v == false) return false;
-        return true;
-    }
-
     public TourOptimizer() {
     }
+
+    public Places construct(Places places, double radius, String formula, Double response) {
+        initialize(places, radius, formula);
+        return places;
+    }
+
+    public void improve() {
+    };
 
     public void initialize(Places places, double radius, String formula) 
     {
@@ -43,6 +45,33 @@ public abstract class TourOptimizer {
         }
     }
 
+    public int[] createRoute(Places places, Place start)
+    {
+        Arrays.fill(order, -1);
+        Arrays.fill(visited,false);
+        int index = 0;
+
+        int nextPlace= places.getPlace(start);
+        this.order[index] = nextPlace;
+        this.visited[nextPlace] = true;
+        index++;
+        
+        while(!allVisited())
+        {
+            nextPlace = closest(nextPlace);
+            this.order[index] = nextPlace;
+            this.visited[nextPlace] = true;
+            index++;
+        }
+        return order;
+    }
+
+    public boolean allVisited()
+    {
+        for(boolean v:visited) if(v == false) return false;
+        return true;
+    }
+
     public int closest(int next) {
         int best = -1;
         Long minDistance = Long.MAX_VALUE;
@@ -66,35 +95,6 @@ public abstract class TourOptimizer {
         if (nonse % 2 == 0) { best = i;}
         return best;
     }
-
-    public int[] createRoute(Places places, Place start)
-    {
-        Arrays.fill(order, -1);
-        Arrays.fill(visited,false);
-        int index = 0;
-
-        int nextPlace= places.getPlace(start);
-        this.order[index] = nextPlace;
-        this.visited[nextPlace] = true;
-        index++;
-        
-        while(!allVisited())
-        {
-            nextPlace = closest(nextPlace);
-            this.order[index] = nextPlace;
-            this.visited[nextPlace] = true;
-            index++;
-        }
-        return order;
-    }
-
-    public Places construct(Places places, double radius, String formula, Double response) {
-        initialize(places, radius, formula);
-        return places;
-    }
-
-    public void improve() {
-    };
 
     // Methods used for testing
     public long[][] getDistances() {
