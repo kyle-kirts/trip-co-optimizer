@@ -14,7 +14,12 @@ public abstract class TourOptimizer {
 
     public Places construct(Places places, double radius, String formula, Double response) {
         initialize(places, radius, formula);
-        return places;
+        int[] tour = findBestNearestNeighborTour(places);
+        Places nearestNeighbor = new Places();
+        for(int i=0; i<tour.length; i++) {
+            nearestNeighbor.add(places.get(tour[i]));
+        }
+        return nearestNeighbor;
     }
 
     public void improve() {
