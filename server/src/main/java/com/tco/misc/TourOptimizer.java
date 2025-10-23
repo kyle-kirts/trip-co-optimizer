@@ -44,24 +44,26 @@ public abstract class TourOptimizer {
     }
 
     public int closest(int next) {
-        int best = Integer.MAX_VALUE;
-        Long minDistance = null;
+        int best = -1;
+        Long minDistance = Long.MAX_VALUE;
         
         for (int i = 0; i < visited.length; i++) {
-            if (visited[i] == false && i != next) {
-                Long distance = distances[next][i];
-                if (minDistance == null || distance < minDistance) {
-                    minDistance = distance;
-                    best = i;
-                } 
-                if (distance == minDistance) {
-                    Random random = new Random();
-                    int nonse = random.nextInt();
-                    if (nonse % 2 == 0) { best = i;}
-                }
-                
-            }
+            Long distance = distances[next][i];
+            boolean isValidPlace = (!visited[i]) && (i!=next);
+            boolean isLessThan = distances[next][i] < minDistance;
+            boolean isEqualTo = distances[next][i] == minDistance;
+
+            if (isValidPlace && isLessThan) {best = i; minDistance = distance;}
+            if (isValidPlace && isEqualTo) {best = pickRandom(i, best);}
+        
         }
+        return best;
+    }
+
+    public int pickRandom(int i, int best) {
+        Random random = new Random();
+        int nonse = random.nextInt();
+        if (nonse % 2 == 0) { best = i;}
         return best;
     }
 
