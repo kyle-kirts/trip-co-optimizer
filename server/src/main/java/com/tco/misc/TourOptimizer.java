@@ -7,12 +7,18 @@ public abstract class TourOptimizer {
     protected boolean[] visited; 
     protected int[] order;
     protected long[][] distances;
-    protected long currentTotalDistance; 
+    protected long currentTotalDistance;
+
+    public boolean allVisited()
+    {
+        for(boolean v:visited) if(v == false) return false;
+        return true;
+    }
 
     public TourOptimizer() {
     }
 
-    private void initialize(Places places, double radius, String formula) 
+    public void initialize(Places places, double radius, String formula) 
     {
         visited = new boolean[places.size()];
         Arrays.fill(visited,false);
@@ -20,14 +26,6 @@ public abstract class TourOptimizer {
         currentTotalDistance = 0;
         initializeDistances(places, radius, formula);
     }
-
-    public Places construct(Places places, double radius, String formula, Double response) {
-        initialize(places, radius, formula);
-        return places;
-    }
-
-    public void improve() {
-    };
 
     public void initializeDistances(Places places, double radius, String formula) {
         int numberOfPlaces = places.size();
@@ -64,9 +62,37 @@ public abstract class TourOptimizer {
                 
             }
         }
-        
         return best;
     }
+
+    public int[] createRoute(Places places, Place start)
+    {
+        Arrays.fill(order, -1);
+        Arrays.fill(visited,false);
+        int index = 0;
+
+        int nextPlace= places.getPlace(start);
+        this.order[index] = nextPlace;
+        this.visited[nextPlace] = true;
+        index++;
+        
+        while(!allVisited())
+        {
+            nextPlace = closest(nextPlace);
+            this.order[index] = nextPlace;
+            this.visited[nextPlace] = true;
+            index++;
+        }
+        return order;
+    }
+
+    public Places construct(Places places, double radius, String formula, Double response) {
+        initialize(places, radius, formula);
+        return places;
+    }
+
+    public void improve() {
+    };
 
     // Methods used for testing
     public long[][] getDistances() {
@@ -80,4 +106,8 @@ public abstract class TourOptimizer {
     public void setVisited(boolean[] testVisited) {
         this.visited = testVisited;
     }
+
+    public boolean[] getVisited(){return visited;}
+    public long getCurrentTotal(){return currentTotalDistance;}
+    public int[] getOrder(){return order;}
 }
