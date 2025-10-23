@@ -32,4 +32,19 @@ public class TestPlaces {
         int index = places.getPlace(new Place());
         assertFalse(index >= 0);
     }
+
+    @Test
+    @DisplayName("vercauteren: the getPlace() method finds a place that exists in places")
+    public void testGetPlaceMore(){
+        Places places = new Places();
+        Place place = new Place("40.01","-105.001");
+        places.add(new Place("0.0","0.0"));
+        places.add(new Place("0.0","0.0"));
+        places.add(new Place("0.0","0.0"));
+        places.add(new Place("0.0","0.0"));
+        places.add(place);
+
+        int index = places.getPlace(place);
+        assertTrue(index == 4);
+    }
 }
