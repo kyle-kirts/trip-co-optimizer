@@ -46,6 +46,7 @@ public class TestConfigRequest {
     @DisplayName("luzovich: Removing distances won't return allowed formulas")
     public void testNonExistentDistancesNoSupportedFormulae() {
         conf.features.remove("distances");
+        conf.features.remove("tour");
         assertNull(conf.listFormulae());
     }
 
