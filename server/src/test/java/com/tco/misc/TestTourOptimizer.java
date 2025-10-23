@@ -91,8 +91,6 @@ public class TestTourOptimizer {
         assertArrayEquals(expected, optimizer.getDistances());
     }
 
-   
-
     @Test
     @DisplayName("kyle-kirts: Check closest returns expected from 2 unvisited")
     public void testClosestTwoOptions() {
@@ -124,5 +122,41 @@ public class TestTourOptimizer {
         optimizer.setVisited(visited);
         optimizer.setDistances(distances);
         assertEquals(1, optimizer.closest( 3));
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: Check last two unvisited ")
+    public void testClosestLastTwoUnvisited() {
+        TourOptimizer optimizer = new TourOptimizer() {};
+        boolean[] visited = {true, true, true, true, true, false, false};
+        long[][] distances = {{0, 10, 20, 1, 30, 40, 50},
+                              {10, 0, 10, 9, 20, 30, 40},
+                              {20, 10, 0, 19, 10, 20, 30},
+                              {1, 9, 19, 0, 29, 39, 49},
+                              {30, 20, 10, 29, 0, 10, 20},
+                              {40, 30, 20, 39, 10, 0, 10},
+                              {50, 40, 30, 49, 20, 10, 0}};
+
+        optimizer.setVisited(visited);
+        optimizer.setDistances(distances);
+        assertEquals(5, optimizer.closest(4));
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: Check last unvisited")
+    public void testClosestLastUnvisited() {
+        TourOptimizer optimizer = new TourOptimizer() {};
+        boolean[] visited = {true, true, true, true, true, true, false};
+        long[][] distances = {{0, 10, 20, 1, 30, 40, 50},
+                              {10, 0, 10, 9, 20, 30, 40},
+                              {20, 10, 0, 19, 10, 20, 30},
+                              {1, 9, 19, 0, 29, 39, 49},
+                              {30, 20, 10, 29, 0, 10, 20},
+                              {40, 30, 20, 39, 10, 0, 10},
+                              {50, 40, 30, 49, 20, 10, 0}};
+
+        optimizer.setVisited(visited);
+        optimizer.setDistances(distances);
+        assertEquals(6, optimizer.closest(5));
     }
 }
