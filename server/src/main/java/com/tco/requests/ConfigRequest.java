@@ -19,7 +19,7 @@ public class ConfigRequest extends Request {
 
     private static final transient Logger log = LoggerFactory.getLogger(ConfigRequest.class);
 
-    private List<String> features;
+    protected List<String> features;
     private List<String> formulae;
     private Team team;
     private People people;

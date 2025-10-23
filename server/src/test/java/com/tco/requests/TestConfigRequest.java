@@ -1,6 +1,8 @@
 package com.tco.requests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,6 +43,14 @@ public class TestConfigRequest {
     }
 
     @Test
+    @DisplayName("luzovich: Removing distances won't return allowed formulas")
+    public void testNonExistentDistancesNoSupportedFormulae() {
+        conf.features.remove("distances");
+        conf.features.remove("tour");
+        assertNull(conf.listFormulae());
+    }
+
+    @Test
     @DisplayName("luzovich: \"distances\" double-implies \"formulae\"")
     public void testFeatureDistancesDoubleImpliesFormulae() {
         assertTrue(
@@ -53,6 +63,12 @@ public class TestConfigRequest {
     @DisplayName("luzovich: Features list is expected length")
     public void testFeaturesLength() {
         assertEquals(conf.listFeatures().size(), 3);
+    }
+
+    @Test
+    @DisplayName("luzovich: hasProperty() for random value is false")
+    public void testRandomFieldOnHasPropertyReturnsFalse() {
+        assertFalse(conf.hasProperty("some random thing goes here"));
     }
 
     /*
