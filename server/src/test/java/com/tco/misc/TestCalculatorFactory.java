@@ -9,6 +9,12 @@ import java.util.List;
 public class TestCalculatorFactory {
 
     @Test
+    @DisplayName("luzovich: CalculatorFactory constructs without issue")
+    public void testProperConstructOfCalculatorFactory() {
+        assertNotNull(new CalculatorFactory());
+    }
+    
+    @Test
     @DisplayName("luzovich: Supported formulae contains vincenty")
     public void testSupportedFormulaeContainsVincenty() {
         List<String> formulas = CalculatorFactory.getSupportedFormulae();
