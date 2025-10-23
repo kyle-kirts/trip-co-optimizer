@@ -36,11 +36,12 @@ public class ConfigRequest extends Request {
         features = new ArrayList<>();
         features.add("config");
         features.add("distances");
+        features.add("tour");
         return features;
     }
 
     public List<String> listFormulae() {
-        if (!features.contains("distances")) return null;
+        if (!features.contains("distances") && !features.contains("tour")) return null;
         formulae = CalculatorFactory.getSupportedFormulae();
         return formulae;
     }
