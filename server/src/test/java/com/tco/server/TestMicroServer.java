@@ -37,8 +37,6 @@ public class TestMicroServer {
 
     @BeforeAll
     public static void startTheMicroServer() {
-        System.setProperty("KEYSTORE_FILE", "");
-        System.setProperty("KEYSTORE_PASSWORD", "");
         String[] commandLineArguments = { String.valueOf(TEST_SERVER_PORT) };
         WebApplication.main(commandLineArguments);
     }
