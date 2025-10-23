@@ -89,7 +89,6 @@ public class TestMicroServer {
         String requestBodyJSON = new JSONObject()
             .put("requestType", "distances")
             .put("places", new JSONArray())
-            .put("formula", "vincenty") // Is this considered standard? It's not in the Postman, but it is in the DistancesRequest class.
             .put("earthRadius", 1)
             .toString();
         HttpResponse response = postRequest("/api/distances", requestBodyJSON);

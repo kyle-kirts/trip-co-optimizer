@@ -9,7 +9,8 @@ import com.tco.misc.TourOptimizer;
 
 public class TourRequest extends Request {
 
-    private String requestType;
+    private static final transient Logger log = LoggerFactory.getLogger(TourRequest.class);
+
     private Places places;
     private Double earthRadius;
     private String formula;
