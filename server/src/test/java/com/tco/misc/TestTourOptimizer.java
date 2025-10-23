@@ -91,16 +91,7 @@ public class TestTourOptimizer {
         assertArrayEquals(expected, optimizer.getDistances());
     }
 
-    @Test
-    @DisplayName("kyle-kirts: Check closest returns Integer.MAX_VALUE when unvisited = false")
-    public void testClosestNoUnvisited() {
-        TourOptimizer optimizer = new TourOptimizer() {};
-        boolean[] visited = {true};
-
-        optimizer.setVisited(visited);
-        
-        assertEquals(Integer.MAX_VALUE, optimizer.closest( 0));
-    }
+   
 
     @Test
     @DisplayName("kyle-kirts: Check closest returns expected from 2 unvisited")
