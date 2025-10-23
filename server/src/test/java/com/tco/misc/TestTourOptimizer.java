@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+
 public class TestTourOptimizer {
 
     @Test
@@ -19,7 +21,49 @@ public class TestTourOptimizer {
         assertSame(inputPlaces, result);
     }
 
-      @Test
+    @Test
+    @DisplayName("vercauteren: Checking initialized values")
+    public void testInitialize(){
+        TourOptimizer optimizer = new TourOptimizer() {};
+        Places places = new Places();
+        places.add(new Place("0.0", "0.0"));
+        places.add(new Place("1.0", "1.0"));
+
+        optimizer.initialize(places, 111, "vincenty");
+        assertTrue(optimizer.getVisited().length == 2);
+        assertTrue(optimizer.getOrder().length == 2);
+        assertTrue(optimizer.getCurrentTotal() == 0);
+    }
+
+    @Test
+    @DisplayName("vercauteren: Checking AllVisited")
+    public void testAllVisited(){
+        TourOptimizer optimizer = new TourOptimizer() {};
+        Places places = new Places();
+        places.add(new Place("0.0", "0.0"));
+        places.add(new Place("1.0", "1.0"));
+
+        optimizer.initialize(places, 111, "vincenty");
+        assertTrue(optimizer.allVisited() == false);
+    }
+
+    @Test
+    @DisplayName("vercauteren: Checking createRoute")
+    public void testCreateRoute(){
+        TourOptimizer optimizer = new TourOptimizer() {};
+        Places places = new Places();
+        Place start = new Place("0.0","0.0");
+        places.add(new Place("2.0", "2.0"));
+        places.add(new Place("1.0", "1.0"));
+        places.add(new Place("3.0", "3.0"));
+        places.add(start);
+
+        optimizer.initialize(places, 111, "vincenty");
+        int[] expected = {3,1,0,2};
+        assertTrue(Arrays.equals(optimizer.createRoute(places, start),expected));
+    }
+
+    @Test
     @DisplayName("kyle-kirts: Verify default 0 given for distances array")
     public void testInitializeDistancesZeros() {
         TourOptimizer optimizer = new TourOptimizer() {};
