@@ -13,6 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -35,7 +37,10 @@ public class TestMicroServer {
 
     @BeforeAll
     public static void startTheMicroServer() {
-        new MicroServer(TEST_SERVER_PORT);
+        System.setProperty("KEYSTORE_FILE", "");
+        System.setProperty("KEYSTORE_PASSWORD", "");
+        String[] commandLineArguments = { String.valueOf(TEST_SERVER_PORT) };
+        WebApplication.main(commandLineArguments);
     }
 
     @BeforeEach
@@ -81,6 +86,28 @@ public class TestMicroServer {
         String invalidRequestJSON = "{ }";
         HttpResponse response = postRequest("/api/invalid", invalidRequestJSON);
         assertEquals(404, response.getStatusLine().getStatusCode());
+    }
+
+    @Test
+    @DisplayName("base: Trigger 500 with designated endpoint")
+    public void testIntentionalServerError() throws IOException {
+        String requestJSON = "{ }";
+        HttpResponse response = postRequest("/500", requestJSON);
+        assertEquals(500, response.getStatusLine().getStatusCode());
+    }
+
+    @Test
+    @DisplayName("luzovich: keystoreProvided false in all known instances")
+    public void testKeystoreProvidedFalses() {
+        assertFalse(MicroServer.keystoreProvided("", null));
+        assertFalse(MicroServer.keystoreProvided(null, ""));
+        assertFalse(MicroServer.keystoreProvided(null, null));
+    }
+
+    @Test
+    @DisplayName("luzovich: keystoreProvided true in all known instances")
+    public void testKeystoreProvidedTrues() {
+        assertTrue(MicroServer.keystoreProvided("", ""));
     }
 
     @Test
