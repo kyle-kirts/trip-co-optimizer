@@ -2,6 +2,7 @@ package com.tco.server;
 
 import com.tco.misc.BadRequestException;
 import com.tco.misc.RequestException;
+import com.tco.misc.InternalRequestException;
 import com.tco.misc.JSONValidator;
 import com.tco.requests.ConfigRequest;
 import com.tco.requests.Request;
@@ -42,6 +43,7 @@ public final class MicroServer {
             post("/distances", (req, res) -> processHttpRequest(req, res, DistancesRequest.class));
             post("/tour", (req, res) -> processHttpRequest(req, res, TourRequest.class));
         });
+        post("/500", (req, res) -> processHttpRequest(req, res, null));
     }
 
     /* You shouldn't need to change what is found below. */
@@ -50,6 +52,7 @@ public final class MicroServer {
         setupResponse(httpResponse);
         String jsonString = httpRequest.body();
         try {
+            if (requestType == null) throw new InternalRequestException();
             JSONValidator.validate(jsonString, requestType);
             Request requestObj = new Gson().fromJson(jsonString, requestType);
             requestObj.buildResponse();
@@ -88,12 +91,14 @@ public final class MicroServer {
         port(serverPort);
         String keystoreFile = System.getenv("KEYSTORE_FILE");
         String keystorePassword = System.getenv("KEYSTORE_PASSWORD");
+        String serverProtocol = "HTTPS";
         if (keystoreProvided(keystoreFile, keystorePassword)) {
             secure(keystoreFile, keystorePassword, null, null);
-            log.info("MicroServer running using HTTPS on port {}.", serverPort);
         } else {
-            log.info("MicroServer running using HTTP on port {}.", serverPort);
+            serverProtocol = "HTTP";
         }
+        
+        log.info("MicroServer running using {} on port {}.", serverProtocol, serverPort);
 
         // To Serve Static Files (SPA)
 
@@ -101,7 +106,7 @@ public final class MicroServer {
         redirect.get("/", "/index.html");
     }
 
-    private boolean keystoreProvided(String keystoreFile, String keystorePassword) {
+    protected static boolean keystoreProvided(String keystoreFile, String keystorePassword) {
         return (keystoreFile != null && keystorePassword != null);
     }
 }
