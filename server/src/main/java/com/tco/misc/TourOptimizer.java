@@ -29,6 +29,19 @@ public abstract class TourOptimizer {
         initializeDistances(places, radius, formula);
     }
 
+        public int[] findBestNearestNeighborTour(Places places) {
+        long currentBest = Long.MAX_VALUE;
+        int[] bestOrder = new int[places.size()];
+        for (int i = 0; i < places.size(); i++) {
+            int[] currentOrder = createRoute(places, places.get(i));
+            if (currentTotalDistance < currentBest) {
+                bestOrder = currentOrder;
+                currentBest = currentTotalDistance;
+            }
+        }
+        return bestOrder;
+    }
+
     public void initializeDistances(Places places, double radius, String formula) {
         int numberOfPlaces = places.size();
         distances = new long[numberOfPlaces][numberOfPlaces];
@@ -46,7 +59,7 @@ public abstract class TourOptimizer {
     }
 
     public int[] createRoute(Places places, Place start)
-    {
+    {   
         Arrays.fill(order, -1);
         Arrays.fill(visited,false);
         int index = 0;
