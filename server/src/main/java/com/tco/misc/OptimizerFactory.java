@@ -3,10 +3,14 @@ package com.tco.misc;
 public class OptimizerFactory{
     
     public static TourOptimizer get(Integer N, Double response) {
-    if (N == null || N < 3) {
-        return new NoOptimizer();
-    } else {
-        return new OneOptimizer();
+        TourOptimizer optimizer;
+        
+        if ((N == null || N < 4) && response == 0) {
+            optimizer = new NoOptimizer();
+        } else {
+            optimizer = new OneOptimizer();
+        }
+
+        return optimizer;
     }
-}
 }
