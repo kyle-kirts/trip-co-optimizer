@@ -16,13 +16,68 @@ public class TestOptimizerFactory {
     }
 
     @Test
+    @DisplayName("kyle-kirts: Null Places gives NoOptimizer")
+    public void testNullPlaces() {
+        Double response = 0.5;
+        Integer N = null;
+
+        TourOptimizer optimizer = OptimizerFactory.get(N, response);
+
+        assertTrue(optimizer instanceof NoOptimizer);
+    }
+
+    @Test
     @DisplayName("kyle-kirts: 0 Response Time returns NoOptimizer")
     public void testZeroResponse() {
-        OptimizerFactory optimizer = new OptimizerFactory();
         Double response = 0.0;
-        Integer N = null;
-        TourOptimizer opt = optimizer.get(N, response);
+        Integer N = 100;
 
-        assertTrue(opt instanceof NoOptimizer);
+        TourOptimizer optimizer = OptimizerFactory.get(N, response);
+
+        assertTrue(optimizer instanceof NoOptimizer);
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: 1 Places gives NoOptimizer")
+    public void testOnePlace() {        
+        Double response = .99;
+        Integer N = 1;
+
+        TourOptimizer optimizer = OptimizerFactory.get(N, response);
+
+        assertTrue(optimizer instanceof NoOptimizer);
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: 2 Places gives NoOptimizer")
+    public void testTwoPlaces() {
+        Double response = .99;
+        Integer N = 2;
+
+        TourOptimizer optimizer = OptimizerFactory.get(N, response);
+
+        assertTrue(optimizer instanceof NoOptimizer);
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: 3 Places gives NoOptimizer")
+    public void testThreePlaces() {
+        Double response = .99;
+        Integer N = 3;
+
+        TourOptimizer optimizer = OptimizerFactory.get(N, response);
+
+        assertTrue(optimizer instanceof NoOptimizer);
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: 4 Places gives OneOptimizer")
+    public void testFourPlaces() {
+        Double response = .99;
+        Integer N = 4;
+
+        TourOptimizer optimizer = OptimizerFactory.get(N, response);
+
+        assertTrue(optimizer instanceof OneOptimizer);
     }
 }
