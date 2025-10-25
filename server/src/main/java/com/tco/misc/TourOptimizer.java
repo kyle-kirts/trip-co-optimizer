@@ -37,7 +37,8 @@ public abstract class TourOptimizer {
         public int[] findBestNearestNeighborTour(Places places) {
         long currentBest = Long.MAX_VALUE;
         int[] bestOrder = new int[places.size()];
-        for (int i = 0; i < places.size(); i++) {
+        int cutoff = (places.size() < 1000) ? places.size() : 1000;
+        for (int i = 0; i < cutoff; i++) {
             int[] currentOrder = createRoute(places, places.get(i));
             if (currentTotalDistance < currentBest) {
                 bestOrder = currentOrder;
