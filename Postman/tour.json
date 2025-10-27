@@ -99,6 +99,82 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "kyle-kirts: 0 Response Gives NoOptimization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f7ac8b8f-4571-4892-93bc-1a645f560f4b",
+						"exec": [
+							"json = pm.response.json()",
+							"pm.test(\"0 response gives no optimization\", () => {pm.expect(json.places).to.eql([{",
+							"            \"latitude\": \"0.0\",",
+							"            \"name\": \"EquatorPrime\",",
+							"            \"longitude\": \"0.0\"",
+							"        },",
+							"        {",
+							"            \"latitude\": \"0.0001\",",
+							"            \"name\": \"NW\",",
+							"            \"longitude\": \"-0.0001\"",
+							"        },",
+							"        {",
+							"            \"latitude\": \"-0.0001\",",
+							"            \"name\": \"SE\",",
+							"            \"longitude\": \"0.0001\"",
+							"        },",
+							"        {",
+							"            \"latitude\": \"10.0\",",
+							"            \"name\": \"NE\",",
+							"            \"longitude\": \"179.9999\"",
+							"        },",
+							"        {",
+							"            \"latitude\": \"-10.0\",",
+							"            \"name\": \"SW\",",
+							"            \"longitude\": \"-179.9999\"",
+							"        },",
+							"        {",
+							"            \"latitude\": \"89.9999\",",
+							"            \"name\": \"North Pole\",",
+							"            \"longitude\": \"0.0\"",
+							"        }",
+							"        ]);});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "c829cc88-2c7f-4895-865e-c0fd7360b6c3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"requestType\": \"tour\",\n  \"places\": [\n    { \"name\": \"EquatorPrime\", \"latitude\": \"0.0\",       \"longitude\": \"0.0\" },\n    { \"name\": \"NW\",      \"latitude\": \"0.0001\",    \"longitude\": \"-0.0001\" },\n    { \"name\": \"SE\",      \"latitude\": \"-0.0001\",   \"longitude\": \"0.0001\" },\n    { \"name\": \"NE\",    \"latitude\": \"10.0\",      \"longitude\": \"179.9999\" },\n    { \"name\": \"SW\",    \"latitude\": \"-10.0\",     \"longitude\": \"-179.9999\" },\n    { \"name\": \"North Pole\",\"latitude\": \"89.9999\",  \"longitude\": \"0.0\" }\n  ],\n  \"earthRadius\": 7777777.0,\n  \"response\": 0.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
