@@ -14,8 +14,8 @@
 					"script": {
 						"id": "e675e3f2-a3e1-4c4a-830e-e1df144e735c",
 						"exec": [
-							"pm.test(\"Response is HTTP404 status\", () => {",
-							"    pm.response.to.have.status(404);",
+							"pm.test(\"Response is HTTP200 status\", () => {",
+							"    pm.response.to.have.status(200);",
 							"});",
 							""
 						],
@@ -34,7 +34,129 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"requestType\": \"tour\"\n}",
+					"raw": "{\n    \"requestType\": \"tour\",\n    \"places\": [],\n    \"earthRadius\": 1,\n    \"response\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kyle-kirts: Request with formula gives response with formula",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5316c812-f48d-4103-8690-4df14c38b618",
+						"exec": [
+							"json = pm.response.json()",
+							"pm.test(\"Vincenty in formula response\", () => {pm.expect(json.formula).to.eql(\"vincenty\");});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "c2cb57d2-fc0f-41e8-9cb7-207a093cffc0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"tour\",\n    \"places\": [],\n    \"earthRadius\": 1,\n    \"response\": 1,\n    \"formula\": \"vincenty\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kyle-kirts: 0 Response Gives NoOptimization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f7ac8b8f-4571-4892-93bc-1a645f560f4b",
+						"exec": [
+							"json = pm.response.json()",
+							"pm.test(\"0 response gives no optimization\", () => {pm.expect(json.places).to.eql([{",
+							"            \"latitude\": \"0.0\",",
+							"            \"name\": \"EquatorPrime\",",
+							"            \"longitude\": \"0.0\"",
+							"        },",
+							"        {",
+							"            \"latitude\": \"0.0001\",",
+							"            \"name\": \"NW\",",
+							"            \"longitude\": \"-0.0001\"",
+							"        },",
+							"        {",
+							"            \"latitude\": \"-0.0001\",",
+							"            \"name\": \"SE\",",
+							"            \"longitude\": \"0.0001\"",
+							"        },",
+							"        {",
+							"            \"latitude\": \"10.0\",",
+							"            \"name\": \"NE\",",
+							"            \"longitude\": \"179.9999\"",
+							"        },",
+							"        {",
+							"            \"latitude\": \"-10.0\",",
+							"            \"name\": \"SW\",",
+							"            \"longitude\": \"-179.9999\"",
+							"        },",
+							"        {",
+							"            \"latitude\": \"89.9999\",",
+							"            \"name\": \"North Pole\",",
+							"            \"longitude\": \"0.0\"",
+							"        }",
+							"        ]);});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "c829cc88-2c7f-4895-865e-c0fd7360b6c3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"requestType\": \"tour\",\n  \"places\": [\n    { \"name\": \"EquatorPrime\", \"latitude\": \"0.0\",       \"longitude\": \"0.0\" },\n    { \"name\": \"NW\",      \"latitude\": \"0.0001\",    \"longitude\": \"-0.0001\" },\n    { \"name\": \"SE\",      \"latitude\": \"-0.0001\",   \"longitude\": \"0.0001\" },\n    { \"name\": \"NE\",    \"latitude\": \"10.0\",      \"longitude\": \"179.9999\" },\n    { \"name\": \"SW\",    \"latitude\": \"-10.0\",     \"longitude\": \"-179.9999\" },\n    { \"name\": \"North Pole\",\"latitude\": \"89.9999\",  \"longitude\": \"0.0\" }\n  ],\n  \"earthRadius\": 7777777.0,\n  \"response\": 0.0\n}",
 					"options": {
 						"raw": {
 							"language": "json"
