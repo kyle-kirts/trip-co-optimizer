@@ -807,6 +807,54 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "vercauteren: Bad request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de6fad6a-80d7-42b7-a265-7dfe62f7c874",
+						"exec": [
+							"pm.test(\"Response is HTTP400 status\", () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "97d66373-c082-4357-b3ca-815f59eeb945",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"config\",\r\n    \"places\":\r\n    [\r\n        {\"name\": \"Place 1\", \"latitude\": \"89.9\", \"longitude\": \"0.1\"},\r\n        {\"name\": \"Place 2\", \"latitude\": \"89.9\", \"longitude\": \"-0.1\"},\r\n        {\"name\": \"Place 3\", \"latitude\": \"-89.9\", \"longitude\": \"0.1\"},\r\n        {\"name\": \"Place 4\", \"latitude\": \"-89.9\", \"longitude\": \"-0.1\"}\r\n    ],\r\n    \"earthRadius\": 9999999999,\r\n    \"formula\": \"vincenty\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
