@@ -688,7 +688,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n        {\"name\": \"Place 1\", \"latitude\": \"0\", \"longitude\": \"0\"}\r\n    ],\r\n    \"earthRadius\": 1,\r\n    \"formula\": \"vincenty\"\r\n}",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\":\r\n    [\r\n        {\"name\": \"Place 1\", \"latitude\": \"0\", \"longitude\": \"0\"}\r\n    ],\r\n    \"earthRadius\": 90,\r\n    \"formula\": \"vincenty\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
