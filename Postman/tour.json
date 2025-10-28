@@ -14,8 +14,8 @@
 					"script": {
 						"id": "e675e3f2-a3e1-4c4a-830e-e1df144e735c",
 						"exec": [
-							"pm.test(\"Response is HTTP200 status\", () => {",
-							"    pm.response.to.have.status(200);",
+							"pm.test(\"Response is HTTP404 status\", () => {",
+							"    pm.response.to.have.status(404);",
 							"});",
 							""
 						],
@@ -34,7 +34,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"requestType\": \"tour\",\n    \"places\": [],\n    \"earthRadius\": 1,\n    \"response\": 1\n}",
+					"raw": "{\n    \"requestType\": \"tour\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -55,15 +55,21 @@
 			"response": []
 		},
 		{
-			"name": "kyle-kirts: Request with formula gives response with formula",
+			"name": "vercauteren: One-Opt when 4",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "5316c812-f48d-4103-8690-4df14c38b618",
+						"id": "e675e3f2-a3e1-4c4a-830e-e1df144e735c",
 						"exec": [
-							"json = pm.response.json()",
-							"pm.test(\"Vincenty in formula response\", () => {pm.expect(json.formula).to.eql(\"vincenty\");});"
+							"pm.test(\"Response is HTTP200 status\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Places is different\", () => {",
+							"    pm.expect(pm.response.json().places).to.not.eql(pm.request.body.places);",
+							"});",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -71,7 +77,7 @@
 					}
 				}
 			],
-			"id": "c2cb57d2-fc0f-41e8-9cb7-207a093cffc0",
+			"id": "5ef6e214-12d6-4e18-8f8c-c456d02b39de",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -80,7 +86,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"requestType\": \"tour\",\n    \"places\": [],\n    \"earthRadius\": 1,\n    \"response\": 1,\n    \"formula\": \"vincenty\"\n}",
+					"raw": "{\n    \"requestType\": \"tour\",\n    \"places\":[\n        {\"name\":\"N79.8 W159.0\", \"latitude\":\"79.8\", \"longitude\":\"-159.0\"},\n        {\"name\":\"S80.4 E58.6\", \"latitude\":\"-80.4\", \"longitude\":\"58.6\"},\n        {\"name\":\"S80.1 W2.8\", \"latitude\":\"-80.1\", \"longitude\":\"-2.8\"},\n        {\"name\":\"S80.0 W112.8\", \"latitude\":\"-80.0\", \"longitude\":\"-112.8\"}\n  ],\n  \"earthRadius\": 99999999999,\n  \"response\": 1.0\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -101,45 +107,21 @@
 			"response": []
 		},
 		{
-			"name": "kyle-kirts: 0 Response Gives NoOptimization",
+			"name": "vercauteren: One-Opt when 3",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "f7ac8b8f-4571-4892-93bc-1a645f560f4b",
+						"id": "e675e3f2-a3e1-4c4a-830e-e1df144e735c",
 						"exec": [
-							"json = pm.response.json()",
-							"pm.test(\"0 response gives no optimization\", () => {pm.expect(json.places).to.eql([{",
-							"            \"latitude\": \"0.0\",",
-							"            \"name\": \"EquatorPrime\",",
-							"            \"longitude\": \"0.0\"",
-							"        },",
-							"        {",
-							"            \"latitude\": \"0.0001\",",
-							"            \"name\": \"NW\",",
-							"            \"longitude\": \"-0.0001\"",
-							"        },",
-							"        {",
-							"            \"latitude\": \"-0.0001\",",
-							"            \"name\": \"SE\",",
-							"            \"longitude\": \"0.0001\"",
-							"        },",
-							"        {",
-							"            \"latitude\": \"10.0\",",
-							"            \"name\": \"NE\",",
-							"            \"longitude\": \"179.9999\"",
-							"        },",
-							"        {",
-							"            \"latitude\": \"-10.0\",",
-							"            \"name\": \"SW\",",
-							"            \"longitude\": \"-179.9999\"",
-							"        },",
-							"        {",
-							"            \"latitude\": \"89.9999\",",
-							"            \"name\": \"North Pole\",",
-							"            \"longitude\": \"0.0\"",
-							"        }",
-							"        ]);});"
+							"pm.test(\"Response is HTTP200 status\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Places is different\", () => {",
+							"    pm.expect(pm.response.json().places).to.not.eql(pm.request.body.places);",
+							"});",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -147,7 +129,7 @@
 					}
 				}
 			],
-			"id": "c829cc88-2c7f-4895-865e-c0fd7360b6c3",
+			"id": "77ef82bb-dbc6-4e85-8275-658947ee8491",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -156,7 +138,111 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"requestType\": \"tour\",\n  \"places\": [\n    { \"name\": \"EquatorPrime\", \"latitude\": \"0.0\",       \"longitude\": \"0.0\" },\n    { \"name\": \"NW\",      \"latitude\": \"0.0001\",    \"longitude\": \"-0.0001\" },\n    { \"name\": \"SE\",      \"latitude\": \"-0.0001\",   \"longitude\": \"0.0001\" },\n    { \"name\": \"NE\",    \"latitude\": \"10.0\",      \"longitude\": \"179.9999\" },\n    { \"name\": \"SW\",    \"latitude\": \"-10.0\",     \"longitude\": \"-179.9999\" },\n    { \"name\": \"North Pole\",\"latitude\": \"89.9999\",  \"longitude\": \"0.0\" }\n  ],\n  \"earthRadius\": 7777777.0,\n  \"response\": 0.0\n}",
+					"raw": "{\n    \"requestType\": \"tour\",\n    \"places\":[\n        {\"name\":\"0\", \"latitude\":\"0.8\", \"longitude\":\"-1.0\"},\n        {\"name\":\"2\", \"latitude\":\"-80.4\", \"longitude\":\"58.6\"},\n        {\"name\":\"1\", \"latitude\":\"-0.9\", \"longitude\":\"-2.8\"}\n  ],\n  \"earthRadius\": 99999999999,\n  \"response\": 1.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: No-Opt when 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e675e3f2-a3e1-4c4a-830e-e1df144e735c",
+						"exec": [
+							"pm.test(\"Response is HTTP200 status\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Places is the same\", () => {",
+							"    pm.expect(pm.response.json().places).to.eql(pm.request.body.places);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "15031e5e-1622-48d5-bab5-20f127b2b7ac",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"tour\",\n    \"places\":[\n        {\"name\":\"N79.8 W159.0\", \"latitude\":\"79.8\", \"longitude\":\"-159.0\"},\n        {\"name\":\"S80.4 E58.6\", \"latitude\":\"-80.4\", \"longitude\":\"58.6\"}\n  ],\n  \"earthRadius\": 99999999999,\n  \"response\": 1.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: No-Opt when 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e675e3f2-a3e1-4c4a-830e-e1df144e735c",
+						"exec": [
+							"pm.test(\"Response is HTTP200 status\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Places is the same\", () => {",
+							"    pm.expect(pm.response.json().places).to.eql(pm.request.body.places);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "54b88943-21f2-4889-9eca-6f66c7cb3c41",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"tour\",\n    \"places\":[\n        {\"name\":\"N79.8 W159.0\", \"latitude\":\"79.8\", \"longitude\":\"-159.0\"}\n  ],\n  \"earthRadius\": 99999999999,\n  \"response\": 1.0\n}",
 					"options": {
 						"raw": {
 							"language": "json"
