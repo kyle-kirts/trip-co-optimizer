@@ -816,7 +816,7 @@
 					"script": {
 						"id": "de6fad6a-80d7-42b7-a265-7dfe62f7c874",
 						"exec": [
-							"pm.test(\"Response is HTTP500 status\", () => {\r",
+							"pm.test(\"Response is HTTP400 status\", () => {\r",
 							"    pm.response.to.have.status(400);\r",
 							"});\r",
 							""
