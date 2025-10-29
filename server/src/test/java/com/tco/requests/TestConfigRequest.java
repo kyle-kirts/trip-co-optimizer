@@ -47,6 +47,7 @@ public class TestConfigRequest {
     public void testNonExistentDistancesNoSupportedFormulae() {
         conf.features.remove("distances");
         conf.features.remove("tour");
+        conf.features.remove("near");
         assertNull(conf.listFormulae());
     }
 
