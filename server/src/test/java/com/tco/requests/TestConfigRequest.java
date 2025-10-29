@@ -62,7 +62,7 @@ public class TestConfigRequest {
     @Test
     @DisplayName("luzovich: Features list is expected length")
     public void testFeaturesLength() {
-        assertEquals(conf.listFeatures().size(), 3);
+        assertEquals(conf.listFeatures().size(), 4);
     }
 
     @Test
