@@ -23,5 +23,18 @@ public void testNearReturnsEmptyPlaces() {
     assertNotNull(result);
     assertEquals(0, result.size());
 }
-   
+@Test
+@DisplayName("jsibold: Validate DataSource.distance() returns an empty distances object placeholder")
+public void testDistancesReturnsEmptyDistances() {
+    DataSource dataSource = new DataSource() {};
+
+    Place place = new Place();
+    Places places = new Places();
+
+    Distances result = dataSource.distances(place, places);
+
+    assertNotNull(result);
+    assertEquals(0, result.size());
+}   
 }
+    
