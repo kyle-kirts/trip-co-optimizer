@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestSourceFactory{
 
-   /*   @Test
+      @Test
     @DisplayName("vercauteren: base existence for SourceFactory")
     public void testFactoryExists() {
         SourceFactory factory = new SourceFactory() {};
         assertNotNull(factory);
-    }*/
+    }
 
     @Test
     @DisplayName("kyle-kirts: a null source gets a CitiesSource object")
