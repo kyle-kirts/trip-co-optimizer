@@ -47,7 +47,6 @@ public class TestConfigRequest {
     public void testNonExistentDistancesNoSupportedFormulae() {
         conf.features.remove("distances");
         conf.features.remove("tour");
-        conf.features.remove("near");
         assertNull(conf.listFormulae());
     }
 
@@ -63,7 +62,7 @@ public class TestConfigRequest {
     @Test
     @DisplayName("luzovich: Features list is expected length")
     public void testFeaturesLength() {
-        assertEquals(conf.listFeatures().size(), 4);
+        assertEquals(conf.listFeatures().size(), 3);
     }
 
     @Test
