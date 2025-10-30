@@ -38,7 +38,7 @@ public class TestTourRequest {
             assertions.add(() -> assertTrue(assertion, assertionDescription));
         }
 
-        //assertAll("All target list matches reference list", assertions);        
+        assertAll("All target list matches reference list", assertions);        
     }
 
     @Test
