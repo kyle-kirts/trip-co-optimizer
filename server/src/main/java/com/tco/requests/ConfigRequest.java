@@ -23,6 +23,7 @@ public class ConfigRequest extends Request {
     private List<String> formulae;
     private Team team;
     private People people;
+    private List<String> sources;
 
     @Override
     public void buildResponse() throws RequestException {
