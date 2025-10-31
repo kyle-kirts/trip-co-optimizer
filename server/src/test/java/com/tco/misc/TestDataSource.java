@@ -7,34 +7,64 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class TestDataSource {
-@Test
-@DisplayName("jsibold: Validate DataSource.near() returns an empty Places object placeholder")
-public void testNearReturnsEmptyPlaces() {
-    DataSource dataSource = new DataSource() {};
+    @Test
+    @DisplayName("jsibold: Validate DataSource.near() returns an empty Places object placeholder")
+    public void testNearReturnsEmptyPlaces() {
+        DataSource dataSource = new DataSource() {};
 
-    Place place = new Place();
-    double distance = 100.0;
-    long earthRadius = Long.MAX_VALUE;
-    String formula = "vincenty";
-    int limit = 5;
+        Place place = new Place();
+        double distance = 100.0;
+        long earthRadius = Long.MAX_VALUE;
+        String formula = "vincenty";
+        int limit = 5;
 
-    Places result = dataSource.near(place, distance, earthRadius, formula, limit);
+        Places result = dataSource.near(place, distance, earthRadius, formula, limit);
 
-    assertNotNull(result);
-    assertEquals(0, result.size());
-}
-@Test
-@DisplayName("jsibold: Validate DataSource.distance() returns an empty distances object placeholder")
-public void testDistancesReturnsEmptyDistances() {
-    DataSource dataSource = new DataSource() {};
+        assertNotNull(result);
+        assertEquals(0, result.size());
+    }
 
-    Place place = new Place();
-    Places places = new Places();
+    @Test
+    @DisplayName("jsibold: Validate DataSource.distance() returns an empty distances object placeholder")
+    public void testDistancesReturnsEmptyDistances() {
+        DataSource dataSource = new DataSource() {};
 
-    Distances result = dataSource.distances(place, places);
+        Place place = new Place();
+        Places places = new Places();
 
-    assertNotNull(result);
-    assertEquals(0, result.size());
-}   
+        Distances result = dataSource.distances(place, places, 6371, "vincenty");
+
+        assertNotNull(result);
+        assertEquals(0, result.size());
+    }   
+
+    @Test
+    @DisplayName("vercauteren: Validate distances expected length and output")
+    public void testDistancesLength() {
+        DataSource ds = new DataSource() {};
+        Place origin = new Place("0.0","0.0");
+        Places places = new Places();
+
+        places.add(new Place("1.0","0.0"));
+        places.add(new Place("2.0", "0.0"));
+
+        Distances result = ds.distances(origin, places, 57, "vincenty");
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    @DisplayName("vercauteren: Validate distances expected length and output")
+    public void testDistancesOutput() {
+        DataSource ds = new DataSource() {};
+        Place origin = new Place("0.0","0.0");
+        Places places = new Places();
+
+        places.add(new Place("1.0","0.0"));
+        places.add(new Place("2.0", "0.0"));
+
+        Distances result = ds.distances(origin, places, 57, "vincenty");
+        assertEquals(1, result.get(0));
+        assertEquals(2, result.get(1));
+    }
 }
     
