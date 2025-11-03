@@ -1,5 +1,6 @@
 package com.tco.misc;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -70,14 +71,22 @@ public class TestDataSource {
     @Test
     @DisplayName("schlicting: Validate select() method runs without error")
     public void testSelectRunsWithoutError() {
-        DataSource ds = new DataSource() {};
-        ds.select();
+        DataSource datasource = new DataSource() {};
+        datasource.select();
+        assertEquals(datasource, datasource);
+        assertDoesNotThrow(() -> {
+            datasource.select();
+        });
     }
 
     @Test
     @DisplayName("schlicting: Validate convert() method runs without error")
     public void testConvertRunsWithoutError() {
-        DataSource ds = new DataSource() {};
-        ds.convert();
+        DataSource datasource = new DataSource() {};
+        datasource.convert();
+        assertEquals(datasource, datasource);
+        assertDoesNotThrow(() -> {
+            datasource.convert();
+        });
     }
 }
