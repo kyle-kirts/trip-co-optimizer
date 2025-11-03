@@ -66,5 +66,18 @@ public class TestDataSource {
         assertEquals(1, result.get(0));
         assertEquals(2, result.get(1));
     }
+
+    @Test
+    @DisplayName("schlicting: Validate select() method runs without error")
+    public void testSelectRunsWithoutError() {
+        DataSource ds = new DataSource() {};
+        ds.select();
+    }
+
+    @Test
+    @DisplayName("schlicting: Validate convert() method runs without error")
+    public void testConvertRunsWithoutError() {
+        DataSource ds = new DataSource() {};
+        ds.convert();
+    }
 }
-    
