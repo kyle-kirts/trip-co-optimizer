@@ -15,6 +15,9 @@ public abstract class DataSource {
         return allDistances;
     }
 
+    public void initialize() {
+    }
+
     public void select() {
     }
 
