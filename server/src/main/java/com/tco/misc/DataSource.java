@@ -17,4 +17,7 @@ public abstract class DataSource {
 
     public void select() {
     }
+
+    public void convert() {
+    }
 }
