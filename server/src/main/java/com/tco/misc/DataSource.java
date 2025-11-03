@@ -13,7 +13,7 @@ public abstract class DataSource {
     public Places near(Place place, double distance, long earthRadius, String formula, int limit) {
         results = new Places();
         try {
-            
+
             initialize();
             select();
             convert();
@@ -38,7 +38,6 @@ public abstract class DataSource {
     }
 
     public void initialize() {
-
     }
 
     public void select() {
@@ -48,6 +47,4 @@ public abstract class DataSource {
     public void convert() {
 
     }
-
-
 }

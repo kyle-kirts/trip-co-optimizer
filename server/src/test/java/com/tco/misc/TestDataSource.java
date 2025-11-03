@@ -91,6 +91,15 @@ public class TestDataSource {
     }
 
     @Test
+    @DisplayName("luzovich: Default initialize() does not throw an error when called")
+    public void testEmptyInitializeCall() {
+        DataSource datasource = new DataSource() {};
+        assertDoesNotThrow(() -> {
+            datasource.initialize();
+        });
+    }
+
+    @Test
     @DisplayName("schlicting: Validate near() method runs without error")
     public void testNearRunsWithoutError() {
         DataSource datasource = new DataSource() {};
