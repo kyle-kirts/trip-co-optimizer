@@ -89,4 +89,15 @@ public class TestDataSource {
             datasource.convert();
         });
     }
+
+    @Test
+    @DisplayName("schlicting: Validate near() method runs without error")
+    public void testNearRunsWithoutError() {
+        DataSource datasource = new DataSource() {};
+        datasource.near(new Place(), 100.0, 6371, "vincenty", 5);
+        assertEquals(datasource, datasource);
+        assertDoesNotThrow(() -> {
+            datasource.near(new Place(), 100.0, 6371, "vincenty", 5);
+        });
+    }
 }
