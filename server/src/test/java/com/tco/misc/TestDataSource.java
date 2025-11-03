@@ -89,4 +89,13 @@ public class TestDataSource {
             datasource.convert();
         });
     }
+
+    @Test
+    @DisplayName("luzovich: Default initialize() does not throw an error when called")
+    public void testEmptyInitializeCall() {
+        DataSource datasource = new DataSource() {};
+        assertDoesNotThrow(() -> {
+            datasource.initialize();
+        });
+    }
 }
