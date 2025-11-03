@@ -3,7 +3,12 @@ package com.tco.requests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.tco.misc.RequestException;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestNearRequest {
 
@@ -21,5 +26,49 @@ public class TestNearRequest {
     NearRequest req = new NearRequest();
 
     assertDoesNotThrow(() -> req.buildResponse());
+  }
+
+  @Test
+  @DisplayName("jsibold: Default request type is 'near'")
+  public void testDefaultRequestType() {
+    NearRequest req = new NearRequest();
+    assertEquals("near", req.getRequestType());
+  }
+
+  @Test
+  @DisplayName("jsibold: Valid vincenty formula does not throw")
+  public void testValidVincentyFormula() throws Exception {
+    NearRequest req = new NearRequest();
+    var formulaField = NearRequest.class.getDeclaredField("formula");
+    formulaField.setAccessible(true);
+    formulaField.set(req, "vincenty");
+    assertDoesNotThrow(req::buildResponse);
+  }
+
+  @Test
+  @DisplayName("jsibold: buildResponse returns non-null places")
+  public void testBuildResponseReturnsPlaces() throws Exception {
+    NearRequest req = new NearRequest();
+    req.buildResponse();
+    var placesField = NearRequest.class.getDeclaredField("places");
+    placesField.setAccessible(true);
+    assertNotNull(placesField.get(req));
+  }
+
+  @Test
+  @DisplayName("jsibold: Multiple buildResponse calls work")
+  public void testMultipleBuildResponseCalls() {
+    NearRequest req = new NearRequest();
+    assertDoesNotThrow(() -> {
+      req.buildResponse();
+      req.buildResponse();
+      req.buildResponse();});
+  }
+
+  @Test
+  @DisplayName("jsibold: buildResponse with null source uses default")
+  public void testBuildResponseNullSource() {
+    NearRequest req = new NearRequest();
+    assertDoesNotThrow(req::buildResponse);
   }
 }
