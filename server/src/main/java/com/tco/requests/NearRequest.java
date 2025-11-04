@@ -38,7 +38,7 @@ public class NearRequest extends Request {
       if (formulaWasProvided && !formulaIsSupported) {
         throw new RequestException();
       }
-      boolean sourceWasProvided = (this.source != null);
+      boolean sourceWasProvided = this.source != null;
       boolean sourceIsSupported =
       SourceFactory.getSupportedSources().contains(this.source);
 
