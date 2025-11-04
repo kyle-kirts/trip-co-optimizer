@@ -46,6 +46,37 @@ public class TestNearRequest {
   }
 
   @Test
+  @DisplayName("jsibold: Invalid formula throws RequestException")
+  public void testInvalidFormulaThrowsException() throws Exception {
+    NearRequest req = new NearRequest();
+    var formulaField = NearRequest.class.getDeclaredField("formula");
+    formulaField.setAccessible(true);
+    formulaField.set(req, "invalidFormula");
+    assertThrows(RequestException.class, req::buildResponse);
+  }
+
+  @Test
+  @DisplayName("jsibold: Invalid source throws RequestException")
+  public void testInvalidSourceThrowsException() throws Exception {
+    NearRequest req = new NearRequest();
+    var sourceField = NearRequest.class.getDeclaredField("source");
+    sourceField.setAccessible(true);
+    sourceField.set(req, "invalidSource");
+    assertThrows(RequestException.class, req::buildResponse);
+  }
+  
+  @Test
+  @DisplayName("jsibold: buildResponse with 'airports' source runs without error")
+  public void testValidAirportsSource() throws Exception {
+    NearRequest req = new NearRequest();
+    var sourceField = NearRequest.class.getDeclaredField("source");
+    sourceField.setAccessible(true);
+    sourceField.set(req, "airports");
+    assertDoesNotThrow(req::buildResponse);
+  }
+
+
+  @Test
   @DisplayName("jsibold: buildResponse returns non-null places")
   public void testBuildResponseReturnsPlaces() throws Exception {
     NearRequest req = new NearRequest();
