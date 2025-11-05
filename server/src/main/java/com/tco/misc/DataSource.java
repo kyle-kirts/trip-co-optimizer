@@ -3,9 +3,6 @@ package com.tco.misc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-
 public abstract class DataSource {
 
     private static final transient Logger log = LoggerFactory.getLogger(DataSource.class);
@@ -13,12 +10,10 @@ public abstract class DataSource {
     protected Places results;
 
     public Places near(Place place, double distance, long earthRadius, String formula, int limit) throws Exception {
-        try (
-            MongoClient mongoClient = MongoClients.create(Credential.URL)
-            ) {
+        try {
 
             initialize();
-            select();
+            select(place, distance, earthRadius);
             convert();
 
             if (results == null) {
@@ -43,21 +38,12 @@ public abstract class DataSource {
     public void initialize() {
     }
 
-    public void select() {
+    public void select(Place place, double distance, long earthRadius) {
 
     }
 
-    public void convert() {
-
-    }
-
-    static class Credential {
-        static final int PORT = 27017;
-        // shared user with read-only access
-        static final String USER = "cs314-db";
-        static final String PASSWORD = "REDACTED";
-
-        static final String URL = String.format("mongodb://%s:%s@black-bottle:%d/?authSource=cs314", USER, PASSWORD, PORT);
+    public Places convert() {
+        return new Places();
     }
 
 }
