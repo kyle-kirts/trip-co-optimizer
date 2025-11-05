@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "base: correct status Copy",
+			"name": "luzovich: correct status",
 			"event": [
 				{
 					"listen": "test",
@@ -19,7 +19,9 @@
 							"});",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
 					}
 				}
 			],
@@ -32,7 +34,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"requestType\": \"find\",\n    \"match\": \"denver\",\n    \"limit\": 1\n}",
+					"raw": "{\n    \"requestType\": \"near\",\n    \"place\": {\n        \"latitude\": \"0.0\",\n        \"longitude\": \"0.0\"\n    },\n    \"earthRadius\": 1,\n    \"distance\": 1,\n    \"limit\": 1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -40,13 +42,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/find",
+					"raw": "{{BASE_URL}}/api/near",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
-						"find"
+						"near"
 					]
 				}
 			},
