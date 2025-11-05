@@ -12,7 +12,7 @@ import org.bson.Document;
 public class TestDataSource {
     @Test
     @DisplayName("jsibold: Validate DataSource.near() returns an empty Places object placeholder")
-    public void testNearReturnsEmptyPlaces() {
+    public void testNearReturnsEmptyPlaces() throws Exception {
         DataSource dataSource = new DataSource() {};
 
         Place place = new Place();
@@ -74,10 +74,10 @@ public class TestDataSource {
     @DisplayName("schlicting: Validate select() method runs without error")
     public void testSelectRunsWithoutError() {
         DataSource datasource = new DataSource() {};
-        datasource.select();
+        datasource.select(new Place(), 100.0, 6371);
         assertEquals(datasource, datasource);
         assertDoesNotThrow(() -> {
-            datasource.select();
+            datasource.select(new Place(), 100.0, 6371);
         });
     }
 
@@ -97,13 +97,13 @@ public class TestDataSource {
     public void testEmptyInitializeCall() {
         DataSource datasource = new DataSource() {};
         assertDoesNotThrow(() -> {
-            datasource.initialize(null);
+            datasource.initialize();
         });
     }
 
     @Test
     @DisplayName("schlicting: Validate near() method runs without error")
-    public void testNearRunsWithoutError() {
+    public void testNearRunsWithoutError() throws Exception {
         DataSource datasource = new DataSource() {};
         datasource.near(new Place(), 100.0, 6371, "vincenty", 5);
         assertEquals(datasource, datasource);
@@ -116,11 +116,10 @@ public class TestDataSource {
     @DisplayName("schlicting: Validate initialize() method runs without error")
     public void testInitializeRunsWithoutError() {
         DataSource datasource = new DataSource() {};
-        MongoIterable<Document> results = null;
-        datasource.initialize(results);
+        datasource.initialize();
         assertEquals(datasource, datasource);
         assertDoesNotThrow(() -> {
-            datasource.initialize(results);
+            datasource.initialize();
         });
     }
 }

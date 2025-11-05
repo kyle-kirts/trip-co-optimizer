@@ -1,5 +1,8 @@
 package com.tco.misc;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class SourceFactory{
     
     public static DataSource get(String source) {
@@ -14,4 +17,9 @@ public class SourceFactory{
 
         return dataSource;
     }
+
+    public static List<String> getSupportedSources() {
+        return Arrays.asList("cities", "airports");
+    }
+
 }
