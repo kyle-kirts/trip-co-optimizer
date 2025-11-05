@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class TestDataSource {
     @Test
     @DisplayName("jsibold: Validate DataSource.near() returns an empty Places object placeholder")
-    public void testNearReturnsEmptyPlaces() {
+    public void testNearReturnsEmptyPlaces() throws Exception {
         DataSource dataSource = new DataSource() {};
 
         Place place = new Place();
@@ -101,7 +101,7 @@ public class TestDataSource {
 
     @Test
     @DisplayName("schlicting: Validate near() method runs without error")
-    public void testNearRunsWithoutError() {
+    public void testNearRunsWithoutError() throws Exception {
         DataSource datasource = new DataSource() {};
         datasource.near(new Place(), 100.0, 6371, "vincenty", 5);
         assertEquals(datasource, datasource);

@@ -3,16 +3,19 @@ package com.tco.misc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+
 public abstract class DataSource {
 
-        private static final transient Logger log = LoggerFactory.getLogger(DataSource.class);
-
+    private static final transient Logger log = LoggerFactory.getLogger(DataSource.class);
 
     protected Places results;
 
-    public Places near(Place place, double distance, long earthRadius, String formula, int limit) {
-        results = new Places();
-        try {
+    public Places near(Place place, double distance, long earthRadius, String formula, int limit) throws Exception {
+        try (
+            MongoClient mongoClient = MongoClients.create(Credential.URL)
+            ) {
 
             initialize();
             select();
@@ -23,7 +26,7 @@ public abstract class DataSource {
             }
         } catch (Exception e) {
             log.warn("near() failed returning empty list: {}", e.toString());
-            results = new Places();
+           throw e;
         }
         return results;
     }
@@ -47,4 +50,14 @@ public abstract class DataSource {
     public void convert() {
 
     }
+
+    static class Credential {
+        static final int PORT = 27017;
+        // shared user with read-only access
+        static final String USER = "cs314-db";
+        static final String PASSWORD = "REDACTED";
+
+        static final String URL = String.format("mongodb://%s:%s@black-bottle:%d/?authSource=cs314", USER, PASSWORD, PORT);
+    }
+
 }
