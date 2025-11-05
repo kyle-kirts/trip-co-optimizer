@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import org.bson.Document;
+
 public class TestDataSource {
     @Test
     @DisplayName("jsibold: Validate DataSource.near() returns an empty Places object placeholder")
@@ -95,7 +97,7 @@ public class TestDataSource {
     public void testEmptyInitializeCall() {
         DataSource datasource = new DataSource() {};
         assertDoesNotThrow(() -> {
-            datasource.initialize();
+            datasource.initialize(null);
         });
     }
 
@@ -107,6 +109,18 @@ public class TestDataSource {
         assertEquals(datasource, datasource);
         assertDoesNotThrow(() -> {
             datasource.near(new Place(), 100.0, 6371, "vincenty", 5);
+        });
+    }
+
+    @Test
+    @DisplayName("schlicting: Validate initialize() method runs without error")
+    public void testInitializeRunsWithoutError() {
+        DataSource datasource = new DataSource() {};
+        MongoIterable<Document> results = null;
+        datasource.initialize(results);
+        assertEquals(datasource, datasource);
+        assertDoesNotThrow(() -> {
+            datasource.initialize(results);
         });
     }
 }
