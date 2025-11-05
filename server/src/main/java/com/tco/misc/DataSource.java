@@ -3,27 +3,28 @@ package com.tco.misc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
-
 import org.bson.Document;
 
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoIterable;
 
 public abstract class DataSource {
 
+    MongoCollection<Document> collection;
+    FindIterable<Document> selectResults;
+
     private static final transient Logger log = LoggerFactory.getLogger(DataSource.class);
-    private static final String DATABASE = "cs314";
 
     protected Places results;
 
-    public Places near(Place place, double distance, long earthRadius, String formula, int limit) {
-        results = new Places();
+    public Places near(Place place, double distance, long earthRadius, String formula, int limit) throws Exception {
         try {
 
-            initialize(null);
-            select();
+            initialize();
+            select(place, distance, earthRadius);
             convert();
 
             if (results == null) {
@@ -31,7 +32,7 @@ public abstract class DataSource {
             }
         } catch (Exception e) {
             log.warn("near() failed returning empty list: {}", e.toString());
-            results = new Places();
+           throw e;
         }
         return results;
     }
@@ -44,16 +45,29 @@ public abstract class DataSource {
         }
         return allDistances;
     }
-    //So now when a citySource calls “initialize” it runs mongodb specific code and/or returns an appropriate object.
-    public Places initialize(MongoIterable<Document> results) {
-        MongoDatabase database = mongoClient.getDatabse(DATABASE);
-        MongoCollection<Document> collection = database.getCollection(COLLECTION);
+    
+    // @Override to be added later
+    public void initialize() {
+        MongoClient mongoClient = MongoClients.create(Credential.URL);
+        MongoDatabase database = mongoClient.getDatabase("cs314");
+        this.collection = database.getCollection("cities");
     }
 
-    public void select() {
-        // initialize should be called from inside a try catch block here.
+    public void select(Place place, double distance, long earthRadius) {
+
     }
 
-    public void convert() {
+    public Places convert() {
+        return new Places();
     }
+
+    static class Credential {
+        static final int PORT = 27017;
+        // shared user with read-only access
+        static final String USER = "cs314-db";
+        static final String PASSWORD = "REDACTED";
+
+        static final String URL = String.format("mongodb://%s:%s@black-bottle:%d/?authSource=cs314", USER, PASSWORD, PORT);
+    }
+
 }
