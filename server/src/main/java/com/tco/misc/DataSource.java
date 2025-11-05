@@ -2,7 +2,7 @@ package com.tco.misc;
 
 public abstract class DataSource {
 
-    public Places near(Place place, double distance, long earthRadius, String formula, int limit) {
+    public Places near(Place place, Integer distance, Double earthRadius, String formula, Integer limit) {
         return new Places();
     }
     
