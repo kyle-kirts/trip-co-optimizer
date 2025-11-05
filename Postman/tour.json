@@ -177,6 +177,233 @@
 			"response": []
 		},
 		{
+			"name": "kyle-kirts: 0 Places",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90289002-8c3c-41c8-850b-0edd1ff50969",
+						"exec": [
+							"json = pm.response.json()",
+							"pm.test(\"empty places returns empty places\", () => {pm.expect(json.places).to.eql([]);});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "402c5b05-d3cd-4794-830d-fe3a99833306",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"requestType\": \"tour\",\n  \"places\": [],\n  \"earthRadius\": 77777.0,\n  \"response\": 0.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kyle-kirts: Validate Response Schema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "206ecad7-dd29-44e5-b33e-e07d3cef0ef5",
+						"exec": [
+							"// Schema test template taken from Postman Documentation",
+							"var schema = {",
+							"  \"$id\": \"https://example.com/address.schema.json\",",
+							"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+							"  \"title\": \"tour\",",
+							"  \"description\": \"tour request/response\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"requestType\": {",
+							"      \"description\":\"the TIP object type should be tour\",",
+							"      \"type\":\"string\",",
+							"      \"pattern\":\"^tour$\"",
+							"    },",
+							"    \"earthRadius\": {",
+							"      \"description\":\"the radius of the earth in some unit of measure\",",
+							"      \"type\":\"number\",",
+							"      \"minimum\":1",
+							"    },",
+							"    \"response\": {",
+							"      \"description\": \"the maximum response time\",",
+							"      \"type\": \"number\",",
+							"      \"minimum\": 0",
+							"    },",
+							"    \"formula\":{",
+							"      \"description\":\"a formula included in the formulae property of the config response.\",",
+							"      \"type\":\"string\",",
+							"      \"minimum\":1",
+							"    },",
+							"    \"places\": {",
+							"      \"description\": \"a list of places\",",
+							"      \"type\":\"array\",",
+							"      \"items\": {",
+							"        \"type\":\"object\",",
+							"        \"properties\": {",
+							"          \"latitude\": {",
+							"            \"type\":\"string\",",
+							"            \"pattern\":\"^[-+]?(?:90(?:(?:\\\\.0+)?)|(?:[0-9]|[1-8][0-9])(?:(?:\\\\.[0-9]+)?))$\"",
+							"          },",
+							"          \"longitude\": {",
+							"            \"type\":\"string\",",
+							"            \"pattern\":\"^[-+]?(?:180(?:(?:\\\\.0+)?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\\\.[0-9]+)?))$\"",
+							"          }",
+							"        },",
+							"        \"required\": [\"latitude\",\"longitude\"],",
+							"        \"additionalProperties\": { \"type\": \"string\" }",
+							"      },",
+							"      \"minitems\": 0",
+							"    }",
+							"  },",
+							"  \"required\":[\"requestType\", \"earthRadius\", \"response\", \"places\"],",
+							"  \"additionalProperties\": false",
+							"};",
+							"",
+							"pm.test('Schema validation', () => {",
+							"  pm.response.to.have.jsonSchema (schema);",
+							"});",
+							"",
+							"var data = pm.response.json();",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"pm.expect(tv4.validate(data, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "f22d457c-7b08-4d45-8585-9ddd9b2f39f3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"tour\",\n    \"places\":[\n        {\"name\":\"Colorado State University\",\"streetAddress\":\"Laporte Avenue\",\"latitude\":\"40.56866728750875\",\"longitude\":\"-105.08491516113283\",\"municipality\":\"Fort Collins\",\"region\":\"Colorado\",\"country\":\"United States\",\"postcode\":\"80521\",\"defaultDisplayName\":\"Colorado State University\"},\n        {\"streetAddress\":\"\",\"latitude\":\"43.88443273873905\",\"longitude\":\"-92.74658203125001\",\"municipality\":\"Vernon\",\"region\":\"Minnesota\",\"country\":\"United States\",\"defaultDisplayName\":\"Vernon\"},\n        {\"streetAddress\":\"\",\"latitude\":\"40.932605139424034\",\"longitude\":\"-105.20507812500001\",\"municipality\":\"Larimer County\",\"region\":\"Colorado\",\"country\":\"United States\",\"defaultDisplayName\":\"Larimer County\"},\n        {\"streetAddress\":\"\",\"latitude\":\"41.09839573135967\",\"longitude\":\"-105.908203125\",\"municipality\":\"Albany County\",\"region\":\"Wyoming\",\"country\":\"United States\",\"defaultDisplayName\":\"Albany County\"}\n    ],\n    \"earthRadius\": 6371.0,\n    \"response\": 0.99\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kyle-kirts: 4 Places Optimized With NN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "358e724c-6162-4994-83c1-51d113616f6d",
+						"exec": [
+							"json = pm.response.json()",
+							"pm.test(\"4 Places correct NN optimization\", () => {pm.expect(json.places).to.eql([",
+							"    {",
+							"            \"country\": \"United States\",",
+							"            \"streetAddress\": \"\",",
+							"            \"defaultDisplayName\": \"Albany County\",",
+							"            \"latitude\": \"41.09839573135967\",",
+							"            \"municipality\": \"Albany County\",",
+							"            \"region\": \"Wyoming\",",
+							"            \"longitude\": \"-105.908203125\"",
+							"        },",
+							"        {",
+							"            \"country\": \"United States\",",
+							"            \"streetAddress\": \"\",",
+							"            \"defaultDisplayName\": \"Larimer County\",",
+							"            \"latitude\": \"40.932605139424034\",",
+							"            \"municipality\": \"Larimer County\",",
+							"            \"region\": \"Colorado\",",
+							"            \"longitude\": \"-105.20507812500001\"",
+							"        },",
+							"        {",
+							"            \"country\": \"United States\",",
+							"            \"streetAddress\": \"Laporte Avenue\",",
+							"            \"defaultDisplayName\": \"Colorado State University\",",
+							"            \"latitude\": \"40.56866728750875\",",
+							"            \"name\": \"Colorado State University\",",
+							"            \"municipality\": \"Fort Collins\",",
+							"            \"postcode\": \"80521\",",
+							"            \"region\": \"Colorado\",",
+							"            \"longitude\": \"-105.08491516113283\"",
+							"        },",
+							"        {",
+							"            \"country\": \"United States\",",
+							"            \"streetAddress\": \"\",",
+							"            \"defaultDisplayName\": \"Vernon\",",
+							"            \"latitude\": \"43.88443273873905\",",
+							"            \"municipality\": \"Vernon\",",
+							"            \"region\": \"Minnesota\",",
+							"            \"longitude\": \"-92.74658203125001\"",
+							"        }",
+							"        ]);});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "f09eb608-884a-4f8b-9507-2d77d99fcea6",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"tour\",\n    \"places\":[\n        {\"name\":\"Colorado State University\",\"streetAddress\":\"Laporte Avenue\",\"latitude\":\"40.56866728750875\",\"longitude\":\"-105.08491516113283\",\"municipality\":\"Fort Collins\",\"region\":\"Colorado\",\"country\":\"United States\",\"postcode\":\"80521\",\"defaultDisplayName\":\"Colorado State University\"},\n        {\"streetAddress\":\"\",\"latitude\":\"43.88443273873905\",\"longitude\":\"-92.74658203125001\",\"municipality\":\"Vernon\",\"region\":\"Minnesota\",\"country\":\"United States\",\"defaultDisplayName\":\"Vernon\"},\n        {\"streetAddress\":\"\",\"latitude\":\"40.932605139424034\",\"longitude\":\"-105.20507812500001\",\"municipality\":\"Larimer County\",\"region\":\"Colorado\",\"country\":\"United States\",\"defaultDisplayName\":\"Larimer County\"},\n        {\"streetAddress\":\"\",\"latitude\":\"41.09839573135967\",\"longitude\":\"-105.908203125\",\"municipality\":\"Albany County\",\"region\":\"Wyoming\",\"country\":\"United States\",\"defaultDisplayName\":\"Albany County\"}\n    ],\n    \"earthRadius\": 6371.0,\n    \"response\": 0.99\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "vercauteren: One-Opt when 4",
 			"event": [
 				{
@@ -241,8 +468,8 @@
 							"});",
 							"",
 							"pm.test('Places is different', () => {",
-								"console.log(JSON.parse(pm.request.body.raw).places);",
-    							"pm.expect(pm.response.json().places).to.eql(JSON.parse(pm.request.body.raw).places);",
+							"console.log(JSON.parse(pm.request.body.raw).places);",
+							"pm.expect(pm.response.json().places).to.eql(JSON.parse(pm.request.body.raw).places);",
 							"});",
 							""
 						],
