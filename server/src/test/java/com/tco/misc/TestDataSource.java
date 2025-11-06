@@ -14,10 +14,10 @@ public class TestDataSource {
         DataSource dataSource = new DataSource() {};
 
         Place place = new Place();
-        double distance = 100.0;
-        long earthRadius = Long.MAX_VALUE;
+        Integer distance = 100;
+        Double earthRadius = Double.MAX_VALUE;
         String formula = "vincenty";
-        int limit = 5;
+        Integer limit = 5;
 
         Places result = dataSource.near(place, distance, earthRadius, formula, limit);
 
