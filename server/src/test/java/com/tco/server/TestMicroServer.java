@@ -132,4 +132,20 @@ public class TestMicroServer {
         HttpResponse response = postRequest("/api/tour", requestBodyJSON);
         assertEquals(200, response.getStatusLine().getStatusCode());
     }
+
+    @Test
+    @DisplayName("luzovich: Valid near request succeeds with 200 status")
+    public void testValidNearRequest() throws IOException {
+        String requestBodyJSON = new JSONObject()
+            .put("requestType", "near")
+            .put("place", new JSONObject()
+                .put("latitude", "0.0")
+                .put("longitude", "0.0"))
+            .put("earthRadius", 1)
+            .put("distance", 1)
+            .put("limit", 1)
+            .toString();
+        HttpResponse response = postRequest("/api/near", requestBodyJSON);
+        assertEquals(200, response.getStatusLine().getStatusCode());
+    }
 }
