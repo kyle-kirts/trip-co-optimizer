@@ -75,21 +75,19 @@ public abstract class TourOptimizer {
         this.visited[nextPlace] = true;
         index++;
         
-        while(!allVisited())
+        int visitedCount = 1;
+
+        while(visitedCount < visited.length)
         {
             nextPlace = closest(nextPlace);
             this.order[index] = nextPlace;
             this.visited[nextPlace] = true;
             index++;
+            visitedCount++;
         }
         return order;
     }
 
-    public boolean allVisited()
-    {
-        for(boolean v:visited) if(v == false) return false;
-        return true;
-    }
 
     public int closest(int next) {
         int best = -1;
