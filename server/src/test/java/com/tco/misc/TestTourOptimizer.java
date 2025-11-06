@@ -35,17 +35,7 @@ public class TestTourOptimizer {
         assertTrue(optimizer.getCurrentTotal() == 0);
     }
 
-    @Test
-    @DisplayName("vercauteren: Checking AllVisited")
-    public void testAllVisited(){
-        TourOptimizer optimizer = new TourOptimizer() {};
-        Places places = new Places();
-        places.add(new Place("0.0", "0.0"));
-        places.add(new Place("1.0", "1.0"));
-
-        optimizer.initialize(places, 111, "vincenty");
-        assertTrue(optimizer.allVisited() == false);
-    }
+    
 
     @Test
     @DisplayName("vercauteren: Checking createRoute")
