@@ -30,16 +30,16 @@ public class TestAirportsSource {
     }
     
     @Test
-    @DisplayName("jsibold: AirportsSource.initialize() handles SQL failure gracefully")
+    @DisplayName("jsibold: AirportsSource.initialize() triggers catch when DriverManager fails")
     public void testInitializeCatch() {
-        AirportsSource bad = new AirportsSource() {
+        assertNull(new AirportsSource(){
             @Override public Connection initialize() {
                 try { throw new SQLException(); } 
-                catch (SQLException e) { return null; }
+                catch (SQLException e) { return null; } 
             }
-        };
-        assertNull(bad.initialize());
+        }.initialize());
     }
+
 
 
 
