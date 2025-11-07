@@ -46,10 +46,6 @@ public class NearRequest extends Request {
         throw new RequestException();
     }
       DataSource dataSource = SourceFactory.get(this.source);
-      try {
-        this.places = dataSource.near(this.place, this.distance.doubleValue(), this.earthRadius.longValue(), this.formula, this.limit);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+      this.places = dataSource.near(this.place, this.distance, this.earthRadius, this.formula, this.limit);
   }
 }

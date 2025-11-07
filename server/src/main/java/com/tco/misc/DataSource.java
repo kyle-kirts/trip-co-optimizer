@@ -1,11 +1,9 @@
 package com.tco.misc;
 
+import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.bson.Document;
-
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -13,12 +11,11 @@ import com.mongodb.client.MongoDatabase;
 
 public abstract class DataSource {
 
-    MongoCollection<Document> collection;
-    FindIterable<Document> selectResults;
-
     private static final transient Logger log = LoggerFactory.getLogger(DataSource.class);
 
     protected Places results;
+
+    private MongoCollection<Document> collection;
 
     public Places near(Place place, double distance, long earthRadius, String formula, int limit) throws Exception {
         try {
@@ -35,6 +32,10 @@ public abstract class DataSource {
            throw e;
         }
         return results;
+    }
+
+    public Places near(Place place, Integer distance, Double earthRadius, String formula, Integer limit) {
+        return new Places();
     }
     
     public Distances distances(Place place, Places places, long earthRadius, String formula) {
