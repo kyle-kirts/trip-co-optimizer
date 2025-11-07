@@ -30,15 +30,18 @@ public class TestAirportsSource {
     }
     
     @Test
-    @DisplayName("jsibold: AirportsSource.initialize() handles SQLException gracefully")
+    @DisplayName("jsibold: AirportsSource.initialize() handles SQL failure gracefully")
     public void testInitializeCatch() {
-    assertNull(new AirportsSource() {
-        @Override public Connection initialize() {
-            try { throw new SQLException(); } 
-            catch (SQLException e) { return null; }
-        }
-    }.initialize());
+        AirportsSource bad = new AirportsSource() {
+            @Override public Connection initialize() {
+                try { throw new SQLException(); } 
+                catch (SQLException e) { return null; }
+            }
+        };
+        assertNull(bad.initialize());
     }
+
+
 
 
     @Test
