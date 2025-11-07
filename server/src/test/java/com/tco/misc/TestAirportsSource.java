@@ -28,16 +28,15 @@ public class TestAirportsSource {
         
         assertDoesNotThrow(() -> src.initialize(), "initialize() should not throw even if DB is unreachable");
     }
+
     @Test
-    @DisplayName("jsibold: AirportsSource.initialize() handles SQLException gracefully")
+    @DisplayName("jsibold: AirportsSource.initialize() handles SQL failure gracefully")
     public void testInitializeCatch() {
-    assertNull(new AirportsSource() {
-        @Override public Connection initialize() {
-            try { throw new SQLException(); } 
-            catch (SQLException e) { return null; }
-        }
-    }.initialize());
-}
+        AirportsSource src = new AirportsSource();
+        System.setProperty("mariadb.url", "jdbc:mariadb://invalid:3306/cs314");
+        Connection conn = src.initialize();
+        assertNull(conn);
+    }
 
 
     @Test
