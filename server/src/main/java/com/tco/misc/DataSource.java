@@ -1,5 +1,7 @@
 package com.tco.misc;
 
+import java.sql.Connection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +41,8 @@ public abstract class DataSource {
         return allDistances;
     }
 
-    public void initialize() {
+    public Connection initialize() {
+        return null;
     }
 
     public void select(Place place, double distance, long earthRadius) {
