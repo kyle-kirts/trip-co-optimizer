@@ -41,8 +41,7 @@ public abstract class DataSource {
         return allDistances;
     }
 
-    public Connection initialize() {
-        return null;
+    public void initialize() {
     }
 
     public void select(Place place, double distance, long earthRadius) {
