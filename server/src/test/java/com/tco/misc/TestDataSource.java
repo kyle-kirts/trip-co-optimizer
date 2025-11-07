@@ -72,10 +72,10 @@ public class TestDataSource {
     @DisplayName("schlicting: Validate select() method runs without error")
     public void testSelectRunsWithoutError() {
         DataSource datasource = new DataSource() {};
-        datasource.select();
+        datasource.select(new Place(), 100.0, 6371);
         assertEquals(datasource, datasource);
         assertDoesNotThrow(() -> {
-            datasource.select();
+            datasource.select(new Place(), 100.0, 6371);
         });
     }
 
@@ -96,6 +96,17 @@ public class TestDataSource {
         DataSource datasource = new DataSource() {};
         assertDoesNotThrow(() -> {
             datasource.initialize();
+        });
+    }
+
+    @Test
+    @DisplayName("schlicting: Validate near() method runs without error")
+    public void testNearRunsWithoutError() throws Exception {
+        DataSource datasource = new DataSource() {};
+        datasource.near(new Place(), 100.0, 6371, "vincenty", 5);
+        assertEquals(datasource, datasource);
+        assertDoesNotThrow(() -> {
+            datasource.near(new Place(), 100.0, 6371, "vincenty", 5);
         });
     }
 }
