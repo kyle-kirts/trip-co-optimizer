@@ -9,7 +9,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public class TestAirportsSource {
     
@@ -28,16 +27,40 @@ public class TestAirportsSource {
         
         assertDoesNotThrow(() -> src.initialize(), "initialize() should not throw even if DB is unreachable");
     }
-    
     @Test
-    @DisplayName("jsibold: AirportsSource.initialize() triggers catch when DriverManager fails")
-    public void testInitializeCatch() {
-        assertNull(new AirportsSource(){
-            @Override public Connection initialize() {
-                try { throw new SQLException(); } 
-                catch (SQLException e) { return null; } 
+    @DisplayName("jsibold: AirportsSource.initialize() returns null when SQLException occurs")
+    public void testInitializeReturnsNullOnSQLException() {
+        String originalUrl = System.getProperty("mariadb.url");
+        try {
+            System.setProperty("mariadb.url", "jdbc:mariadb://invalid-host-that-does-not-exist:9999/invalid");
+            AirportsSource src = new AirportsSource();
+            Connection conn = src.initialize();
+            assertNull(conn, "Connection should be null when SQLException is thrown");
+        } finally {
+            if (originalUrl != null) {
+                System.setProperty("mariadb.url", originalUrl);
+            } else {
+                System.clearProperty("mariadb.url");
             }
-        }.initialize());
+        }
+    }
+
+    @Test
+    @DisplayName("jsibold: AirportsSource.initialize() catches SQLException with malformed URL")
+    public void testInitializeCatchesMalformedURL() {
+        String originalUrl = System.getProperty("mariadb.url");
+        try {
+            System.setProperty("mariadb.url", "not-a-valid-jdbc-url");
+            AirportsSource src = new AirportsSource();
+            Connection conn = src.initialize();
+            assertNull(conn, "Connection should be null with malformed URL");
+        } finally {
+            if (originalUrl != null) {
+                System.setProperty("mariadb.url", originalUrl);
+            } else {
+                System.clearProperty("mariadb.url");
+            }
+        }
     }
 
 
