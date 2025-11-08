@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.tco.misc.CalculatorFactory;
+import com.tco.misc.SourceFactory;
 import com.tco.misc.InternalRequestException;
 import com.tco.misc.JSONReader;
 import com.tco.misc.RequestException;
@@ -30,6 +31,7 @@ public class ConfigRequest extends Request {
         processAboutFile();
         features = listFeatures();
         formulae = listFormulae();
+        sources = listSources();
         log.trace("buildResponse -> {}", this);
     }
 
@@ -38,13 +40,18 @@ public class ConfigRequest extends Request {
         features.add("config");
         features.add("distances");
         features.add("tour");
+        features.add("near");
         return features;
     }
 
     public List<String> listFormulae() {
-        if (!features.contains("distances") && !features.contains("tour")) return null;
-        formulae = CalculatorFactory.getSupportedFormulae();
-        return formulae;
+        if (!features.contains("distances") && !features.contains("tour") && !features.contains("near")) return null;
+        return CalculatorFactory.getSupportedFormulae();
+    }
+
+    public List<String> listSources() {
+        if (!features.contains("near")) return null;
+        return SourceFactory.getSupportedSources();
     }
 
     private void processAboutFile() throws InternalRequestException {
@@ -74,6 +81,10 @@ public class ConfigRequest extends Request {
         switch (property) {
             case "formulae":
                 if (formulae != null) {
+                    return true;
+                }
+            case "sources":
+                if (sources != null) {
                     return true;
                 }
             default:
