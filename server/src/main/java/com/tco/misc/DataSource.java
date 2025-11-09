@@ -33,13 +33,14 @@ public abstract class DataSource {
     public Distances distances(Place place, Places places, long earthRadius, String formula) {
         Distances allDistances = new Distances();
         DistanceCalculator calculator = CalculatorFactory.getCalculator(formula);
-        for(Place p : places){
+        for(Place p : places) {
             allDistances.add(calculator.between(place, p, earthRadius));
         }
         return allDistances;
     }
-
+    
     public void initialize() {
+    
     }
 
     public void select(Place place, double distance, long earthRadius) {
@@ -48,6 +49,15 @@ public abstract class DataSource {
 
     public Places convert() {
         return new Places();
+    }
+
+    static class Credential {
+        static final int PORT = 27017;
+        // shared user with read-only access
+        static final String USER = "cs314-db";
+        static final String PASSWORD = "REDACTED";
+
+        static final String URL = String.format("mongodb://%s:%s@black-bottle:%d/?authSource=cs314", USER, PASSWORD, PORT);
     }
 
 }
