@@ -30,10 +30,14 @@ public class CitiesSource extends DataSource{
         static final String URL = String.format("mongodb://%s:%s@black-bottle:%d/?authSource=cs314", USER, PASSWORD, PORT);
     }
 
-    
+    @Override
+    public void select(Place place, double distance, long earthRadius){
+        Bson filter = newFilter(place, distance, earthRadius);
+        this.selectResults = collection.find(filter);
+    }
 
     //based on guide
-    public Bson newFilter(Place place, Long distance, Double earthRadius)
+    public Bson newFilter(Place place, double distance, long earthRadius)
     {
         Double dist = Double.valueOf(distance);
         Double lon = Double.valueOf(place.get("longitude"));
