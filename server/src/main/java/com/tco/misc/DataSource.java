@@ -1,21 +1,13 @@
 package com.tco.misc;
 
-import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 
 public abstract class DataSource {
 
     private static final transient Logger log = LoggerFactory.getLogger(DataSource.class);
 
     protected Places results;
-
-    private MongoCollection<Document> collection;
 
     public Places near(Place place, double distance, long earthRadius, String formula, int limit) throws Exception {
         try {
@@ -41,17 +33,14 @@ public abstract class DataSource {
     public Distances distances(Place place, Places places, long earthRadius, String formula) {
         Distances allDistances = new Distances();
         DistanceCalculator calculator = CalculatorFactory.getCalculator(formula);
-        for(Place p : places){
+        for(Place p : places) {
             allDistances.add(calculator.between(place, p, earthRadius));
         }
         return allDistances;
     }
     
-    // @Override to be added later
     public void initialize() {
-        MongoClient mongoClient = MongoClients.create(Credential.URL);
-        MongoDatabase database = mongoClient.getDatabase("cs314");
-        this.collection = database.getCollection("cities");
+    
     }
 
     public void select(Place place, double distance, long earthRadius) {
