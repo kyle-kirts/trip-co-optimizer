@@ -56,6 +56,25 @@ public class TourRequest extends Request {
 
         if ((this.formula != null) && (!CalculatorFactory.getSupportedFormulae().contains(this.formula))) throw new BadRequestException();
         TourOptimizer optimizer = OptimizerFactory.get(this.places.size(), this.response);
-        this.places = optimizer.construct(this.places, this.earthRadius, this.formula, this.response);
+        Places result = optimizer.construct(this.places, this.earthRadius, this.formula, this.response);
+        this.places = rotate(result);
+    }
+
+    public Places rotate(Places tour){
+        int originIndex = 0;
+        for(int i = 0; i<tour.size(); i++){
+            if(tour.get(i) == this.places.get(0))
+            {
+                originIndex = i;
+            }
+        }
+        
+        Places wrapAround = new Places();
+        wrapAround.addAll(tour.subList(0, originIndex));
+        Places newBeginning = new Places();
+        newBeginning.addAll(tour.subList(originIndex, tour.size()));
+        newBeginning.addAll(wrapAround);
+
+        return newBeginning; 
     }
 }

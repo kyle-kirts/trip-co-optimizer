@@ -43,26 +43,45 @@ public class TestConfigRequest {
     }
 
     @Test
-    @DisplayName("luzovich: Removing distances won't return allowed formulas")
+    @DisplayName("luzovich: Removing distance-based fields won't return allowed formulas")
     public void testNonExistentDistancesNoSupportedFormulae() {
         conf.features.remove("distances");
         conf.features.remove("tour");
+        conf.features.remove("near");
         assertNull(conf.listFormulae());
     }
 
     @Test
     @DisplayName("luzovich: \"distances\" double-implies \"formulae\"")
     public void testFeatureDistancesDoubleImpliesFormulae() {
+        // Not either or both; if we have one we must have the other.
         assertTrue(
             !(conf.validFeature("distances") || conf.hasProperty("formulae")) ||
             (conf.validFeature("distances") && conf.hasProperty("formulae"))
+        );
+    }
+
+    @Test
+    @DisplayName("luzovich: Removing dataset-based fields won't return sources list")
+    public void testNonExistentDatasetQueriesNoSourcesList() {
+        conf.features.remove("near");
+        assertNull(conf.listSources());
+    }
+
+    @Test
+    @DisplayName("luzovich: \"near\" double-implies \"sources\"")
+    public void testFeatureNearDoubleImpliesSource() {
+        // Not either or both; if we have one we must have the other.
+        assertTrue(
+            !(conf.validFeature("near") || conf.hasProperty("sources")) ||
+            (conf.validFeature("near") && conf.hasProperty("sources"))
         );
     }
     
     @Test
     @DisplayName("luzovich: Features list is expected length")
     public void testFeaturesLength() {
-        assertEquals(conf.listFeatures().size(), 3);
+        assertEquals(conf.listFeatures().size(), 4);
     }
 
     @Test
