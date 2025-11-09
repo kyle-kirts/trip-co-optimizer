@@ -1,13 +1,10 @@
 package com.tco.misc;
 
-import java.util.Map;
-
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoIterable;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.geojson.Point;
 import com.mongodb.client.model.geojson.Position;
@@ -29,6 +26,14 @@ public class CitiesSource extends DataSource{
 
         static final String URL = String.format("mongodb://%s:%s@black-bottle:%d/?authSource=cs314", USER, PASSWORD, PORT);
     }
+
+    @Override
+    public void initialize() {
+        MongoClient mongoClient = MongoClients.create(Credential.URL);
+        MongoDatabase database = mongoClient.getDatabase("cs314");
+        this.collection = database.getCollection("cities");
+    }
+
 
     @Override
     public void select(Place place, double distance, long earthRadius){
