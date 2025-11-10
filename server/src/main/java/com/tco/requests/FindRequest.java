@@ -9,6 +9,11 @@ import com.tco.misc.SourceFactory;
 import com.tco.misc.DataSource;
 
 public class FindRequest extends Request {
+  private String match;
+  private String source;
+  private Integer limit;
+  private Integer found;
+  private Places places;
     
   @Override
   public void buildResponse() throws RequestException {
