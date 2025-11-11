@@ -33,7 +33,7 @@ public class AirportsSource extends DataSource {
             double distanceInMeters = distance * (6371000.0 / earthRadius);
 
             String sql =
-                "SELECT a.name, a.municipality, r.name AS region, c.name AS country, " +
+                "SELECT a.ident, a.name, a.municipality, r.name AS region, c.name AS country, " +
                 "a.latitude_deg AS latitude, a.longitude_deg AS longitude " +
                 "FROM airports a " +
                 "JOIN regions r ON a.iso_region = r.code " +
@@ -51,7 +51,25 @@ public class AirportsSource extends DataSource {
         }
     }
 
-
+    @Override
+    public Places convert() throws Exception{
+        String columns = "ident,name,municipality,region,country,latitude,longitude";
+        int count = 0;
+        String[] cols = columns.split(",");
+        Places places = new Places();
+        while (selectResults.next()) {
+            Place place = new Place(selectResults.getString("latitude"), selectResults.getString("longitude"));
+            for (String col : cols) {
+                if(col.equals("latitude") || col.equals("longitude")) continue;
+                place.put(col, selectResults.getString(col));
+                // It seems this is not adding any of the other fields to place. 
+                // Place is an object that extends HashMap<String,String> so it should be able to put. 
+                // selectResults have many other columns, according to output from print statement. 
+            }
+            places.add(place);
+        }
+        return places;
+    }
     
 
 }

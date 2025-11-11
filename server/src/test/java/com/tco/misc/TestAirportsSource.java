@@ -122,4 +122,21 @@ public class TestAirportsSource {
         assertNotNull(src.selectResults);    
     }
 
+    @Test@DisplayName("vercauteren: convert() handles columns for ID, name, municipality, country, region, lat and long")
+    public void testConvertCols() throws Exception{
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        Place nullIsland = new Place("0.0", "0.0"); 
+        src.select(nullIsland, 10000, 395); 
+
+        Places places = src.convert();
+        assertTrue(places.get(0).get("ident") instanceof String);
+        assertTrue(places.get(0).get("name") instanceof String);
+        assertTrue(places.get(0).get("municipality") instanceof String);
+        assertTrue(places.get(0).get("country") instanceof String);
+        assertTrue(places.get(0).get("region") instanceof String);
+        assertTrue(places.get(0).get("latitude") instanceof String);
+        assertTrue(places.get(0).get("longitude") instanceof String);
+    }
+
 }
