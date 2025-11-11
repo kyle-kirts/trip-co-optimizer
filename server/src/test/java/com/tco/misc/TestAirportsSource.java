@@ -2,6 +2,7 @@ package com.tco.misc;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
@@ -68,4 +69,57 @@ public class TestAirportsSource {
     AirportsSource src = new AirportsSource();
     src.initialize();
     }
+
+    @Test
+    @DisplayName("jsibold: AirportsSource.select() works")
+    public void testSelectWhenConnected() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        Place place = new Place("40.5", "-105.1");
+        src.select(place, 50, 3959);
+        assertNotNull(src.selectResults);
+        assertTrue(src.selectResults.next());
     }
+
+    @Test
+    @DisplayName("jsibold: select() returns null when connection is null")
+    public void testSelectWithNullConnection() {
+        AirportsSource src = new AirportsSource();
+        Place place = new Place("40.5", "-105.1");
+        src.select(place, 50, 3959);
+        assertNull(src.selectResults);
+    }
+
+    @Test
+    @DisplayName("jsibold: select() finds airports near Fort Collins")
+    public void testSelectNearFortCollins() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        Place fortCollins = new Place("40.585", "-105.084");
+        src.select(fortCollins, 10, 3959);
+        assertNotNull(src.selectResults);
+        assertTrue(src.selectResults.next());
+    }
+
+    @Test
+    @DisplayName("jsibold: select() with different earth radius (kilometers)")
+    public void testSelectWithKilometers() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        Place place = new Place("40.5", "-105.1");
+        src.select(place, 50, 6371);
+        assertNotNull(src.selectResults);
+        assertTrue(src.selectResults.next());
+    }
+
+    @Test
+    @DisplayName("jsibold: select() with very small distance may find nothing")
+    public void testSelectSmallDistance() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        Place place = new Place("0.0", "0.0"); 
+        src.select(place, 1, 3959); 
+        assertNotNull(src.selectResults);    
+    }
+
+}
