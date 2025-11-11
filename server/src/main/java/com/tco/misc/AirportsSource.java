@@ -2,14 +2,17 @@ package com.tco.misc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AirportsSource extends DataSource {
     
     private Connection connection;
+    ResultSet selectResults;
 
     @Override
     public void initialize() {
+        results = new Places();
         try {
             String url = System.getProperty("mariadb.url", "jdbc:mariadb://faure.cs.colostate.edu:3306/cs314");
             String user = "cs314-db";
@@ -20,4 +23,35 @@ public class AirportsSource extends DataSource {
             connection = null;
         }
     }
+
+    @Override
+    public void select(Place place, double distance, long earthRadius) {
+        if (connection == null) return;
+        try {
+            double lon = Double.parseDouble(place.get("longitude"));
+            double lat = Double.parseDouble(place.get("latitude"));
+            double distanceInMeters = distance * (6371000.0 / earthRadius);
+
+            String sql =
+                "SELECT a.name, a.municipality, r.name AS region, c.name AS country, " +
+                "a.latitude_deg AS latitude, a.longitude_deg AS longitude " +
+                "FROM airports a " +
+                "JOIN regions r ON a.iso_region = r.code " +
+                "JOIN countries c ON a.iso_country = c.code " +
+                "WHERE ST_Distance_Sphere(POINT(a.longitude_deg, a.latitude_deg), POINT(?, ?)) < ? " +
+                "LIMIT 100;";
+
+            var stmt = connection.prepareStatement(sql);
+            stmt.setDouble(1, lon);
+            stmt.setDouble(2, lat);
+            stmt.setDouble(3, distanceInMeters);
+            this.selectResults = stmt.executeQuery();
+        } catch (Exception e) {
+            this.selectResults = null;
+        }
+    }
+
+
+    
+
 }
