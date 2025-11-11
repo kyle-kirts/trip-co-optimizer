@@ -62,9 +62,6 @@ public class AirportsSource extends DataSource {
             for (String col : cols) {
                 if(col.equals("latitude") || col.equals("longitude")) continue;
                 place.put(col, selectResults.getString(col));
-                // It seems this is not adding any of the other fields to place. 
-                // Place is an object that extends HashMap<String,String> so it should be able to put. 
-                // selectResults have many other columns, according to output from print statement. 
             }
             places.add(place);
         }
