@@ -83,7 +83,7 @@ public class TestDataSource {
 
     @Test
     @DisplayName("schlicting: Validate convert() method runs without error")
-    public void testConvertRunsWithoutError() {
+    public void testConvertRunsWithoutError() throws Exception{
         DataSource datasource = new DataSource() {};
         datasource.convert();
         assertEquals(datasource, datasource);

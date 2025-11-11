@@ -47,7 +47,7 @@ public abstract class DataSource {
 
     }
 
-    public Places convert() {
+    public Places convert() throws Exception{
         return new Places();
     }
 
