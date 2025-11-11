@@ -33,15 +33,11 @@ public class TestCitiesSource{
     public void testSelectExists() {
 
         CitiesSource cities = new CitiesSource() {};
+        cities.initialize();
         Place place = new Place("45","-105");
         double distance = 1000000000;
         long earthRadius = 6371;
-
-        try(MongoClient mongoClient = MongoClients.create(Credential.URL)){
-            MongoDatabase database = mongoClient.getDatabase("cs314");
-            cities.collection = database.getCollection("cities");
-            cities.select(place, distance, earthRadius);
-        }
+        cities.select(place, distance, earthRadius);
         assertNotNull(cities.selectResults);
     }
 }
