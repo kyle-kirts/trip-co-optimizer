@@ -15,4 +15,12 @@ public class TestFindRequest{
     assertDoesNotThrow(() -> new FindRequest());
   }
 
+  @Test
+  @DisplayName("luzovich: buildResponse() does not throw on empty object initialization")
+  public void testEmptyBuildResponseDoesNotThrowException() {
+
+    FindRequest req = new FindRequest();
+
+    assertDoesNotThrow(() -> req.buildResponse());
+  }
 }
