@@ -14,6 +14,15 @@ public class FindRequest extends Request {
   private Integer limit;
   private Integer found;
   private Places places;
+
+  public FindRequest() {
+    this.requestType = "find";
+    this.match = "";
+    this.source = "cities";
+    this.limit = 0;
+    this.found = 0;
+    this.places = new Places();
+  }  
     
   @Override
   public void buildResponse() throws RequestException {
