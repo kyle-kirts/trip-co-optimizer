@@ -37,12 +37,12 @@ public class CitiesSource extends DataSource{
 
     @Override
     public void select(Place place, double distance, long earthRadius, int limit){
-        Bson filter = newFilter(place, distance, earthRadius);
+        Bson filter = nearFilter(place, distance, earthRadius);
         this.selectResults = collection.find(filter).limit(limit);
     }
 
     //based on guide
-    public Bson newFilter(Place place, double distance, long earthRadius)
+    public Bson nearFilter(Place place, double distance, long earthRadius)
     {
         Double dist = Double.valueOf(distance);
         Double lon = Double.valueOf(place.get("longitude"));
