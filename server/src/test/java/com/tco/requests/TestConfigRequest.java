@@ -43,6 +43,24 @@ public class TestConfigRequest {
     }
 
     @Test
+    @DisplayName("luzovich: Features includes \"tour\"")
+    public void testFeaturesTourExists() {
+        assertTrue(conf.validFeature("tour"));
+    }
+
+    @Test
+    @DisplayName("luzovich: Features includes \"near\"")
+    public void testFeaturesNearExists() {
+        assertTrue(conf.validFeature("near"));
+    }
+
+    @Test
+    @DisplayName("luzovich: Features includes \"find\"")
+    public void testFeaturesFindExists() {
+        assertTrue(conf.validFeature("find"));
+    }
+
+    @Test
     @DisplayName("luzovich: Removing distance-based fields won't return allowed formulas")
     public void testNonExistentDistancesNoSupportedFormulae() {
         conf.features.remove("distances");
@@ -81,7 +99,7 @@ public class TestConfigRequest {
     @Test
     @DisplayName("luzovich: Features list is expected length")
     public void testFeaturesLength() {
-        assertEquals(conf.listFeatures().size(), 4);
+        assertEquals(conf.listFeatures().size(), 5);
     }
 
     @Test
