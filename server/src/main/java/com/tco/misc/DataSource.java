@@ -15,9 +15,6 @@ public abstract class DataSource {
             initialize();
             checkLimit(limit);
             select(place, distance, earthRadius, limit);
-            checkLimit(limit);
-            select(place, distance, earthRadius, limit);
-            convert();
 
             if (results == null) {
                 results = new Places();
