@@ -13,7 +13,8 @@ public abstract class DataSource {
         try {
 
             initialize();
-            select(place, distance, earthRadius);
+            checkLimit(limit);
+            select(place, distance, earthRadius, limit);
             convert();
 
             if (results == null) {
@@ -43,12 +44,18 @@ public abstract class DataSource {
     
     }
 
-    public void select(Place place, double distance, long earthRadius) {
+    public void select(Place place, double distance, long earthRadius, int limit) {
 
     }
 
     public Places convert() throws Exception{
         return new Places();
+    }
+
+    public void checkLimit(int limit) {
+        if (limit > 100) {
+            limit = 100;
+        }
     }
 
     static class Credential {
