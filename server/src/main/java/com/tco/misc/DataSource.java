@@ -40,11 +40,12 @@ public abstract class DataSource {
     }
     
     public void initialize() {
-    
     }
 
     public void select(Place place, double distance, long earthRadius) {
+    }
 
+    public void selectMatch(String match, int limit){
     }
 
     public Places convert() throws Exception{
