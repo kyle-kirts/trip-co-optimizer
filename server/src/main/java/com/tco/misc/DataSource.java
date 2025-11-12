@@ -15,6 +15,8 @@ public abstract class DataSource {
             initialize();
             checkLimit(limit);
             select(place, distance, earthRadius, limit);
+            checkLimit(limit);
+            select(place, distance, earthRadius, limit);
             convert();
 
             if (results == null) {
@@ -45,8 +47,9 @@ public abstract class DataSource {
 
     public void select(Place place, double distance, long earthRadius, int limit) {
     }
-    
-    public void selectMatch(String match, int limit){
+
+    public void select(Place place, double distance, long earthRadius) {
+
     }
 
     public Places convert() throws Exception{
