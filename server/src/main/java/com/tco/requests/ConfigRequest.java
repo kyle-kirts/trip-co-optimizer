@@ -41,6 +41,7 @@ public class ConfigRequest extends Request {
         features.add("distances");
         features.add("tour");
         features.add("near");
+        features.add("find");
         return features;
     }
 

@@ -40,4 +40,15 @@ public class TestCitiesSource{
         cities.select(place, distance, earthRadius, 1);
         assertNotNull(cities.selectResults);
     }
+
+    @Test
+    @DisplayName("vercauteren: selectMatch() queries a database and returns something.")
+    public void testSelectMatchExists() {
+
+        CitiesSource cities = new CitiesSource() {};
+        cities.initialize();
+        String match = "Dave";
+        cities.selectMatch(match, 10);
+        assertNotNull(cities.selectResults);
+    }
 }
