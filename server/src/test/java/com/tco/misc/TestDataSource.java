@@ -122,4 +122,15 @@ public class TestDataSource {
             datasource.initialize();
         });
     }
+
+    @Test
+    @DisplayName("vercauteren: Validate selectMatch() method runs without error")
+    public void testSelectMatchRunsWithoutError() {
+        DataSource datasource = new DataSource() {};
+        datasource.selectMatch(new Place(), 100.0, 6371);
+        assertEquals(datasource, datasource);
+        assertDoesNotThrow(() -> {
+            datasource.selectMatch("GIBBERISH", 6371, 1);
+        });
+    }
 }
