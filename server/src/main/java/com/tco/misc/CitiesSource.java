@@ -9,6 +9,8 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.geojson.Point;
 import com.mongodb.client.model.geojson.Position;
 
+import java.util.Map;
+
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -56,6 +58,21 @@ public class CitiesSource extends DataSource{
         Double lat = Double.valueOf(place.get("latitude"));
         Point point = new Point(new Position(lon, lat));
         return Filters.nearSphere("location", point, dist, 0.0);
+    }
+
+    public Places convert() {
+        for (Document doc : selectResults) {
+            Place place = new Place();
+            for(Map.Entry<String, Object> entry : doc.entrySet()){
+                    if (entry.getValue() == null) continue;
+                    if (entry.getKey().equals("_id")) continue;
+                    if (entry.getKey().equals("location")) continue;
+                    place.put(entry.getKey(), entry.getValue().toString());
+            }
+            results.add(place);
+        }
+
+        return results;
     }
 
     public Bson matchFilter(String matchRegex){
