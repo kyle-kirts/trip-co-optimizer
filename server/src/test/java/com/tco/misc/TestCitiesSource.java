@@ -37,7 +37,7 @@ public class TestCitiesSource{
         Place place = new Place("45","-105");
         double distance = 1000000000;
         long earthRadius = 6371;
-        cities.select(place, distance, earthRadius);
+        cities.select(place, distance, earthRadius, 1);
         assertNotNull(cities.selectResults);
     }
 }
