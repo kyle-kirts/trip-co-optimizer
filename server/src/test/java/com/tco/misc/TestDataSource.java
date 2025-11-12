@@ -133,4 +133,14 @@ public class TestDataSource {
             datasource.selectMatch("GIBBERISH", 1);
         });
     }
+
+    @Test
+    @DisplayName("kyle-kirts: limits greater than 100 are set to 100")
+    public void testCheckLimit() {
+        DataSource datasource = new DataSource() {};
+        int limit = 101;
+
+        limit = datasource.checkLimit(limit);
+        assertEquals(100, limit);
+    }
 }
