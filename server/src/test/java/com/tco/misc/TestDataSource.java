@@ -133,4 +133,11 @@ public class TestDataSource {
             datasource.selectMatch("GIBBERISH", 1);
         });
     }
+
+    @Test
+    @DisplayName("luzovich: find() with gibberish returns empty Places")
+    public void testGibberishYieldsEmptyPlacesFromFind() throws Exception {
+        DataSource datasource = SourceFactory.get("airports");
+        assertEquals(0, datasource.find("some random gibberish", 1));
+    }
 }
