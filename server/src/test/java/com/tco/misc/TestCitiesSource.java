@@ -8,6 +8,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestCitiesSource{
 
@@ -50,5 +52,19 @@ public class TestCitiesSource{
         String match = "Dave";
         cities.selectMatch(match, 10);
         assertNotNull(cities.selectResults);
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: convert changes fields to strings")
+    public void testConvertToString() throws Exception {
+        CitiesSource source = new CitiesSource();
+        Place place = new Place("50.0", "-45.5");
+        Places places = source.near(place, 100000000, 395, "vincenty", 1);
+        
+        assertTrue(places.get(0).get("municipality") instanceof String);
+        assertTrue(places.get(0).get("country") instanceof String);
+        assertTrue(places.get(0).get("region") instanceof String);
+        assertTrue(places.get(0).get("latitude") instanceof String);
+        assertTrue(places.get(0).get("longitude") instanceof String);
     }
 }
