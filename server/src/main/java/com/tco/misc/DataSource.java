@@ -14,11 +14,11 @@ public abstract class DataSource {
 
             initialize();
             select(place, distance, earthRadius, checkLimit(limit));
-            convert();
-
             if (results == null) {
                 results = new Places();
             }
+            convert();
+
         } catch (Exception e) {
             log.warn("near() failed returning empty list: {}", e.toString());
             throw e;
@@ -88,4 +88,8 @@ public abstract class DataSource {
         static final String URL = String.format("mongodb://%s:%s@black-bottle:%d/?authSource=cs314", USER, PASSWORD, PORT);
     }
 
+    //testing methods
+    public Places getResults() {
+        return this.results;
+    }
 }
