@@ -612,6 +612,35 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "jsibold: one place test",
+			"id": "94a6477e-85e2-4717-baed-b3335d2309d9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestType\": \"tour\",\r\n  \"places\": [\r\n    {\"latitude\": \"0.0\", \"longitude\": \"0.0\"},\r\n    {\"latitude\": \"1.0\", \"longitude\": \"1.0\"}\r\n  ],\r\n  \"earthRadius\": 6371.0\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
