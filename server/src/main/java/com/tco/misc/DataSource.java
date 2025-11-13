@@ -36,11 +36,10 @@ public abstract class DataSource {
 
             initialize();
             selectMatch(match, limit);
-            convert();
-
             if (results == null) {
                 results = new Places();
             }
+            convert();
         } catch (Exception e) {
 
             log.warn("find() failed returning empty list: {}", e.toString());
