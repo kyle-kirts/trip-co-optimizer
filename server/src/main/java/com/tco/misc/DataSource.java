@@ -30,7 +30,7 @@ public abstract class DataSource {
         return new Places();
     }
 
-    public Places find(String match, Integer limit) throws Exception {
+    public Places find(String match, int limit) throws Exception {
 
         try {
 
