@@ -103,6 +103,22 @@
 		},
 		{
 			"name": "schlicting: Ben Near : Cities Postman",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "468706da-751f-4cae-aba2-9e11c978c65b",
+						"exec": [
+							"pm.test(\"schlicting: Ben Near : Cities Test\", () => {\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"source\", \"cities\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
 			"id": "7ecfccf3-7844-4dcf-b685-aa4476143524",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -110,6 +126,15 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"near\",\r\n    \"place\": {\r\n        \"latitude\": \"40.56978024477255\",\r\n        \"longitude\": \"-105.0670623779297\"\r\n    },\r\n    \"earthRadius\": 3959,\r\n    \"distance\": 50,\r\n    \"limit\": 5,\r\n    \"source\": \"cities\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "{{BASE_URL}}/api/near",
 					"host": [
