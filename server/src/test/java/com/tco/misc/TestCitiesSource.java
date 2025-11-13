@@ -8,6 +8,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestCitiesSource{
 
@@ -57,11 +59,8 @@ public class TestCitiesSource{
     public void testConvertToString() {
         CitiesSource source = new CitiesSource();
         source.initialize();
-        Place place = new Place("0.0", "0.0");
-        
-        Places result = source.convert();
-
-
-
+        Place place = new Place("45.0", "-55.0");
+        source.select(place, 1000000, 395, 1);
+    
     }
 }
