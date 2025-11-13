@@ -74,10 +74,10 @@ public class TestDataSource {
     @DisplayName("schlicting: Validate select() method runs without error")
     public void testSelectRunsWithoutError() {
         DataSource datasource = new DataSource() {};
-        datasource.select(new Place(), 100.0, 6371, 1);
+        datasource.selectNear(new Place(), 100.0, 6371, 1);
         assertEquals(datasource, datasource);
         assertDoesNotThrow(() -> {
-            datasource.select(new Place(), 100.0, 6371, 1);
+            datasource.selectNear(new Place(), 100.0, 6371, 1);
         });
     }
 

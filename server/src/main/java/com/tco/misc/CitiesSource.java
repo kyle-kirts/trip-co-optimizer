@@ -38,7 +38,7 @@ public class CitiesSource extends DataSource{
 
 
     @Override
-    public void select(Place place, double distance, long earthRadius, int limit){
+    public void selectNear(Place place, double distance, long earthRadius, int limit){
         Bson filter = nearFilter(place, distance, earthRadius);
         this.selectResults = collection.find(filter).limit(limit);
     }
