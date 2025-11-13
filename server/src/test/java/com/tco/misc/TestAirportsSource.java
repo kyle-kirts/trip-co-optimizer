@@ -139,4 +139,54 @@ public class TestAirportsSource {
         assertTrue(places.get(0).get("longitude") instanceof String);
     }
 
+    @Test
+    @DisplayName("jsibold: selectMatch() successfully executes query with valid connection")
+    public void testSelectMatchWithConnection() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        src.selectMatch("Denver", 10);
+        assertNotNull(src.selectResults);
+        assertTrue(src.selectResults.next());
+    }
+
+    @Test
+    @DisplayName("jsibold: selectMatch() handles null connection gracefully")
+    public void testSelectMatchNullConnection() {
+        AirportsSource src = new AirportsSource();
+        src.selectMatch("test", 5);
+        assertNull(src.selectResults);
+    }
+
+    @Test
+    @DisplayName("jsibold: selectMatch() searches airport ident field")
+    public void testSelectMatchSearchesIdent() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        src.selectMatch("DEN", 10);
+        assertNotNull(src.selectResults);
+        assertTrue(src.selectResults.next());
+    }
+
+    @Test
+    @DisplayName("jsibold: selectMatch() searches municipality field")
+    public void testSelectMatchSearchesMunicipality() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        src.selectMatch("Fort Collins", 10);
+        assertNotNull(src.selectResults);
+        assertTrue(src.selectResults.next());
+    }
+
+    @Test
+    @DisplayName("jsibold: selectMatch() respects limit parameter")
+    public void testSelectMatchRespectsLimit() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        src.selectMatch("airport", 1);
+        assertNotNull(src.selectResults);
+        assertTrue(src.selectResults.next());
+    }
+
 }
+
+
