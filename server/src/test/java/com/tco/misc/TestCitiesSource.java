@@ -56,11 +56,15 @@ public class TestCitiesSource{
 
     @Test
     @DisplayName("kyle-kirts: convert changes fields to strings")
-    public void testConvertToString() {
+    public void testConvertToString() throws Exception {
         CitiesSource source = new CitiesSource();
-        source.initialize();
-        Place place = new Place("45.0", "-55.0");
-        source.select(place, 1000000, 395, 1);
-    
+        Place place = new Place("50.0", "-45.5");
+        Places places = source.near(place, 100000000, 395, "vincenty", 1);
+        
+        assertTrue(places.get(0).get("municipality") instanceof String);
+        assertTrue(places.get(0).get("country") instanceof String);
+        assertTrue(places.get(0).get("region") instanceof String);
+        assertTrue(places.get(0).get("latitude") instanceof String);
+        assertTrue(places.get(0).get("longitude") instanceof String);
     }
 }
