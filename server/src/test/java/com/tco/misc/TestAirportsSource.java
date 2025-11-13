@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.lang.reflect.Field;
+import java.sql.Connection;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -187,6 +190,22 @@ public class TestAirportsSource {
         assertTrue(src.selectResults.next());
     }
 
+
+    @Test
+    @DisplayName("jsibold: selectMatch() handles exception with closed connection")
+    public void testSelectMatchWithClosedConnection() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        
+        Field connectionField = AirportsSource.class.getDeclaredField("connection");
+        connectionField.setAccessible(true);
+        Connection conn = (Connection) connectionField.get(src);
+        if (conn != null) {
+            conn.close();
+        }
+        
+        src.selectMatch("test", 10);
+        assertNull(src.selectResults);
+    }
+
 }
-
-
