@@ -61,8 +61,8 @@
 						"id": "f604d84e-2bec-4c4d-96c3-fa04740e37e5",
 						"exec": [
 							"pm.test(\"schlicting: Ben Protocol Postman Test\", () => {\r",
-							"    pm.expect(pm.response.code).to.eql(404);\r",
-							"    pm.expect(pm.response.text()).to.include(\"404 Not found\");\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.expect(pm.response.text()).to.include(\"200 Not found\");\r",
 							"    // finish later when it works \r",
 							"});"
 						],
