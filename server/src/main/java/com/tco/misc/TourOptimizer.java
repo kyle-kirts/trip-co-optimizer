@@ -16,7 +16,7 @@ public abstract class TourOptimizer {
         initialize(places, radius, formula);
         int[] tour = findBestNearestNeighborTour(places);
         Places nearestNeighbor = new Places();
-        for(int i=0; i<tour.length; i++) {
+        for (int i=0; i < tour.length; i++) {
             nearestNeighbor.add(places.get(tour[i]));
         }
         return nearestNeighbor;
@@ -28,16 +28,16 @@ public abstract class TourOptimizer {
     public void initialize(Places places, double radius, String formula) 
     {
         visited = new boolean[places.size()];
-        Arrays.fill(visited,false);
+        Arrays.fill(visited, false);
         order = new int[places.size()];
         currentTotalDistance = 0;
         initializeDistances(places, radius, formula);
     }
 
-        public int[] findBestNearestNeighborTour(Places places) {
+    public int[] findBestNearestNeighborTour(Places places) {
         long currentBest = Long.MAX_VALUE;
         int[] bestOrder = new int[places.size()];
-        int cutoff = (places.size() < 1000) ? places.size() : 1000;
+        int cutoff = (places.size() < 400) ? places.size() : 400;
         for (int i = 0; i < cutoff; i++) {
             int[] currentOrder = createRoute(places, places.get(i));
             if (currentTotalDistance < currentBest) {
@@ -55,7 +55,7 @@ public abstract class TourOptimizer {
         
         for (int i = 0; i < numberOfPlaces; i++) {
             GeographicCoordinate currentPlace = places.get(i);
-            for (int j = i + 1; j < numberOfPlaces; j++){
+            for (int j = i + 1; j < numberOfPlaces; j++) {
                 GeographicCoordinate otherPlace = places.get(j);
                 long distance = calculator.between(currentPlace, otherPlace, radius);
                 distances[i][j] = distance;
@@ -67,7 +67,7 @@ public abstract class TourOptimizer {
     public int[] createRoute(Places places, Place start)
     {   
         Arrays.fill(order, -1);
-        Arrays.fill(visited,false);
+        Arrays.fill(visited, false);
         int index = 0;
 
         int nextPlace= places.getPlace(start);
@@ -95,12 +95,15 @@ public abstract class TourOptimizer {
         
         for (int i = 0; i < visited.length; i++) {
             Long distance = distances[next][i];
-            boolean isValidPlace = (!visited[i]) && (i!=next);
+            boolean isValidPlace = (!visited[i]) && (i != next);
             boolean isLessThan = distances[next][i] < minDistance;
             boolean isEqualTo = distances[next][i] == minDistance;
 
-            if (isValidPlace && isLessThan) {best = i; minDistance = distance;}
-            if (isValidPlace && isEqualTo) {best = pickRandom(i, best);}
+            if (isValidPlace && isLessThan) {
+                best = i;
+                minDistance = distance;
+            }
+            if (isValidPlace && isEqualTo) best = pickRandom(i, best);
         
         }
         return best;
@@ -109,7 +112,7 @@ public abstract class TourOptimizer {
     public int pickRandom(int i, int best) {
         Random random = new Random();
         int nonse = random.nextInt();
-        if (nonse % 2 == 0) { best = i;}
+        if (nonse % 2 == 0) best = i;
         return best;
     }
 
@@ -126,7 +129,13 @@ public abstract class TourOptimizer {
         this.visited = testVisited;
     }
 
-    public boolean[] getVisited(){return visited;}
-    public long getCurrentTotal(){return currentTotalDistance;}
-    public int[] getOrder(){return order;}
+    public boolean[] getVisited() {
+        return visited;
+    }
+    public long getCurrentTotal() {
+        return currentTotalDistance;
+    }
+    public int[] getOrder() {
+        return order;
+    }
 }
