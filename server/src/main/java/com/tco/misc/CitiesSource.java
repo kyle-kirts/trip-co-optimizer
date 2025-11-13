@@ -37,18 +37,32 @@ public class CitiesSource extends DataSource{
 
     @Override
     public void select(Place place, double distance, long earthRadius){
-        Bson filter = newFilter(place, distance, earthRadius);
+        Bson filter = nearFilter(place, distance, earthRadius);
         this.selectResults = collection.find(filter);
     }
 
+    @Override
+    public void selectMatch(String match, int limit)
+    {
+        Bson filter = matchFilter(match);
+        this.selectResults = collection.find(filter).limit(limit);
+    }
+
     //based on guide
-    public Bson newFilter(Place place, double distance, long earthRadius)
+    public Bson nearFilter(Place place, double distance, long earthRadius)
     {
         Double dist = Double.valueOf(distance);
         Double lon = Double.valueOf(place.get("longitude"));
         Double lat = Double.valueOf(place.get("latitude"));
         Point point = new Point(new Position(lon, lat));
         return Filters.nearSphere("location", point, dist, 0.0);
+    }
+
+    public Bson matchFilter(String matchRegex){
+        return Filters.or(
+            Filters.regex("city", matchRegex, "i"),
+            Filters.regex("country", matchRegex, "i")
+        );
     }
 
 }
