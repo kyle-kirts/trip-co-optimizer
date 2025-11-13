@@ -74,10 +74,10 @@ public class TestDataSource {
     @DisplayName("schlicting: Validate select() method runs without error")
     public void testSelectRunsWithoutError() {
         DataSource datasource = new DataSource() {};
-        datasource.select(new Place(), 100.0, 6371);
+        datasource.select(new Place(), 100.0, 6371, 1);
         assertEquals(datasource, datasource);
         assertDoesNotThrow(() -> {
-            datasource.select(new Place(), 100.0, 6371);
+            datasource.select(new Place(), 100.0, 6371, 1);
         });
     }
 
@@ -135,6 +135,16 @@ public class TestDataSource {
     }
 
     @Test
+    @DisplayName("kyle-kirts: limits greater than 100 are set to 100")
+    public void testCheckLimit() {
+        DataSource datasource = new DataSource() {};
+        int limit = 101;
+
+        limit = datasource.checkLimit(limit);
+        assertEquals(100, limit);
+    }
+
+    @Test        
     @DisplayName("luzovich: find() with gibberish returns empty Places")
     public void testGibberishYieldsEmptyPlacesFromFind() throws Exception {
         DataSource datasource = SourceFactory.get("cities");

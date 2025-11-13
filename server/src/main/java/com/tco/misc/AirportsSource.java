@@ -25,7 +25,7 @@ public class AirportsSource extends DataSource {
     }
 
     @Override
-    public void select(Place place, double distance, long earthRadius) {
+    public void select(Place place, double distance, long earthRadius, int limit) {
         if (connection == null) return;
         try {
             double lon = Double.parseDouble(place.get("longitude"));
@@ -39,7 +39,7 @@ public class AirportsSource extends DataSource {
                 "JOIN regions r ON a.iso_region = r.code " +
                 "JOIN countries c ON a.iso_country = c.code " +
                 "WHERE ST_Distance_Sphere(POINT(a.longitude_deg, a.latitude_deg), POINT(?, ?)) < ? " +
-                "LIMIT 100;";
+                "LIMIT " + limit + ";";
 
             var stmt = connection.prepareStatement(sql);
             stmt.setDouble(1, lon);
