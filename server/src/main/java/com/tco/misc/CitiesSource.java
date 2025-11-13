@@ -61,13 +61,22 @@ public class CitiesSource extends DataSource{
     }
 
     public Places convert() {
+         Map<String, String> fields = Map.of(
+                    "country",          "country",
+                    "lng",              "longitude",
+                    "lat",              "latitude",
+                    "city",             "municipality",
+                    "admin_name_ascii", "region"
+        );
+
         for (Document doc : selectResults) {
             Place place = new Place();
             for(Map.Entry<String, Object> entry : doc.entrySet()){
                     if (entry.getValue() == null) continue;
-                    if (entry.getKey().equals("_id")) continue;
-                    if (entry.getKey().equals("location")) continue;
-                    place.put(entry.getKey(), entry.getValue().toString());
+                    String mongoField = entry.getKey();
+                    if (!fields.containsKey(mongoField)) continue;
+                    String placeField = fields.get(mongoField);
+                    place.put(placeField, entry.getValue().toString());
             }
             results.add(place);
         }
