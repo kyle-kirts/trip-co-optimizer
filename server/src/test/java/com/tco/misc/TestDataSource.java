@@ -137,7 +137,14 @@ public class TestDataSource {
     @Test
     @DisplayName("luzovich: find() with gibberish returns empty Places")
     public void testGibberishYieldsEmptyPlacesFromFind() throws Exception {
-        DataSource datasource = SourceFactory.get("airports");
-        assertEquals(0, datasource.find("some random gibberish", 1));
+        DataSource datasource = SourceFactory.get("cities");
+        assertEquals(0, datasource.find("some random gibberish", 1).size());
+    }
+
+    @Test
+    @DisplayName("luzovich: Cap off find() with many results")
+    public void testLimitOfFindWithManyResults() throws Exception {
+        DataSource datasource = SourceFactory.get("cities");
+        assertEquals(12, datasource.find("Dave", 12).size());
     }
 }
