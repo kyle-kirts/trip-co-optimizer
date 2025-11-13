@@ -21,13 +21,32 @@ public abstract class DataSource {
 
         } catch (Exception e) {
             log.warn("near() failed returning empty list: {}", e.toString());
-           throw e;
+            throw e;
         }
         return results;
     }
 
     public Places near(Place place, Integer distance, Double earthRadius, String formula, Integer limit) {
         return new Places();
+    }
+
+    public Places find(String match, int limit) throws Exception {
+
+        try {
+
+            initialize();
+            selectMatch(match, limit);
+            if (results == null) {
+                results = new Places();
+            }
+            convert();
+        } catch (Exception e) {
+
+            log.warn("find() failed returning empty list: {}", e.toString());
+            throw e;
+        }
+
+        return results;
     }
     
     public Distances distances(Place place, Places places, long earthRadius, String formula) {
