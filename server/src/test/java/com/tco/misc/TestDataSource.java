@@ -154,7 +154,7 @@ public class TestDataSource {
     @Test
     @DisplayName("luzovich: Cap off find() with many results")
     public void testLimitOfFindWithManyResults() throws Exception {
-        DataSource datasource = SourceFactory.get("cities");
+        DataSource datasource = new CitiesSource();
         assertEquals(12, datasource.find("Dave", 12).size());
     }
 }
