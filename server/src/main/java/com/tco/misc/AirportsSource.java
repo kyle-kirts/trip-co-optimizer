@@ -25,7 +25,7 @@ public class AirportsSource extends DataSource {
     }
 
     @Override
-    public void select(Place place, double distance, long earthRadius, int limit) {
+    public void selectNear(Place place, double distance, long earthRadius, int limit) {
         if (connection == null) return;
         try {
             double lon = Double.parseDouble(place.get("longitude"));

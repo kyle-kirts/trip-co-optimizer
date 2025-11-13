@@ -13,7 +13,7 @@ public abstract class DataSource {
         try {
 
             initialize();
-            select(place, distance, earthRadius, checkLimit(limit));
+            selectNear(place, distance, earthRadius, checkLimit(limit));
             if (results == null) {
                 results = new Places();
             }
@@ -61,7 +61,7 @@ public abstract class DataSource {
     public void initialize() {
     }
 
-    public void select(Place place, double distance, long earthRadius, int limit) {
+    public void selectNear(Place place, double distance, long earthRadius, int limit) {
     }
 
     public void selectMatch(String match, int limit){
