@@ -6,6 +6,7 @@ import com.tco.misc.InternalRequestException;
 import com.tco.misc.JSONValidator;
 import com.tco.requests.ConfigRequest;
 import com.tco.requests.DistancesRequest;
+import com.tco.requests.FindRequest;
 import com.tco.requests.NearRequest;
 import com.tco.requests.TourRequest;
 import com.tco.requests.Request;
@@ -44,6 +45,7 @@ public final class MicroServer {
             post("/distances", (req, res) -> processHttpRequest(req, res, DistancesRequest.class));
             post("/tour", (req, res) -> processHttpRequest(req, res, TourRequest.class));
             post("/near", (req, res) -> processHttpRequest(req, res, NearRequest.class));
+            post("/find", (req, res) -> processHttpRequest(req, res, FindRequest.class));
         });
         post("/500", (req, res) -> processHttpRequest(req, res, null));
     }
