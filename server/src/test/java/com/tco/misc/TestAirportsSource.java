@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.lang.reflect.Field;
+import java.sql.Connection;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -137,6 +140,72 @@ public class TestAirportsSource {
         assertTrue(places.get(0).get("region") instanceof String);
         assertTrue(places.get(0).get("latitude") instanceof String);
         assertTrue(places.get(0).get("longitude") instanceof String);
+    }
+
+    @Test
+    @DisplayName("jsibold: selectMatch() successfully executes query with valid connection")
+    public void testSelectMatchWithConnection() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        src.selectMatch("Denver", 10);
+        assertNotNull(src.selectResults);
+        assertTrue(src.selectResults.next());
+    }
+
+    @Test
+    @DisplayName("jsibold: selectMatch() handles null connection gracefully")
+    public void testSelectMatchNullConnection() {
+        AirportsSource src = new AirportsSource();
+        src.selectMatch("test", 5);
+        assertNull(src.selectResults);
+    }
+
+    @Test
+    @DisplayName("jsibold: selectMatch() searches airport ident field")
+    public void testSelectMatchSearchesIdent() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        src.selectMatch("DEN", 10);
+        assertNotNull(src.selectResults);
+        assertTrue(src.selectResults.next());
+    }
+
+    @Test
+    @DisplayName("jsibold: selectMatch() searches municipality field")
+    public void testSelectMatchSearchesMunicipality() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        src.selectMatch("Fort Collins", 10);
+        assertNotNull(src.selectResults);
+        assertTrue(src.selectResults.next());
+    }
+
+    @Test
+    @DisplayName("jsibold: selectMatch() respects limit parameter")
+    public void testSelectMatchRespectsLimit() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        src.selectMatch("airport", 1);
+        assertNotNull(src.selectResults);
+        assertTrue(src.selectResults.next());
+    }
+
+
+    @Test
+    @DisplayName("jsibold: selectMatch() handles exception with closed connection")
+    public void testSelectMatchWithClosedConnection() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        
+        Field connectionField = AirportsSource.class.getDeclaredField("connection");
+        connectionField.setAccessible(true);
+        Connection conn = (Connection) connectionField.get(src);
+        if (conn != null) {
+            conn.close();
+        }
+        
+        src.selectMatch("test", 10);
+        assertNull(src.selectResults);
     }
 
 }
