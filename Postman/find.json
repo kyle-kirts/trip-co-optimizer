@@ -51,55 +51,6 @@
 				}
 			},
 			"response": []
-		},
-		{
-			"name": "schlicting: Ben Near : Cities Postman",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "c1c58292-0740-4a7c-89a0-3a13d50f1114",
-						"exec": [
-							"pm.test(\"schlicting: Ben Protocol Postman Test\", () => {\r",
-							"    pm.expect(pm.response.code).to.eql(404);\r",
-							"    pm.expect(pm.response.text()).to.include(\"404 Not found\");\r",
-							"    // finish later when it works \r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {}
-					}
-				}
-			],
-			"id": "1ed1ee30-711c-4675-82ef-ecb864916973",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"requestType\": \"find\",\r\n  \"match\": \"Aurora\",\r\n  \"limit\": 4,\r\n  \"places\": [\r\n    {\r\n      \"id\": 2001,\r\n      \"name\": \"Aurora\",\r\n      \"municipality\": \"Aurora\",\r\n      \"region\": \"Colorado\",\r\n      \"country\": \"United States\",\r\n      \"latitude\": 39.7294,\r\n      \"longitude\": -104.8319\r\n    },\r\n    {\r\n      \"id\": 2002,\r\n      \"name\": \"Aurora\",\r\n      \"municipality\": \"Aurora\",\r\n      \"region\": \"Illinois\",\r\n      \"country\": \"United States\",\r\n      \"latitude\": 41.7606,\r\n      \"longitude\": -88.3201\r\n    },\r\n    {\r\n      \"id\": 2003,\r\n      \"name\": \"Aurora\",\r\n      \"municipality\": \"Aurora\",\r\n      \"region\": \"Missouri\",\r\n      \"country\": \"United States\",\r\n      \"latitude\": 36.9709,\r\n      \"longitude\": -93.7177\r\n    },\r\n    {\r\n      \"id\": 2004,\r\n      \"name\": \"Aurora\",\r\n      \"municipality\": \"Aurora\",\r\n      \"region\": \"Oregon\",\r\n      \"country\": \"United States\",\r\n      \"latitude\": 45.2293,\r\n      \"longitude\": -122.7562\r\n    }\r\n  ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{BASE_URL}}/api/find",
-					"host": [
-						"{{BASE_URL}}"
-					],
-					"path": [
-						"api",
-						"find"
-					]
-				}
-			},
-			"response": []
 		}
 	]
 }
