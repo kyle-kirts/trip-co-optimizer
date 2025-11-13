@@ -51,4 +51,17 @@ public class TestCitiesSource{
         cities.selectMatch(match, 10);
         assertNotNull(cities.selectResults);
     }
+
+    @Test
+    @DisplayName("kyle-kirts: convert changes fields to strings")
+    public void testConvertToString() {
+        CitiesSource source = new CitiesSource();
+        source.initialize();
+        Place place = new Place("0.0", "0.0");
+        
+        Places result = source.convert();
+
+
+
+    }
 }
