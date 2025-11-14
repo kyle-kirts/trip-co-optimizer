@@ -54,7 +54,7 @@ public class CitiesSource extends DataSource{
     //based on guide
     public Bson nearFilter(Place place, Integer distance, Double earthRadius)
     {
-        Double dist = Double.valueOf(distance);
+        Double dist = Double.valueOf(distance * 1000.0);
         Double lon = Double.valueOf(place.get("longitude"));
         Double lat = Double.valueOf(place.get("latitude"));
         Point point = new Point(new Position(lon, lat));
