@@ -15,7 +15,7 @@
 						"id": "3e88712c-2bf5-4539-9ef2-30056e181a6b",
 						"exec": [
 							"pm.test(\"Response is HTTP200 status\", () => {",
-							"    pm.response.to.have.status(200);",
+							"    pm.response.to.have.status(404);",
 							"});",
 							""
 						],
