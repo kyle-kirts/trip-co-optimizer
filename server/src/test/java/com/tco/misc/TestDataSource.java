@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.sql.SQLException;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +37,7 @@ public class TestDataSource {
         Place place = new Place();
         Places places = new Places();
 
-        Distances result = dataSource.distances(place, places, 6371, "vincenty");
+        Distances result = dataSource.distances(place, places, 6371.0, "vincenty");
 
         assertNotNull(result);
         assertEquals(0, result.size());
@@ -51,7 +53,7 @@ public class TestDataSource {
         places.add(new Place("1.0","0.0"));
         places.add(new Place("2.0", "0.0"));
 
-        Distances result = ds.distances(origin, places, 57, "vincenty");
+        Distances result = ds.distances(origin, places, 57.0, "vincenty");
         assertEquals(2, result.size());
     }
 
@@ -65,25 +67,25 @@ public class TestDataSource {
         places.add(new Place("1.0","0.0"));
         places.add(new Place("2.0", "0.0"));
 
-        Distances result = ds.distances(origin, places, 57, "vincenty");
+        Distances result = ds.distances(origin, places, 57.0, "vincenty");
         assertEquals(1, result.get(0));
         assertEquals(2, result.get(1));
     }
 
     @Test
     @DisplayName("schlicting: Validate select() method runs without error")
-    public void testSelectRunsWithoutError() {
+    public void testSelectRunsWithoutError() throws SQLException{
         DataSource datasource = new DataSource() {};
-        datasource.selectNear(new Place(), 100.0, 6371, 1);
+        datasource.selectNear(new Place(), 100, 6371.0, 1);
         assertEquals(datasource, datasource);
         assertDoesNotThrow(() -> {
-            datasource.selectNear(new Place(), 100.0, 6371, 1);
+            datasource.selectNear(new Place(), 100, 6371.0, 1);
         });
     }
 
     @Test
     @DisplayName("schlicting: Validate convert() method runs without error")
-    public void testConvertRunsWithoutError() throws Exception{
+    public void testConvertRunsWithoutError() throws SQLException{
         DataSource datasource = new DataSource() {};
         datasource.convert();
         assertEquals(datasource, datasource);
@@ -103,18 +105,18 @@ public class TestDataSource {
 
     @Test
     @DisplayName("schlicting: Validate near() method runs without error")
-    public void testNearRunsWithoutError() throws Exception {
+    public void testNearRunsWithoutError() throws RequestException {
         DataSource datasource = new DataSource() {};
-        datasource.near(new Place(), 100.0, 6371, "vincenty", 5);
+        datasource.near(new Place(), 100, 6371.0, "vincenty", 5);
         assertEquals(datasource, datasource);
         assertDoesNotThrow(() -> {
-            datasource.near(new Place(), 100.0, 6371, "vincenty", 5);
+            datasource.near(new Place(), 100, 6371.0, "vincenty", 5);
         });
     }
 
     @Test
     @DisplayName("schlicting: Validate initialize() method runs without error")
-    public void testInitializeRunsWithoutError() {
+    public void testInitializeRunsWithoutError() throws SQLException {
         DataSource datasource = new DataSource() {};
         datasource.initialize();
         assertEquals(datasource, datasource);
@@ -125,7 +127,7 @@ public class TestDataSource {
 
     @Test
     @DisplayName("vercauteren: Validate selectMatch() method runs without error")
-    public void testSelectMatchRunsWithoutError() {
+    public void testSelectMatchRunsWithoutError() throws SQLException {
         DataSource datasource = new DataSource() {};
         datasource.selectMatch("GIBBERISH", 1);
         assertEquals(datasource, datasource);
