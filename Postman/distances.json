@@ -855,6 +855,115 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "kyle-kirts: Validate Response Schema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77aeb008-5cc5-4dc8-b2ab-a80209d3d4c9",
+						"exec": [
+							"// Schema test template taken from Postman Documentation",
+							"var schema = {",
+							"  \"$id\": \"https://example.com/address.schema.json\",",
+							"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+							"  \"title\": \"distances\",",
+							"  \"description\": \"distance request/response\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"requestType\": {",
+							"      \"description\":\"the TIP object type should be distance\",",
+							"      \"type\":\"string\",",
+							"      \"pattern\":\"^distances$\"",
+							"    },",
+							"    \"places\": {",
+							"      \"description\": \"a list of places\",",
+							"      \"type\":\"array\",",
+							"      \"items\": {",
+							"        \"type\":\"object\",",
+							"        \"properties\": {",
+							"          \"latitude\": {",
+							"            \"type\":\"string\",",
+							"            \"pattern\":\"^[-+]?(?:90(?:(?:\\\\.0+)?)|(?:[0-9]|[1-8][0-9])(?:(?:\\\\.[0-9]+)?))$\"",
+							"          },",
+							"          \"longitude\": {",
+							"            \"type\":\"string\",",
+							"            \"pattern\":\"^[-+]?(?:180(?:(?:\\\\.0+)?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\\\.[0-9]+)?))$\"",
+							"          }",
+							"        },",
+							"        \"required\": [\"latitude\",\"longitude\"],",
+							"        \"additionalProperties\": { \"type\": \"string\" }",
+							"      },",
+							"      \"minitems\": 0",
+							"    },",
+							"    \"earthRadius\":{",
+							"      \"description\":\"the radius of the earth in some unit of measure\",",
+							"      \"type\":\"number\",",
+							"      \"minimum\":1",
+							"    },",
+							"    \"formula\":{",
+							"      \"description\":\"the formula specified in the request, if provided\",",
+							"      \"type\":\"string\"",
+							"    },",
+							"    \"distances\":{",
+							"      \"description\":\"the great circle distance between each place with the last element being the distance between the first and last element in places\",",
+							"      \"type\":\"array\",",
+							"      \"items\": {",
+							"        \"type\":\"integer\",",
+							"        \"minimum\": 0",
+							"      },",
+							"      \"minItems\": 0",
+							"    }",
+							"  },",
+							"  \"required\":[\"requestType\",\"places\",\"earthRadius\",\"distances\"],",
+							"  \"additionalProperties\": false",
+							"}",
+							"",
+							"pm.test('Schema validation', () => {",
+							"  pm.response.to.have.jsonSchema (schema);",
+							"});",
+							"",
+							"var data = pm.response.json();",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"pm.expect(tv4.validate(data, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "a9a9296b-af49-4f2f-8522-d214741ab335",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"requestType\": \"distances\",\n  \"places\": [\n    { \"name\": \"EquatorPrime\", \"latitude\": \"0.0\",       \"longitude\": \"0.0\" },\n    { \"name\": \"NW\",      \"latitude\": \"0.0001\",    \"longitude\": \"-0.0001\" },\n    { \"name\": \"SE\",      \"latitude\": \"-0.0001\",   \"longitude\": \"0.0001\" },\n    { \"name\": \"NE\",    \"latitude\": \"10.0\",      \"longitude\": \"179.9999\" },\n    { \"name\": \"SW\",    \"latitude\": \"-10.0\",     \"longitude\": \"-179.9999\" },\n    { \"name\": \"North Pole\",\"latitude\": \"89.9999\",  \"longitude\": \"0.0\" }\n  ],\n  \"earthRadius\": 7777777.0,\n  \"formula\": \"vincenty\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
