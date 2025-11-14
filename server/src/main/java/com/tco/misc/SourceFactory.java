@@ -8,7 +8,7 @@ public class SourceFactory{
     public static DataSource get(String source) {
         DataSource dataSource;
 
-        if (source == null || source == "cities") {
+        if (source == null || source.equals("cities")) {
             dataSource = new CitiesSource();
         }
         else {
