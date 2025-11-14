@@ -44,8 +44,8 @@ public final class MicroServer {
             post("/config", (req, res) -> processHttpRequest(req, res, ConfigRequest.class));
             post("/distances", (req, res) -> processHttpRequest(req, res, DistancesRequest.class));
             post("/tour", (req, res) -> processHttpRequest(req, res, TourRequest.class));
-            post("/near", (req, res) -> processHttpRequest(req, res, NearRequest.class));
-            post("/find", (req, res) -> processHttpRequest(req, res, FindRequest.class));
+            //post("/near", (req, res) -> processHttpRequest(req, res, NearRequest.class));
+            //post("/find", (req, res) -> processHttpRequest(req, res, FindRequest.class));
         });
         post("/500", (req, res) -> processHttpRequest(req, res, null));
     }
