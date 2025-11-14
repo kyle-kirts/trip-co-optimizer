@@ -75,7 +75,7 @@ public class TestAirportsSource {
         AirportsSource src = new AirportsSource();
         src.initialize();
         Place place = new Place("40.5", "-105.1");
-        src.selectNear(place, 50, 3959, 1);
+        src.selectNear(place, 50, 3959.0, 1);
         assertNotNull(src.selectResults);
         assertTrue(src.selectResults.next());
     }
@@ -85,7 +85,7 @@ public class TestAirportsSource {
     public void testSelectWithNullConnection() {
         AirportsSource src = new AirportsSource();
         Place place = new Place("40.5", "-105.1");
-        src.selectNear(place, 50, 3959, 1);
+        src.selectNear(place, 50, 3959.0, 1);
         assertNull(src.selectResults);
     }
 
@@ -95,7 +95,7 @@ public class TestAirportsSource {
         AirportsSource src = new AirportsSource();
         src.initialize();
         Place fortCollins = new Place("40.585", "-105.084");
-        src.selectNear(fortCollins, 10, 3959, 1);
+        src.selectNear(fortCollins, 10, 3959.0, 1);
         assertNotNull(src.selectResults);
         assertTrue(src.selectResults.next());
     }
@@ -106,7 +106,7 @@ public class TestAirportsSource {
         AirportsSource src = new AirportsSource();
         src.initialize();
         Place place = new Place("40.5", "-105.1");
-        src.selectNear(place, 50, 6371, 1);
+        src.selectNear(place, 50, 6371.0, 1);
         assertNotNull(src.selectResults);
         assertTrue(src.selectResults.next());
     }
@@ -117,7 +117,7 @@ public class TestAirportsSource {
         AirportsSource src = new AirportsSource();
         src.initialize();
         Place place = new Place("0.0", "0.0"); 
-        src.selectNear(place, 1, 3959, 1); 
+        src.selectNear(place, 1, 3959.0, 1); 
         assertNotNull(src.selectResults);    
     }
 
@@ -126,7 +126,7 @@ public class TestAirportsSource {
         AirportsSource src = new AirportsSource();
         src.initialize();
         Place nullIsland = new Place("0.0", "0.0"); 
-        src.selectNear(nullIsland, 10000, 395, 1); 
+        src.selectNear(nullIsland, 10000, 395.0, 1); 
 
         Places places = src.convert();
         assertTrue(places.get(0).get("ident") instanceof String);

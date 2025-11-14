@@ -9,6 +9,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.geojson.Point;
 import com.mongodb.client.model.geojson.Position;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import org.bson.Document;
@@ -30,7 +31,7 @@ public class CitiesSource extends DataSource{
     }
 
     @Override
-    public void initialize() {
+    public void initialize() throws SQLException {
         MongoClient mongoClient = MongoClients.create(Credential.URL);
         MongoDatabase database = mongoClient.getDatabase("cs314");
         this.collection = database.getCollection("cities");
@@ -38,20 +39,20 @@ public class CitiesSource extends DataSource{
 
 
     @Override
-    public void selectNear(Place place, double distance, long earthRadius, int limit){
+    public void selectNear(Place place, Integer distance, Double earthRadius, Integer limit) throws SQLException {
         Bson filter = nearFilter(place, distance, earthRadius);
         this.selectResults = collection.find(filter).limit(limit);
     }
 
     @Override
-    public void selectMatch(String match, int limit)
+    public void selectMatch(String match, Integer limit) throws SQLException
     {
         Bson filter = matchFilter(match);
         this.selectResults = collection.find(filter).limit(limit);
     }
 
     //based on guide
-    public Bson nearFilter(Place place, double distance, long earthRadius)
+    public Bson nearFilter(Place place, Integer distance, Double earthRadius)
     {
         Double dist = Double.valueOf(distance);
         Double lon = Double.valueOf(place.get("longitude"));
