@@ -16,7 +16,7 @@ public abstract class DataSource {
 
         try {
             initialize();
-            selectNear(place, distance, earthRadius, checkLimit(limit));
+            selectNear(place, distance, earthRadius, limit);
             results = convert();
             return results;
         }
@@ -59,13 +59,6 @@ public abstract class DataSource {
 
     public Places convert() throws SQLException {
         return new Places();
-    }
-
-    public int checkLimit(Integer limit) {
-        if (limit > 100) {
-            limit = 100;
-        }
-        return limit;
     }
 
     static class Credential {
