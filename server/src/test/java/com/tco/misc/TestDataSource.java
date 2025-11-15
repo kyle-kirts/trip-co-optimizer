@@ -136,16 +136,6 @@ public class TestDataSource {
         });
     }
 
-    @Test
-    @DisplayName("kyle-kirts: limits greater than 100 are set to 100")
-    public void testCheckLimit() {
-        DataSource datasource = new DataSource() {};
-        int limit = 101;
-
-        limit = datasource.checkLimit(limit);
-        assertEquals(100, limit);
-    }
-
     @Test        
     @DisplayName("luzovich: find() with gibberish returns empty Places")
     public void testGibberishYieldsEmptyPlacesFromFind() throws Exception {

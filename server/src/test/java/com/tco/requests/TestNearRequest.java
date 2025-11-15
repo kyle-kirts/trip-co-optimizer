@@ -102,4 +102,13 @@ public class TestNearRequest {
     NearRequest req = new NearRequest();
     assertDoesNotThrow(req::buildResponse);
   }
+
+  @Test
+  @DisplayName("kyle-kirts: limit greater than 100 is set to 100")
+  public void testCheckLimit(){
+    NearRequest request = new NearRequest(101);
+    request.checkLimit();
+
+    assertEquals(100, request.getLimit());
+  }
 }
