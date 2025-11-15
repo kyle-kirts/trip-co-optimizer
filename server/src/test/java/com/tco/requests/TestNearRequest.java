@@ -105,10 +105,19 @@ public class TestNearRequest {
 
   @Test
   @DisplayName("kyle-kirts: limit greater than 100 is set to 100")
-  public void testCheckLimit(){
+  public void testCappingLimit(){
     NearRequest request = new NearRequest(101);
     request.checkLimit();
 
     assertEquals(100, request.getLimit());
+  }
+
+  @Test
+  @DisplayName("kyle-kirts: valid limit less than 100 remains the same")
+  public void testCheckLimitValid(){
+    NearRequest request = new NearRequest(99);
+    request.checkLimit();
+
+    assertEquals(99, request.getLimit());
   }
 }
