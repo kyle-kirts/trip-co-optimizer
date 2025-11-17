@@ -1,5 +1,7 @@
 package com.tco.misc;
 
+import java.sql.SQLException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,47 +11,35 @@ public abstract class DataSource {
 
     protected Places results;
 
-    public Places near(Place place, double distance, long earthRadius, String formula, int limit) throws Exception {
-        try {
-
-            initialize();
-            selectNear(place, distance, earthRadius, checkLimit(limit));
-            if (results == null) {
-                results = new Places();
-            }
-            convert();
-
-        } catch (Exception e) {
-            log.warn("near() failed returning empty list: {}", e.toString());
-            throw e;
-        }
-        return results;
-    }
-
     public Places near(Place place, Integer distance, Double earthRadius, String formula, Integer limit) {
-        return new Places();
-    }
-
-    public Places find(String match, int limit) throws Exception {
+        results = new Places();
 
         try {
+            initialize();
+            selectNear(place, distance, earthRadius, limit);
+            results = convert();
+            return results;
+        }
+        catch (Exception e) {
+            return results;
+        }
+    }
 
+    public Places find(String match, Integer limit) {
+        results = new Places();
+
+        try {
             initialize();
             selectMatch(match, limit);
-            if (results == null) {
-                results = new Places();
-            }
-            convert();
-        } catch (Exception e) {
-
-            log.warn("find() failed returning empty list: {}", e.toString());
-            throw e;
+            results = convert();
+            return results;
         }
-
-        return results;
+        catch (Exception e) {
+            return results;
+        }
     }
     
-    public Distances distances(Place place, Places places, long earthRadius, String formula) {
+    public Distances distances(Place place, Places places, Double earthRadius, String formula) {
         Distances allDistances = new Distances();
         DistanceCalculator calculator = CalculatorFactory.getCalculator(formula);
         for(Place p : places) {
@@ -58,24 +48,17 @@ public abstract class DataSource {
         return allDistances;
     }
     
-    public void initialize() {
+    public void initialize() throws SQLException{
     }
 
-    public void selectNear(Place place, double distance, long earthRadius, int limit) {
+    public void selectNear(Place place, Integer distance, Double earthRadius, Integer limit) throws SQLException {
     }
 
-    public void selectMatch(String match, int limit){
+    public void selectMatch(String match, Integer limit) throws SQLException {
     }
 
-    public Places convert() throws Exception{
+    public Places convert() throws SQLException {
         return new Places();
-    }
-
-    public int checkLimit(int limit) {
-        if (limit > 100) {
-            limit = 100;
-        }
-        return limit;
     }
 
     static class Credential {
