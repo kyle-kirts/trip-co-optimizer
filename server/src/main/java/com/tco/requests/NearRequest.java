@@ -1,5 +1,6 @@
 package com.tco.requests;
 
+import com.tco.misc.BadRequestException;
 import com.tco.misc.CalculatorFactory;
 import com.tco.misc.Distances;
 import com.tco.misc.Place;
@@ -19,33 +20,70 @@ public class NearRequest extends Request {
   private Distances distances;
 
   public NearRequest() {
-      this.requestType = "near";
-      this.place = new Place();
-      this.distance = 0;
-      this.earthRadius = 6371.0;
-      this.limit = 0;
-      this.formula = null;
-      this.source = null;
-      this.places = new Places();
-      this.distances = new Distances();
+    this.requestType = "near";
+    this.place = new Place();
+    this.distance = 0;
+    this.earthRadius = 6371.0;
+    this.limit = 0;
+    this.formula = null;
+    this.source = null;
+    this.places = new Places();
+    this.distances = new Distances();
   }
 
   @Override
   public void buildResponse() throws RequestException {
-      boolean formulaWasProvided = this.formula != null;
-      boolean formulaIsSupported = CalculatorFactory.getSupportedFormulae().contains(this.formula);
-
-      if (formulaWasProvided && !formulaIsSupported) {
-        throw new RequestException();
-      }
-      boolean sourceWasProvided = this.source != null;
-      boolean sourceIsSupported =
-      SourceFactory.getSupportedSources().contains(this.source);
-
-      if (sourceWasProvided && !sourceIsSupported) {
-        throw new RequestException();
+    if (!validateRequest()) {
+      throw new BadRequestException();
     }
-      DataSource dataSource = SourceFactory.get(this.source);
-      this.places = dataSource.near(this.place, this.distance, this.earthRadius, this.formula, this.limit);
+
+    checkLimit();
+    DataSource dataSource = SourceFactory.get(this.source);
+    this.places = dataSource.near(this.place, this.distance, this.earthRadius, this.formula, this.limit);
+  }
+
+  public boolean validateRequest() {
+    boolean formulaWasProvided = this.formula != null;
+    boolean formulaIsSupported = CalculatorFactory.getSupportedFormulae().contains(this.formula);
+    boolean validRequest = true;
+
+    if (limit == null) {
+      validRequest = false;
+    }
+
+    if (formulaWasProvided && !formulaIsSupported) {
+      validRequest = false;
+    }
+    boolean sourceWasProvided = this.source != null;
+    boolean sourceIsSupported = SourceFactory.getSupportedSources().contains(this.source);
+
+    if (sourceWasProvided && !sourceIsSupported) {
+      validRequest = false;
+    }
+
+    return validRequest;
+  }
+
+  public void checkLimit() {
+    if (limit > 100) {
+      this.limit = 100;
+    }
+  }
+
+  // method for testing
+  public NearRequest(Integer limit) {
+    this.requestType = "near";
+    this.place = new Place();
+    this.distance = 0;
+    this.earthRadius = 6371.0;
+    this.limit = limit;
+    this.formula = null;
+    this.source = null;
+    this.places = new Places();
+    this.distances = new Distances();
+  }
+
+  public Integer getLimit() {
+    return this.limit;
   }
 }

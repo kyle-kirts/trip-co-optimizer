@@ -25,12 +25,12 @@ public class AirportsSource extends DataSource {
     }
 
     @Override
-    public void selectNear(Place place, double distance, long earthRadius, int limit) {
+    public void selectNear(Place place, Integer distance, Double earthRadius, Integer limit) {
         if (connection == null) return;
         try {
             double lon = Double.parseDouble(place.get("longitude"));
             double lat = Double.parseDouble(place.get("latitude"));
-            double distanceInMeters = distance * (6371000.0 / earthRadius);
+            Integer distanceInMeters = (int)(distance * (6371000.0 / earthRadius));
 
             String sql =
                 "SELECT a.ident, a.name, a.municipality, r.name AS region, c.name AS country, " +
@@ -52,7 +52,7 @@ public class AirportsSource extends DataSource {
     }
 
     @Override
-    public void selectMatch(String match, int limit) {
+    public void selectMatch(String match, Integer limit) {
         if (connection == null) return;
         try {
             String sql =
@@ -80,21 +80,21 @@ public class AirportsSource extends DataSource {
     }
 
     @Override
-    public Places convert() throws Exception{
+    public Places convert() throws SQLException {
         String columns = "ident,name,municipality,region,country,latitude,longitude";
         int count = 0;
         String[] cols = columns.split(",");
         Places places = new Places();
-        while (selectResults.next()) {
-            Place place = new Place(selectResults.getString("latitude"), selectResults.getString("longitude"));
-            for (String col : cols) {
-                if(col.equals("latitude") || col.equals("longitude")) continue;
-                place.put(col, selectResults.getString(col));
+            while (selectResults.next()) {
+                Place place = new Place(selectResults.getString("latitude"), selectResults.getString("longitude"));
+                for (String col : cols) {
+                    if(col.equals("latitude") || col.equals("longitude")) continue;
+                    place.put(col, selectResults.getString(col));
+                }
+                places.add(place);
             }
-            places.add(place);
-        }
+        
         return places;
     }
     
-
 }

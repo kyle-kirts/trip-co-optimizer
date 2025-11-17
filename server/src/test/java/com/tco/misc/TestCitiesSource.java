@@ -11,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.sql.SQLException;
+
 public class TestCitiesSource{
 
     //from guide wiki directly
@@ -32,20 +34,20 @@ public class TestCitiesSource{
 
     @Test
     @DisplayName("vercauteren: select() queries a database and returns something.")
-    public void testSelectExists() {
+    public void testSelectExists() throws SQLException {
 
         CitiesSource cities = new CitiesSource() {};
         cities.initialize();
         Place place = new Place("45","-105");
-        double distance = 1000000000;
-        long earthRadius = 6371;
+        Integer distance = 1000000000;
+        Double earthRadius = 6371.0;
         cities.selectNear(place, distance, earthRadius, 1);
         assertNotNull(cities.selectResults);
     }
 
     @Test
     @DisplayName("vercauteren: selectMatch() queries a database and returns something.")
-    public void testSelectMatchExists() {
+    public void testSelectMatchExists() throws SQLException {
 
         CitiesSource cities = new CitiesSource() {};
         cities.initialize();
@@ -56,10 +58,10 @@ public class TestCitiesSource{
 
     @Test
     @DisplayName("kyle-kirts: convert changes fields to strings")
-    public void testConvertToString() throws Exception {
+    public void testConvertToString() throws RequestException {
         CitiesSource source = new CitiesSource();
         Place place = new Place("50.0", "-45.5");
-        Places places = source.near(place, 100000000, 395, "vincenty", 1);
+        Places places = source.near(place, 100000000, 395.0, "vincenty", 1);
         
         assertTrue(places.get(0).get("municipality") instanceof String);
         assertTrue(places.get(0).get("country") instanceof String);
