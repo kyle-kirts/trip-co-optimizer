@@ -61,15 +61,6 @@ public abstract class DataSource {
         return new Places();
     }
 
-    static class Credential {
-        static final int PORT = 27017;
-        // shared user with read-only access
-        static final String USER = "cs314-db";
-        static final String PASSWORD = "REDACTED";
-
-        static final String URL = String.format("mongodb://%s:%s@black-bottle:%d/?authSource=cs314", USER, PASSWORD, PORT);
-    }
-
     //testing methods
     public Places getResults() {
         return this.results;
