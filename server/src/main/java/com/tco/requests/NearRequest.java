@@ -37,7 +37,6 @@ public class NearRequest extends Request {
       throw new BadRequestException();
     }
 
-    checkLimit();
     DataSource dataSource = SourceFactory.get(this.source);
     this.places = dataSource.near(this.place, this.distance, this.earthRadius, this.formula, this.limit);
   }
@@ -63,27 +62,5 @@ public class NearRequest extends Request {
 
     return validRequest;
   }
-
-  public void checkLimit() {
-    if (limit > 100) {
-      this.limit = 100;
-    }
-  }
-
-  // method for testing
-  public NearRequest(Integer limit) {
-    this.requestType = "near";
-    this.place = new Place();
-    this.distance = 0;
-    this.earthRadius = 6371.0;
-    this.limit = limit;
-    this.formula = null;
-    this.source = null;
-    this.places = new Places();
-    this.distances = new Distances();
-  }
-
-  public Integer getLimit() {
-    return this.limit;
-  }
+  
 }

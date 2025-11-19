@@ -149,4 +149,22 @@ public class TestDataSource {
         DataSource datasource = new CitiesSource();
         assertEquals(12, datasource.find("Dave", 12).size());
     }
+
+    @Test
+    @DisplayName("kyle-kirts: limit greater than 100 is set to 100")
+    public void testCappingLimit(){
+        DataSource source = new CitiesSource();
+        Integer limit = source.checkLimit(101);
+
+        assertEquals(100, limit);
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: valid limit less than 100 remains the same")
+    public void testCheckLimitValid(){
+        DataSource source = new CitiesSource();
+        Integer limit = source.checkLimit(99);
+
+        assertEquals(99, limit);
+    }
 }
