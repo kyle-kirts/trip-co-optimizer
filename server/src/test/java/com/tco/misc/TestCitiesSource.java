@@ -22,7 +22,7 @@ public class TestCitiesSource{
         static final String USER = "cs314-db";
         static final String PASSWORD = "REDACTED";
 
-        static final String URL = String.format("mongodb://%s:%s@black-bottle:%d/?authSource=cs314", USER, PASSWORD, PORT);
+        static final String URL = String.format("mongodb://%s:%s@cilantro:%d/?authSource=cs314", USER, PASSWORD, PORT);
     }
 
     @Test
