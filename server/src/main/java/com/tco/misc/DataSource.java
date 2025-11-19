@@ -16,13 +16,20 @@ public abstract class DataSource {
 
         try {
             initialize();
-            selectNear(place, distance, earthRadius, limit);
+            selectNear(place, distance, earthRadius, checkLimit(limit));
             results = convert();
             return results;
         }
         catch (Exception e) {
             return results;
         }
+    }
+
+    public Integer checkLimit(Integer limit) {
+        if (limit > 100) { 
+            limit = 100;  
+        }
+        return limit;
     }
 
     public Places find(String match, Integer limit) {
