@@ -39,6 +39,7 @@ public class NearRequest extends Request {
 
     DataSource dataSource = SourceFactory.get(this.source);
     this.places = dataSource.near(this.place, this.distance, this.earthRadius, this.formula, this.limit);
+    this.distances = dataSource.distances(this.place, this.places, this.earthRadius, this.formula);
   }
 
   public boolean validateRequest() {
