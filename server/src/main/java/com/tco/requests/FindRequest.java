@@ -18,7 +18,7 @@ public class FindRequest extends Request {
   public FindRequest() {
     this.requestType = "find";
     this.match = "";
-    this.source = "cities";
+    this.source = null;
     this.limit = 0;
     this.found = 0;
     this.places = new Places();
