@@ -29,7 +29,7 @@ public class TestTourOptimizer {
         places.add(new Place("0.0", "0.0"));
         places.add(new Place("1.0", "1.0"));
 
-        optimizer.initialize(places, 111, "vincenty");
+        optimizer.initialize(places, 111, "vincenty", 1.0);
         assertTrue(optimizer.getVisited().length == 2);
         assertTrue(optimizer.getOrder().length == 2);
         assertTrue(optimizer.getCurrentTotal() == 0);
@@ -48,7 +48,7 @@ public class TestTourOptimizer {
         places.add(new Place("3.0", "3.0"));
         places.add(start);
 
-        optimizer.initialize(places, 111, "vincenty");
+        optimizer.initialize(places, 111, "vincenty", 1.0);
         int[] expected = {3,1,0,2};
         assertTrue(Arrays.equals(optimizer.createRoute(places, start),expected));
     }
@@ -111,7 +111,7 @@ public class TestTourOptimizer {
 
         optimizer.setVisited(visited);
         optimizer.setDistances(distances);
-        assertEquals(1, optimizer.closest( 3));
+        assertEquals(1, optimizer.closest(3));
     }
 
     @Test
@@ -148,5 +148,15 @@ public class TestTourOptimizer {
         optimizer.setVisited(visited);
         optimizer.setDistances(distances);
         assertEquals(6, optimizer.closest(5));
+    }
+
+    @Test
+    @DisplayName("luzovich: getSeconds() is accurate")
+    public void testAccuracyOfGetSeconds() {
+        TourOptimizer optimizer = new TourOptimizer() {};
+        double before = System.currentTimeMillis() / 1000;
+        double during = optimizer.getSeconds();
+        double after = System.currentTimeMillis() / 1000;
+        assertTrue(before <= during && during <= after);
     }
 }

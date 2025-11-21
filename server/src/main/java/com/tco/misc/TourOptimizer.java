@@ -8,43 +8,50 @@ public abstract class TourOptimizer {
     protected int[] order;
     protected long[][] distances;
     protected long currentTotalDistance;
+    protected double response;
 
-    public TourOptimizer() {
-    }
+    public TourOptimizer() {}
 
     public Places construct(Places places, double radius, String formula, Double response) {
-        initialize(places, radius, formula);
+        initialize(places, radius, formula, response);
         int[] tour = findBestNearestNeighborTour(places);
         Places nearestNeighbor = new Places();
+
         for (int i=0; i < tour.length; i++) {
             nearestNeighbor.add(places.get(tour[i]));
         }
+        
         return nearestNeighbor;
     }
 
-    public void improve() {
-    };
+    public void improve() {};
 
-    public void initialize(Places places, double radius, String formula) 
-    {
+    public void initialize(Places places, double radius, String formula, Double response) {
         visited = new boolean[places.size()];
         Arrays.fill(visited, false);
         order = new int[places.size()];
         currentTotalDistance = 0;
+        this.response = response.doubleValue();
         initializeDistances(places, radius, formula);
     }
 
     public int[] findBestNearestNeighborTour(Places places) {
         long currentBest = Long.MAX_VALUE;
         int[] bestOrder = new int[places.size()];
-        int cutoff = (places.size() < 400) ? places.size() : 400;
-        for (int i = 0; i < cutoff; i++) {
+        // int cutoff = (places.size() < 400) ? places.size() : 400;
+        Double previousTime = getSeconds();
+        for (int i = 0; i < places.size(); i++) {
             int[] currentOrder = createRoute(places, places.get(i));
             if (currentTotalDistance < currentBest) {
                 bestOrder = currentOrder;
                 currentBest = currentTotalDistance;
             }
+
+            response -= getSeconds() - previousTime;
+            previousTime = getSeconds();
+            if (response <= 0.25) break;
         }
+        
         return bestOrder;
     }
 
@@ -64,27 +71,26 @@ public abstract class TourOptimizer {
         }
     }
 
-    public int[] createRoute(Places places, Place start)
-    {   
+    public int[] createRoute(Places places, Place start) {   
         Arrays.fill(order, -1);
         Arrays.fill(visited, false);
         int index = 0;
 
-        int nextPlace= places.getPlace(start);
+        int nextPlace = places.getPlace(start);
         this.order[index] = nextPlace;
         this.visited[nextPlace] = true;
         index++;
         
         int visitedCount = 1;
 
-        while(visitedCount < visited.length)
-        {
+        while(visitedCount < visited.length) {
             nextPlace = closest(nextPlace);
             this.order[index] = nextPlace;
             this.visited[nextPlace] = true;
             index++;
             visitedCount++;
         }
+        
         return order;
     }
 
@@ -103,9 +109,10 @@ public abstract class TourOptimizer {
                 best = i;
                 minDistance = distance;
             }
+            
             if (isValidPlace && isEqualTo) best = pickRandom(i, best);
-        
         }
+        
         return best;
     }
 
@@ -114,6 +121,10 @@ public abstract class TourOptimizer {
         int nonse = random.nextInt();
         if (nonse % 2 == 0) best = i;
         return best;
+    }
+
+    protected double getSeconds() {
+        return (double) (System.currentTimeMillis() / 1000);
     }
 
     // Methods used for testing
