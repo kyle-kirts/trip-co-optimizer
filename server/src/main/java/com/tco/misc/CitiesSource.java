@@ -68,7 +68,8 @@ public class CitiesSource extends DataSource{
                     "lng",              "longitude",
                     "lat",              "latitude",
                     "city",             "municipality",
-                    "admin_name_ascii", "region"
+                    "admin_name_ascii", "region",
+                    "city_ascii",       "name"
         );
 
         for (Document doc : selectResults) {
