@@ -57,7 +57,7 @@ public class TourRequest extends Request {
         if ((this.formula != null) && (!CalculatorFactory.getSupportedFormulae().contains(this.formula))) throw new BadRequestException();
         TourOptimizer optimizer = OptimizerFactory.get(this.places.size(), this.response);
         Places result = optimizer.construct(this.places, this.earthRadius, this.formula, this.response);
-        this.places = rotate(result);
+        if (this.response > 0) this.places = rotate(result);
     }
 
     public Places rotate(Places tour){
