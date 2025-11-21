@@ -9,6 +9,7 @@ public abstract class TourOptimizer {
     protected long[][] distances;
     protected long currentTotalDistance;
     protected double response;
+    private final double RETURN_TIME_CUTOFF = 0.25; // 0.05
 
     public TourOptimizer() {}
 
@@ -38,7 +39,6 @@ public abstract class TourOptimizer {
     public int[] findBestNearestNeighborTour(Places places) {
         long currentBest = Long.MAX_VALUE;
         int[] bestOrder = new int[places.size()];
-        // int cutoff = (places.size() < 400) ? places.size() : 400;
         Double previousTime = getSeconds();
         for (int i = 0; i < places.size(); i++) {
             int[] currentOrder = createRoute(places, places.get(i));
@@ -49,7 +49,7 @@ public abstract class TourOptimizer {
 
             response -= getSeconds() - previousTime;
             previousTime = getSeconds();
-            if (response <= 0.25) break;
+            if (response <= RETURN_TIME_CUTOFF) break;
         }
         
         return bestOrder;
