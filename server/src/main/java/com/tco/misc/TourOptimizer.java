@@ -9,16 +9,17 @@ public abstract class TourOptimizer {
     protected long[][] distances;
     protected long currentTotalDistance;
     protected double response;
-    private final double RETURN_TIME_CUTOFF = 0.25; // 0.05
+    private double RETURN_TIME_CUTOFF = 0.25; // 0.05
 
     public TourOptimizer() {}
 
     public Places construct(Places places, double radius, String formula, Double response) {
+        if (response < RETURN_TIME_CUTOFF) return places;
         initialize(places, radius, formula, response);
         int[] tour = findBestNearestNeighborTour(places);
         Places nearestNeighbor = new Places();
 
-        for (int i=0; i < tour.length; i++) {
+        for (int i = 0; i < tour.length; i++) {
             nearestNeighbor.add(places.get(tour[i]));
         }
         
@@ -39,7 +40,7 @@ public abstract class TourOptimizer {
     public int[] findBestNearestNeighborTour(Places places) {
         long currentBest = Long.MAX_VALUE;
         int[] bestOrder = new int[places.size()];
-        Double previousTime = getSeconds();
+        double previousTime = getSeconds();
         for (int i = 0; i < places.size(); i++) {
             int[] currentOrder = createRoute(places, places.get(i));
             if (currentTotalDistance < currentBest) {
@@ -49,7 +50,7 @@ public abstract class TourOptimizer {
 
             response -= getSeconds() - previousTime;
             previousTime = getSeconds();
-            if (response <= RETURN_TIME_CUTOFF) break;
+            if (response / 2 <= RETURN_TIME_CUTOFF) break;
         }
         
         return bestOrder;
@@ -74,22 +75,27 @@ public abstract class TourOptimizer {
     public int[] createRoute(Places places, Place start) {   
         Arrays.fill(order, -1);
         Arrays.fill(visited, false);
+        
         int index = 0;
-
         int nextPlace = places.getPlace(start);
         this.order[index] = nextPlace;
         this.visited[nextPlace] = true;
         index++;
         
         int visitedCount = 1;
+        // double previousTime = getSeconds();
 
-        while(visitedCount < visited.length) {
+        while (visitedCount < visited.length) {
             nextPlace = closest(nextPlace);
             this.order[index] = nextPlace;
             this.visited[nextPlace] = true;
             index++;
             visitedCount++;
-        }
+
+            // response -= getSeconds() - previousTime;
+            // previousTime = getSeconds();
+            // if (response / 2 <= RETURN_TIME_CUTOFF) break;
+        }        
         
         return order;
     }

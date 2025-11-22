@@ -93,7 +93,7 @@ public class TestTourOptimizer {
         optimizer.setVisited(visited);
         optimizer.setDistances(distances);
 
-        assertEquals(1, optimizer.closest( 0));
+        assertEquals(1, optimizer.closest(0));
     }
 
     @Test
