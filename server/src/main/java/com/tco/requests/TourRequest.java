@@ -66,6 +66,7 @@ public class TourRequest extends Request {
             if(tour.get(i) == this.places.get(0))
             {
                 originIndex = i;
+                break;
             }
         }
         
