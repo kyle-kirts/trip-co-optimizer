@@ -204,4 +204,33 @@ public class TestAirportsSource {
         assertNull(src.selectResults);
     }
 
+    @Test
+    @DisplayName("jsibold: countMatch() returns count of matching airports")
+    public void testCountMatchReturnsCount() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        Integer count = src.countMatch("Denver");
+        assertNotNull(count);
+        assertTrue(count > 0);
+    }
+
+    @Test
+    @DisplayName("jsibold: countMatch() returns 0 with null connection")
+    public void testCountMatchNullConnection() throws Exception {
+        AirportsSource src = new AirportsSource();
+        Integer count = src.countMatch("test");
+        assertNotNull(count);
+        assertTrue(count == 0);
+    }
+
+    @Test
+    @DisplayName("jsibold: countMatch() searches all fields")
+    public void testCountMatchSearchesAllFields() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        Integer count = src.countMatch("Colorado");
+        assertNotNull(count);
+        assertTrue(count > 0);
+    }
+
 }
