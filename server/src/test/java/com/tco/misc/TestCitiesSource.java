@@ -69,4 +69,34 @@ public class TestCitiesSource{
         assertTrue(places.get(0).get("latitude") instanceof String);
         assertTrue(places.get(0).get("longitude") instanceof String);
     }
+
+    @Test
+    @DisplayName("jsibold: countMatch() returns count of matching cities")
+    public void testCountMatchReturnsCount() throws Exception {
+        CitiesSource src = new CitiesSource();
+        src.initialize();
+        Integer count = src.countMatch("Paris");
+        assertNotNull(count);
+        assertTrue(count > 0);
+    }
+
+    @Test
+    @DisplayName("jsibold: countMatch() searches city and country fields")
+    public void testCountMatchSearchesFields() throws Exception {
+        CitiesSource src = new CitiesSource();
+        src.initialize();
+        Integer count = src.countMatch("United States");
+        assertNotNull(count);
+        assertTrue(count > 0);
+    }
+
+    @Test
+    @DisplayName("jsibold: countMatch() returns 0 for no matches")
+    public void testCountMatchNoResults() throws Exception {
+        CitiesSource src = new CitiesSource();
+        src.initialize();
+        Integer count = src.countMatch("ZzZzNotARealCityNameXxXx");
+        assertNotNull(count);
+        assertTrue(count == 0);
+    }
 }
