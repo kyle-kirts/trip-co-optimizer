@@ -115,4 +115,15 @@ public class CitiesSource extends DataSource{
         );
     }
 
+    @Override
+    public Integer countMatch(String match) throws SQLException {
+        try {
+            Bson filter = matchFilter(match);
+            long count = collection.countDocuments(filter);
+            return (int) count;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
 }

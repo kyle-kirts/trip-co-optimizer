@@ -115,5 +115,34 @@ public class AirportsSource extends DataSource {
         
         return places;
     }
+
+    @Override
+    public Integer countMatch(String match) throws SQLException {
+        if (connection == null) return 0;
+        try {
+            String sql =
+                "SELECT COUNT(*) AS total " +
+                "FROM airports a " +
+                "JOIN regions r ON a.iso_region = r.code " +
+                "JOIN countries c ON a.iso_country = c.code " +
+                "WHERE a.ident LIKE ? OR a.name LIKE ? OR a.municipality LIKE ? " +
+                "OR r.name LIKE ? OR c.name LIKE ?;";
+
+            var stmt = connection.prepareStatement(sql);
+            String pattern = "%" + match + "%";
+            stmt.setString(1, pattern);
+            stmt.setString(2, pattern);
+            stmt.setString(3, pattern);
+            stmt.setString(4, pattern);
+            stmt.setString(5, pattern);
+            var results = stmt.executeQuery();
+            if (results.next()) {
+                return results.getInt("total");
+            }
+            return 0;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
     
 }
