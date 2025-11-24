@@ -68,6 +68,10 @@ public abstract class DataSource {
         return new Places();
     }
 
+    public Integer countMatch(String match) throws SQLException {
+        return 0;
+    }
+
     //testing methods
     public Places getResults() {
         return this.results;
