@@ -167,4 +167,24 @@ public class TestDataSource {
 
         assertEquals(99, limit);
     }
+
+    @Test
+    @DisplayName("jsibold: countMatch() method runs without error")
+    public void testCountMatchRunsWithoutError() throws SQLException {
+        DataSource datasource = new DataSource() {};
+        Integer count = datasource.countMatch("test");
+        assertNotNull(count);
+        assertEquals(0, count);
+        assertDoesNotThrow(() -> {
+            datasource.countMatch("test");
+        });
+    }
+
+    @Test
+    @DisplayName("jsibold: countMatch() returns 0 by default")
+    public void testCountMatchReturnsZero() throws SQLException {
+        DataSource datasource = new DataSource() {};
+        Integer count = datasource.countMatch("anything");
+        assertEquals(0, count);
+    }
 }
