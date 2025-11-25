@@ -99,4 +99,19 @@ public class TestCitiesSource{
         assertNotNull(count);
         assertTrue(count == 0);
     }
+
+    @Test
+    @DisplayName("jsibold: countMatch() handles exception and returns 0")
+    public void testCountMatchHandlesException() throws Exception {
+        CitiesSource src = new CitiesSource() {
+            @Override
+            public void initialize() throws SQLException {
+                this.collection = null;
+            }
+        };
+        src.initialize();
+        Integer count = src.countMatch("test");
+        assertNotNull(count);
+        assertTrue(count == 0);
+    }
 }
