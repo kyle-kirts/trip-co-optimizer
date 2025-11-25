@@ -219,4 +219,22 @@ public class TestAirportsSource {
         assertTrue(count > 0);
     }
 
+    @Test
+    @DisplayName("jsibold: countMatch() handles exception gracefully")
+    public void testCountMatchHandlesException() throws Exception {
+        AirportsSource src = new AirportsSource();
+        src.initialize();
+        
+        Field connectionField = AirportsSource.class.getDeclaredField("connection");
+        connectionField.setAccessible(true);
+        Connection conn = (Connection) connectionField.get(src);
+        if (conn != null) {
+            conn.close();
+        }
+        
+        Integer count = src.countMatch("test");
+        assertNotNull(count);
+        assertTrue(count == 0);
+    }
+
 }
