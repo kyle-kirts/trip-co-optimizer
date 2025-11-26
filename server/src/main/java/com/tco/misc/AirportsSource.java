@@ -18,7 +18,7 @@ public class AirportsSource extends DataSource {
     }
 
     @Override
-    public Places near(Place place, Integer distance, Double earthRadius, String formula, Integer limit) {
+    public Places near(Place place, Integer distance, Double earthRadius, Integer limit) {
         results = new Places();
 
         try (Connection connection = DriverManager.getConnection(Credential.URL, Credential.USER, Credential.PASSWORD)) {
@@ -31,6 +31,7 @@ public class AirportsSource extends DataSource {
         }
     }
 
+    @Override
     public Places find(String match, Integer limit) {
         results = new Places();
 

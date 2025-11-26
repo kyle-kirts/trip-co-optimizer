@@ -11,8 +11,13 @@ public abstract class DataSource {
 
     protected Places results;
 
-    public Places near(Place place, Integer distance, Double earthRadius, String formula, Integer limit) {
+    public Places near(Place place, Integer distance, Double earthRadius, Integer limit) {
         return new Places();
+    }
+
+    public Places find(String match, Integer limit) {
+        results = new Places();
+        return results;
     }
 
     public Integer checkLimit(Integer limit) {

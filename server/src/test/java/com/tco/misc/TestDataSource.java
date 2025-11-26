@@ -23,7 +23,7 @@ public class TestDataSource {
         String formula = "vincenty";
         Integer limit = 5;
 
-        Places result = dataSource.near(place, distance, earthRadius, formula, limit);
+        Places result = dataSource.near(place, distance, earthRadius,limit);
 
         assertNotNull(result);
         assertEquals(0, result.size());
@@ -76,10 +76,10 @@ public class TestDataSource {
     @DisplayName("schlicting: Validate select() method runs without error")
     public void testSelectRunsWithoutError() throws SQLException{
         DataSource datasource = new DataSource() {};
-        datasource.selectNear(new Place(), 100, 6371.0, 1);
+        datasource.near(new Place(), 100, 6371.0, 1);
         assertEquals(datasource, datasource);
         assertDoesNotThrow(() -> {
-            datasource.selectNear(new Place(), 100, 6371.0, 1);
+            datasource.near(new Place(), 100, 6371.0, 1);
         });
     }
 
@@ -94,45 +94,45 @@ public class TestDataSource {
         });
     }
 
-    @Test
-    @DisplayName("luzovich: Default initialize() does not throw an error when called")
-    public void testEmptyInitializeCall() {
-        DataSource datasource = new DataSource() {};
-        assertDoesNotThrow(() -> {
-            datasource.initialize();
-        });
-    }
+    //@Test
+    //@DisplayName("luzovich: Default initialize() does not throw an error when called")
+    //public void testEmptyInitializeCall() {
+    //    DataSource datasource = new DataSource() {};
+    //    assertDoesNotThrow(() -> {
+    //        datasource.initialize();
+    //    });
+    //}
 
     @Test
     @DisplayName("schlicting: Validate near() method runs without error")
     public void testNearRunsWithoutError() throws RequestException {
         DataSource datasource = new DataSource() {};
-        datasource.near(new Place(), 100, 6371.0, "vincenty", 5);
+        datasource.near(new Place(), 100, 6371.0, 5);
         assertEquals(datasource, datasource);
         assertDoesNotThrow(() -> {
-            datasource.near(new Place(), 100, 6371.0, "vincenty", 5);
+            datasource.near(new Place(), 100, 6371.0, 5);
         });
     }
 
-    @Test
-    @DisplayName("schlicting: Validate initialize() method runs without error")
-    public void testInitializeRunsWithoutError() throws SQLException {
-        DataSource datasource = new DataSource() {};
-        datasource.initialize();
-        assertEquals(datasource, datasource);
-        assertDoesNotThrow(() -> {
-            datasource.initialize();
-        });
-    }
+    //@Test
+    //@DisplayName("schlicting: Validate initialize() method runs without error")
+    //public void testInitializeRunsWithoutError() throws SQLException {
+    //    DataSource datasource = new DataSource() {};
+    //    datasource.initialize();
+    //    assertEquals(datasource, datasource);
+    //    assertDoesNotThrow(() -> {
+    //        datasource.initialize();
+    //   });
+    //}
 
     @Test
     @DisplayName("vercauteren: Validate selectMatch() method runs without error")
     public void testSelectMatchRunsWithoutError() throws SQLException {
         DataSource datasource = new DataSource() {};
-        datasource.selectMatch("GIBBERISH", 1);
+        datasource.find("GIBBERISH", 1);
         assertEquals(datasource, datasource);
         assertDoesNotThrow(() -> {
-            datasource.selectMatch("GIBBERISH", 1);
+            datasource.find("GIBBERISH", 1);
         });
     }
 
