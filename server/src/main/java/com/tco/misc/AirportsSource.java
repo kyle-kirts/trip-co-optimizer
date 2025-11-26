@@ -118,8 +118,7 @@ public class AirportsSource extends DataSource {
 
     @Override
     public Integer countMatch(String match) throws SQLException {
-        if (connection == null) return 0;
-        try {
+        try (Connection connection = DriverManager.getConnection(Credential.URL, Credential.USER, Credential.PASSWORD)) {
             String sql =
                 "SELECT COUNT(*) AS total " +
                 "FROM airports a " +

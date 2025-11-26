@@ -117,7 +117,9 @@ public class CitiesSource extends DataSource{
 
     @Override
     public Integer countMatch(String match) throws SQLException {
-        try {
+        try(MongoClient mongoClient = MongoClients.create(Credential.URL)) {
+            MongoDatabase database = mongoClient.getDatabase("cs314");
+            this.collection = database.getCollection("cities");
             Bson filter = matchFilter(match);
             long count = collection.countDocuments(filter);
             return (int) count;
