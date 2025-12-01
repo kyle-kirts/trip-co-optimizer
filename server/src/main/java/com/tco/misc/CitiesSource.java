@@ -93,6 +93,7 @@ public class CitiesSource extends DataSource {
         return Filters.nearSphere("location", point, dist, 0.0);
     }
 
+    @Override
     public Places convert() {
          Map<String, String> fields = Map.of(
                     "country",          "country",

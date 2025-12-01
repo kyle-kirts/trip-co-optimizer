@@ -35,14 +35,16 @@ public abstract class DataSource {
         }
         return allDistances;
     }
+    
+    public abstract void initialize() throws SQLException;
 
-    public Places convert() throws SQLException {
-        return new Places();
-    }
+    public abstract void selectNear(Place place, Integer distance, Double earthRadius, Integer limit) throws SQLException;
 
-    public Integer countMatch(String match) throws SQLException {
-        return 0;
-    }
+    public abstract void selectMatch(String match, Integer limit) throws SQLException;
+
+    public abstract Places convert() throws SQLException;
+
+    public abstract Integer countMatch(String match) throws SQLException;
 
     //testing methods
     public Places getResults() {
