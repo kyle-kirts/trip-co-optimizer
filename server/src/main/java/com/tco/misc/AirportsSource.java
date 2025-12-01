@@ -7,26 +7,46 @@ import java.sql.SQLException;
 
 public class AirportsSource extends DataSource {
     
-    private Connection connection;
     ResultSet selectResults;
+    static class Credential {
+        static final int PORT = 27017;
+        // shared user with read-only access
+        static final String USER = "cs314-db";
+        static final String PASSWORD = "REDACTED";
+
+        static final String URL = System.getProperty("mariadb.url", "jdbc:mariadb://faure.cs.colostate.edu:3306/cs314");
+    }
 
     @Override
-    public void initialize() {
+    public Places near(Place place, Integer distance, Double earthRadius, Integer limit) {
         results = new Places();
-        try {
-            String url = System.getProperty("mariadb.url", "jdbc:mariadb://faure.cs.colostate.edu:3306/cs314");
-            String user = "cs314-db";
-            String password = "REDACTED";
-            connection = DriverManager.getConnection(url, user, password);
-        } 
-        catch (SQLException e) {
-            connection = null;
+
+        try (Connection connection = DriverManager.getConnection(Credential.URL, Credential.USER, Credential.PASSWORD)) {
+            selectNear(place, distance, earthRadius, checkLimit(limit), connection);
+            results = convert();
+            return results;
+        }
+        catch (Exception e) {
+            return results;
         }
     }
 
     @Override
-    public void selectNear(Place place, Integer distance, Double earthRadius, Integer limit) {
-        if (connection == null) return;
+    public Places find(String match, Integer limit) {
+        results = new Places();
+
+        try (Connection connection = DriverManager.getConnection(Credential.URL, Credential.USER, Credential.PASSWORD)) {
+            selectMatch(match, limit, connection);
+            results = convert();
+            return results;
+        }
+        catch (Exception e) {
+            return results;
+        }
+    }
+
+    public void selectNear(Place place, Integer distance, Double earthRadius, Integer limit, Connection conn) {
+        if (conn == null) return;
         try {
             double lon = Double.parseDouble(place.get("longitude"));
             double lat = Double.parseDouble(place.get("latitude"));
@@ -41,7 +61,7 @@ public class AirportsSource extends DataSource {
                 "WHERE ST_Distance_Sphere(POINT(a.longitude_deg, a.latitude_deg), POINT(?, ?)) < ? " +
                 "LIMIT " + limit + ";";
 
-            var stmt = connection.prepareStatement(sql);
+            var stmt = conn.prepareStatement(sql);
             stmt.setDouble(1, lon);
             stmt.setDouble(2, lat);
             stmt.setDouble(3, distanceInMeters);
@@ -51,9 +71,8 @@ public class AirportsSource extends DataSource {
         }
     }
 
-    @Override
-    public void selectMatch(String match, Integer limit) {
-        if (connection == null) return;
+    public void selectMatch(String match, Integer limit, Connection conn) {
+        if (conn == null) return;
         try {
             String sql =
                 "SELECT a.ident, a.name, a.municipality, r.name AS region, c.name AS country, " +
@@ -65,7 +84,7 @@ public class AirportsSource extends DataSource {
                 "OR r.name LIKE ? OR c.name LIKE ? " +
                 "LIMIT ?;";
 
-            var stmt = connection.prepareStatement(sql);
+            var stmt = conn.prepareStatement(sql);
             String pattern = "%" + match + "%";
             stmt.setString(1, pattern);
             stmt.setString(2, pattern);
@@ -99,8 +118,7 @@ public class AirportsSource extends DataSource {
 
     @Override
     public Integer countMatch(String match) throws SQLException {
-        if (connection == null) return 0;
-        try {
+        try (Connection connection = DriverManager.getConnection(Credential.URL, Credential.USER, Credential.PASSWORD)) {
             String sql =
                 "SELECT COUNT(*) AS total " +
                 "FROM airports a " +

@@ -30,22 +30,43 @@ public class CitiesSource extends DataSource{
         static final String URL = String.format("mongodb://%s:%s@cilantro:%d/?authSource=cs314", USER, PASSWORD, PORT);
     }
 
-    @Override
-    public void initialize() throws SQLException {
-        MongoClient mongoClient = MongoClients.create(Credential.URL);
-        MongoDatabase database = mongoClient.getDatabase("cs314");
-        this.collection = database.getCollection("cities");
+    
+    public Places near(Place place, Integer distance, Double earthRadius, Integer limit) {
+        results = new Places();
+
+        try (MongoClient mongoClient = MongoClients.create(Credential.URL)) {
+            MongoDatabase database = mongoClient.getDatabase("cs314");
+            this.collection = database.getCollection("cities");
+            selectNear(place, distance, earthRadius, checkLimit(limit));
+            results = convert();
+            return results;
+        }
+        catch (Exception e) {
+            return results;
+        }
     }
 
+    public Places find(String match, Integer limit) {
+        results = new Places();
 
-    @Override
-    public void selectNear(Place place, Integer distance, Double earthRadius, Integer limit) throws SQLException {
+        try(MongoClient mongoClient = MongoClients.create(Credential.URL)) {
+            MongoDatabase database = mongoClient.getDatabase("cs314");
+            this.collection = database.getCollection("cities");
+            selectMatch(match, limit);
+            results = convert();
+            return results;
+        }
+        catch (Exception e) {
+            return results;
+        }
+    }
+
+    public void selectNear(Place place, Integer distance, Double earthRadius, Integer limit) throws Exception {
         Bson filter = nearFilter(place, distance, earthRadius);
         this.selectResults = collection.find(filter).limit(limit);
     }
-
-    @Override
-    public void selectMatch(String match, Integer limit) throws SQLException
+    
+    public void selectMatch(String match, Integer limit) throws Exception
     {
         Bson filter = matchFilter(match);
         this.selectResults = collection.find(filter).limit(limit);
@@ -96,7 +117,9 @@ public class CitiesSource extends DataSource{
 
     @Override
     public Integer countMatch(String match) throws SQLException {
-        try {
+        try(MongoClient mongoClient = MongoClients.create(Credential.URL)) {
+            MongoDatabase database = mongoClient.getDatabase("cs314");
+            this.collection = database.getCollection("cities");
             Bson filter = matchFilter(match);
             long count = collection.countDocuments(filter);
             return (int) count;
