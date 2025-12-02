@@ -25,7 +25,6 @@ public class AirportsSource extends DataSource {
 
         private static boolean runningDocker() {
             Path dockerEnvFile = Paths.get("/.dockerenv");            
-            System.out.println("Checking for Docker " + Files.exists(dockerEnvFile));
             return Files.exists(dockerEnvFile);
         }
     }

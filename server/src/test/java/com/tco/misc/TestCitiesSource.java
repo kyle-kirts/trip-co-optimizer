@@ -13,17 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.SQLException;
 
-public class TestCitiesSource{
-
-    //from guide wiki directly
-    static class Credential {
-        static final int PORT = 27017;
-        // shared user with read-only access
-        static final String USER = "cs314-db";
-        static final String PASSWORD = "REDACTED";
-
-        static final String URL = String.format("mongodb://%s:%s@localhost:%d/?authSource=cs314", USER, PASSWORD, PORT);
-    }
+public class TestCitiesSource {
 
     @Test
     @DisplayName("vercauteren: base existence for CitiesSource")

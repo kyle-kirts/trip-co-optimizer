@@ -52,11 +52,12 @@ public class CitiesSource extends DataSource {
         static final String DOCKER_SOURCE = "localhost";
         static final String SOURCE = "cilantro";
         
-        static final String URL = String.format("mongodb://%s:3306/cs314", 
+        static final String URL = String.format("mongodb://cs314-db:REDACTED@%s:27017/cs314?authSource=cs314", 
             runningDocker() ? DOCKER_SOURCE : SOURCE);
 
         private static boolean runningDocker() {
-            Path dockerEnvFile = Paths.get("/.dockerenv");            
+            Path dockerEnvFile = Paths.get("/.dockerenv");     
+            System.out.println("--------------------------------------");       
             System.out.println("Checking for Docker " + Files.exists(dockerEnvFile));
             return Files.exists(dockerEnvFile);
         }
