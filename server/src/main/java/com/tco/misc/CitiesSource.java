@@ -8,6 +8,9 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.geojson.Point;
 import com.mongodb.client.model.geojson.Position;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 import java.sql.SQLException;
 import java.util.Map;
@@ -15,21 +18,28 @@ import java.util.Map;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-public class CitiesSource extends DataSource{
+public class CitiesSource extends DataSource {
 
     MongoCollection<Document> collection;
     FindIterable<Document> selectResults;
 
-    //from guide wiki directly
     static class Credential {
         static final int PORT = 27017;
         // shared user with read-only access
         static final String USER = "cs314-db";
         static final String PASSWORD = "REDACTED";
 
-        static final String URL = String.format("mongodb://%s:%s@cilantro:%d/?authSource=cs314", USER, PASSWORD, PORT);
-    }
+        static final String DOCKER_SOURCE = "localhost";
+        static final String SOURCE = "cilantro";
+        
+        static final String URL = String.format("mongodb://cs314-db:REDACTED@%s:27017/cs314?authSource=cs314", 
+            runningDocker() ? DOCKER_SOURCE : SOURCE);
 
+        private static boolean runningDocker() {
+            Path dockerEnvFile = Paths.get("/.dockerenv");     
+            return Files.exists(dockerEnvFile);
+        }
+    }
     
     public Places near(Place place, Integer distance, Double earthRadius, Integer limit) {
         results = new Places();
