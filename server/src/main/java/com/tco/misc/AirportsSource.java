@@ -11,7 +11,7 @@ import java.nio.file.Files;
 public class AirportsSource extends DataSource {
     
     ResultSet selectResults;
-    public static class Credential {
+    static class Credential {
         static final int PORT = 27017;
         // shared user with read-only access
         static final String USER = "cs314-db";

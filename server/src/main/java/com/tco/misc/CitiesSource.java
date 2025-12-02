@@ -23,7 +23,7 @@ public class CitiesSource extends DataSource {
     MongoCollection<Document> collection;
     FindIterable<Document> selectResults;
 
-    public static class Credential {
+    static class Credential {
         static final int PORT = 27017;
         // shared user with read-only access
         static final String USER = "cs314-db";
