@@ -71,11 +71,13 @@ public class CitiesSource extends DataSource {
         }
     }
 
+  
     public void selectNear(Place place, Integer distance, Double earthRadius, Integer limit) throws Exception {
         Bson filter = nearFilter(place, distance, earthRadius);
         this.selectResults = collection.find(filter).limit(limit);
     }
     
+   
     public void selectMatch(String match, Integer limit) throws Exception
     {
         Bson filter = matchFilter(match);
