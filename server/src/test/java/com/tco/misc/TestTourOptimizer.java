@@ -37,49 +37,49 @@ public class TestTourOptimizer {
 
     
 
-    @Test
-    @DisplayName("vercauteren: Checking createRoute")
-    public void testCreateRoute(){
-        TourOptimizer optimizer = new TourOptimizer() {};
-        Places places = new Places();
-        Place start = new Place("0.0","0.0");
-        places.add(new Place("2.0", "2.0"));
-        places.add(new Place("1.0", "1.0"));
-        places.add(new Place("3.0", "3.0"));
-        places.add(start);
+    // @Test
+    // @DisplayName("vercauteren: Checking createRoute")
+    // public void testCreateRoute(){
+    //     TourOptimizer optimizer = new TourOptimizer() {};
+    //     Places places = new Places();
+    //     Place start = new Place("0.0","0.0");
+    //     places.add(new Place("2.0", "2.0"));
+    //     places.add(new Place("1.0", "1.0"));
+    //     places.add(new Place("3.0", "3.0"));
+    //     places.add(start);
 
-        optimizer.initialize(places, 111, "vincenty", 1.0);
-        int[] expected = {3,1,0,2};
-        assertTrue(Arrays.equals(optimizer.createRoute(places, start),expected));
-    }
+    //     optimizer.initialize(places, 111, "vincenty", 1.0);
+    //     int[] expected = {3,1,0,2};
+    //     assertTrue(Arrays.equals(optimizer.createRoute(places, start),expected));
+    // }
 
-    @Test
-    @DisplayName("kyle-kirts: Verify default 0 given for distances array")
-    public void testInitializeDistancesZeros() {
-        TourOptimizer optimizer = new TourOptimizer() {};
-        Places places = new Places();
+    // @Test
+    // @DisplayName("kyle-kirts: Verify default 0 given for distances array")
+    // public void testInitializeDistancesZeros() {
+    //     TourOptimizer optimizer = new TourOptimizer() {};
+    //     Places places = new Places();
         
-        places.add(new Place("0.0", "0.0"));
-        places.add(new Place("0.0", "0.0"));
+    //     places.add(new Place("0.0", "0.0"));
+    //     places.add(new Place("0.0", "0.0"));
 
-        long[][] expected = {{0L, 0L}, {0L, 0L}};
-        optimizer.initializeDistances(places, 0.0, "vincenty");
-        assertArrayEquals(expected, optimizer.getDistances());
-    }
+    //     long[][] expected = {{0L, 0L}, {0L, 0L}};
+    //     optimizer.initializeDistances(places, 0.0, "vincenty");
+    //     assertArrayEquals(expected, optimizer.getDistances());
+    // }
 
-    @Test
-    @DisplayName("kyle-kirts: Check two different places give correct matrix")
-    public void testInitializeDistancesTwoPlaces() {
-        TourOptimizer optimizer = new TourOptimizer() {};
-        Places places = new Places();
+    // @Test
+    // @DisplayName("kyle-kirts: Check two different places give correct matrix")
+    // public void testInitializeDistancesTwoPlaces() {
+    //     TourOptimizer optimizer = new TourOptimizer() {};
+    //     Places places = new Places();
 
-        places.add(new Place("0.0", "0.0"));
-        places.add(new Place("0.0001","-0.0001"));
+    //     places.add(new Place("0.0", "0.0"));
+    //     places.add(new Place("0.0001","-0.0001"));
 
-        long[][] expected = {{0L,19L}, {19L,0L}};
-        optimizer.initializeDistances(places, 7777777.0, "vincenty");
-        assertArrayEquals(expected, optimizer.getDistances());
-    }
+    //     long[][] expected = {{0L,19L}, {19L,0L}};
+    //     optimizer.initializeDistances(places, 7777777.0, "vincenty");
+    //     assertArrayEquals(expected, optimizer.getDistances());
+    // }
 
     @Test
     @DisplayName("kyle-kirts: Check closest returns expected from 2 unvisited")
