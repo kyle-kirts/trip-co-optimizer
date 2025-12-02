@@ -4,17 +4,30 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 public class AirportsSource extends DataSource {
     
     ResultSet selectResults;
-    static class Credential {
+    public static class Credential {
         static final int PORT = 27017;
         // shared user with read-only access
         static final String USER = "cs314-db";
         static final String PASSWORD = "REDACTED";
 
-        static final String URL = System.getProperty("mariadb.url", "jdbc:mariadb://faure.cs.colostate.edu:3306/cs314");
+        static final String DOCKER_SOURCE = "localhost";
+        static final String SOURCE = "faure.cs.colostate.edu";
+        
+        static final String URL = String.format("jdbc:mariadb://%s:3306/cs314", 
+            runningDocker() ? DOCKER_SOURCE : SOURCE);
+
+        private static boolean runningDocker() {
+            Path dockerEnvFile = Paths.get("/.dockerenv");            
+            System.out.println("Checking for Docker " + Files.exists(dockerEnvFile));
+            return Files.exists(dockerEnvFile);
+        }
     }
 
     @Override
