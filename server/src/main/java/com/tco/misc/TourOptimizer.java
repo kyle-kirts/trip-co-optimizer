@@ -9,6 +9,7 @@ public abstract class TourOptimizer {
     protected long[][] distances;
     protected long currentTotalDistance;
     protected double response;
+    protected int[] defaultOrder;
     private double RETURN_TIME_CUTOFF = 0.25; // 0.05
 
     public TourOptimizer() {}
@@ -35,22 +36,25 @@ public abstract class TourOptimizer {
         currentTotalDistance = 0;
         this.response = response.doubleValue();
         initializeDistances(places, radius, formula);
+        for (int i = 0; i < places.size(); i++) {
+            defaultOrder[i] = i;
+        }
     }
 
     public int[] findBestNearestNeighborTour(Places places) {
         long currentBest = Long.MAX_VALUE;
         int[] bestOrder = new int[places.size()];
-        double previousTime = getSeconds();
-        for (int i = 0; i < places.size(); i++) {
+        // double previousTime = getSeconds();
+        for (int i = 0; i < 1 /*places.size()*/; i++) {
             int[] currentOrder = createRoute(places, places.get(i));
             if (currentTotalDistance < currentBest) {
                 bestOrder = currentOrder;
                 currentBest = currentTotalDistance;
             }
 
-            response -= getSeconds() - previousTime;
-            previousTime = getSeconds();
-            if (response / 2 <= RETURN_TIME_CUTOFF) break;
+            // response -= getSeconds() - previousTime;
+            // previousTime = getSeconds();
+            if (response <= RETURN_TIME_CUTOFF) break;
         }
         
         return bestOrder;
@@ -72,8 +76,8 @@ public abstract class TourOptimizer {
         }
     }
 
-    public int[] createRoute(Places places, Place start) {   
-        Arrays.fill(order, -1);
+    public int[] createRoute(Places places, Place start) {
+        Arrays.fill(order, 0);
         Arrays.fill(visited, false);
         
         int index = 0;
@@ -83,7 +87,7 @@ public abstract class TourOptimizer {
         index++;
         
         int visitedCount = 1;
-        // double previousTime = getSeconds();
+        double previousTime = getSeconds();
 
         while (visitedCount < visited.length) {
             nextPlace = closest(nextPlace);
@@ -92,9 +96,9 @@ public abstract class TourOptimizer {
             index++;
             visitedCount++;
 
-            // response -= getSeconds() - previousTime;
-            // previousTime = getSeconds();
-            // if (response / 2 <= RETURN_TIME_CUTOFF) break;
+            response -= getSeconds() - previousTime;
+            previousTime = getSeconds();
+            if (response <= RETURN_TIME_CUTOFF) return defaultOrder;
         }        
         
         return order;
