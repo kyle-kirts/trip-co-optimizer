@@ -22,7 +22,7 @@ public class TestCitiesSource{
         static final String USER = "cs314-db";
         static final String PASSWORD = "REDACTED";
 
-        static final String URL = String.format("mongodb://%s:%s@cilantro:%d/?authSource=cs314", USER, PASSWORD, PORT);
+        static final String URL = String.format("mongodb://%s:%s@localhost:%d/?authSource=cs314", USER, PASSWORD, PORT);
     }
 
     @Test
@@ -58,6 +58,8 @@ public class TestCitiesSource{
         CitiesSource source = new CitiesSource();
         Place place = new Place("50.0", "-45.5");
         Places places = source.near(place, 100000000, 395.0, 1);
+
+        System.out.println(places);
         
         assertTrue(places.get(0).get("municipality") instanceof String);
         assertTrue(places.get(0).get("country") instanceof String);
