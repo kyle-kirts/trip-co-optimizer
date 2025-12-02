@@ -48,8 +48,6 @@ public class TestCitiesSource {
         CitiesSource source = new CitiesSource();
         Place place = new Place("50.0", "-45.5");
         Places places = source.near(place, 100000000, 395.0, 1);
-
-        System.out.println(places);
         
         assertTrue(places.get(0).get("municipality") instanceof String);
         assertTrue(places.get(0).get("country") instanceof String);
