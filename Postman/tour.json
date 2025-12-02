@@ -332,7 +332,7 @@
 						"id": "358e724c-6162-4994-83c1-51d113616f6d",
 						"exec": [
 							"json = pm.response.json()",
-							"pm.test(\"4 Places correct NN optimization\", () => {pm.expect(json.places).to.not.eql([",
+							"pm.test(\"4 Places correct NN optimization\", () => {pm.expect(json.places).to.eql([",
 							"        {",
 							"            \"country\": \"United States\",",
 							"            \"streetAddress\": \"Laporte Avenue\",",
