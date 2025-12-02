@@ -23,26 +23,6 @@ public class CitiesSource extends DataSource {
     MongoCollection<Document> collection;
     FindIterable<Document> selectResults;
 
-    //from guide wiki directly
-    // static class Credential {
-    //     static final int PORT = 27017;
-    //     // shared user with read-only access
-    //     static final String USER = "cs314-db";
-    //     static final String PASSWORD = "REDACTED";
-
-    //     static final String DOCKER_SOURCE = "localhost";
-    //     static final String SOURCE = "faure.cs.colostate.edu";
-    //     //  static final String URL = String.format("mongodb://%s:%s@localhost:%d/?authSource=cs314", USER, PASSWORD, PORT);
-    //     static final String URL = String.format("mongodb://%s:%s:@%s:%d/?authSource=cs314", USER, PASSWORD, 
-    //         runningDocker() ? DOCKER_SOURCE : SOURCE);
-        
-    //     private static boolean runningDocker() {
-    //         Path dockerEnvFile = Paths.get("/.dockerenv");            
-    //         System.out.println("Checking for Docker " + Files.exists(dockerEnvFile));
-    //         return Files.exists(dockerEnvFile);
-    //     }
-    // }
-
     public static class Credential {
         static final int PORT = 27017;
         // shared user with read-only access
@@ -57,8 +37,6 @@ public class CitiesSource extends DataSource {
 
         private static boolean runningDocker() {
             Path dockerEnvFile = Paths.get("/.dockerenv");     
-            System.out.println("--------------------------------------");       
-            System.out.println("Checking for Docker " + Files.exists(dockerEnvFile));
             return Files.exists(dockerEnvFile);
         }
     }
