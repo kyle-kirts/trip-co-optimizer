@@ -19,6 +19,15 @@ public abstract class DataSource {
         return results;
     }
 
+    public Integer found(String match) {
+        try {
+            return countMatch(match);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return 0;
+        }
+    }
+
     public Integer checkLimit(Integer limit) {
         if (limit > 100) { 
             limit = 100;  
