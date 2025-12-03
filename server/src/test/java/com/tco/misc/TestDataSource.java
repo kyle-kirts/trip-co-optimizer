@@ -81,8 +81,8 @@ public class TestDataSource {
     @Test
     @DisplayName("jsibold: found() returns 0 on exception")
     public void testFoundReturnsZeroOnException() throws Exception {
-        DataSource src = new CitiesSource();
-        Integer count = src.found(null);
+        DataSource src = new MockFailingDataSource();
+        Integer count = src.found("test");
         assertNotNull(count);
         assertTrue(count == 0);
     }
@@ -90,8 +90,8 @@ public class TestDataSource {
     @Test
     @DisplayName("jsibold: found() catches and logs exceptions without throwing")
     public void testFoundCatchesExceptionWithoutThrowing() throws Exception {
-        DataSource src = new CitiesSource();
-        assertDoesNotThrow(() -> src.found(null));
+        DataSource src = new MockFailingDataSource();
+        assertDoesNotThrow(() -> src.found("test"));
     }
 
     @Test
@@ -110,5 +110,18 @@ public class TestDataSource {
         Integer count = src.found("Denver");
         assertNotNull(count);
         assertTrue(count > 0);
+    }
+
+    // Mock DataSource that throws exception on countMatch to test exception handling
+    static class MockFailingDataSource extends DataSource {
+        @Override
+        public Places convert() throws Exception {
+            return new Places();
+        }
+
+        @Override
+        public Integer countMatch(String match) throws Exception {
+            throw new RuntimeException("Simulated database error");
+        }
     }
 }
