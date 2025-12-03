@@ -111,8 +111,7 @@ public class TestDataSource {
         assertNotNull(count);
         assertTrue(count > 0);
     }
-
-    // Mock DataSource that throws exception on countMatch to test exception handling
+    
     static class MockFailingDataSource extends DataSource {
         @Override
         public Places convert() throws Exception {
