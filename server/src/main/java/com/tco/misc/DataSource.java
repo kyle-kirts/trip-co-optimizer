@@ -1,6 +1,5 @@
 package com.tco.misc;
 
-import java.sql.SQLException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,13 +35,9 @@ public abstract class DataSource {
         return allDistances;
     }
 
-    public Places convert() throws SQLException {
-        return new Places();
-    }
+    public abstract Places convert() throws Exception;
 
-    public Integer countMatch(String match) throws SQLException {
-        return 0;
-    }
+    public abstract Integer countMatch(String match) throws Exception;
 
     //testing methods
     public Places getResults() {

@@ -71,11 +71,13 @@ public class CitiesSource extends DataSource {
         }
     }
 
+  
     public void selectNear(Place place, Integer distance, Double earthRadius, Integer limit) throws Exception {
         Bson filter = nearFilter(place, distance, earthRadius);
         this.selectResults = collection.find(filter).limit(limit);
     }
     
+   
     public void selectMatch(String match, Integer limit) throws Exception
     {
         Bson filter = matchFilter(match);
@@ -93,6 +95,7 @@ public class CitiesSource extends DataSource {
         return Filters.nearSphere("location", point, dist, 0.0);
     }
 
+    @Override
     public Places convert() {
          Map<String, String> fields = Map.of(
                     "country",          "country",
