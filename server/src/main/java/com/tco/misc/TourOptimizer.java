@@ -8,6 +8,7 @@ public abstract class TourOptimizer {
     protected int[] order;
     protected long[][] distances;
     protected long currentTotalDistance;
+    protected double radius;
     protected double response;
     protected DistanceCalculator calculator;
     private double RETURN_TIME_CUTOFF = 0.25; // 0.05
@@ -35,6 +36,7 @@ public abstract class TourOptimizer {
         Arrays.fill(visited, false);
         order = new int[places.size()];
         currentTotalDistance = 0;
+        this.radius = radius;
         this.response = response.doubleValue();
         calculator = CalculatorFactory.getCalculator(formula);
         int numberOfPlaces = places.size();
@@ -47,7 +49,7 @@ public abstract class TourOptimizer {
         double previousTime = getSeconds();
         for (int i = 0; i < places.size(); i++) {
             Place currentPlace = places.get(i);
-            initializeDistancesForPlace(places, currentPlace, radius);
+            initializeDistancesForPlace(places, currentPlace);
             if (response <= RETURN_TIME_CUTOFF) break;
             int[] currentOrder = createRoute(places, currentPlace);
             if (currentTotalDistance < currentBest) {
@@ -63,7 +65,7 @@ public abstract class TourOptimizer {
         return bestOrder;
     }
 
-    public void initializeDistancesForPlace(Places places, Place currentPlace, double radius) {
+    public void initializeDistancesForPlace(Places places, Place currentPlace) {
         int j = places.indexOf(currentPlace);
         double previousTime = getSeconds();
         for (int i = 0; i < places.size(); i++) {
