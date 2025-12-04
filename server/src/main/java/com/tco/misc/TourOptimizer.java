@@ -19,7 +19,7 @@ public abstract class TourOptimizer {
         if (response < RETURN_TIME_CUTOFF) return places;
         initialize(places, radius, formula, response);
         if (response <= RETURN_TIME_CUTOFF) return places;
-        int[] tour = findBestNearestNeighborTour(places, radius);
+        int[] tour = findBestNearestNeighborTour(places);
         Places nearestNeighbor = new Places();
 
         for (int i = 0; i < tour.length; i++) {
@@ -35,6 +35,7 @@ public abstract class TourOptimizer {
         visited = new boolean[places.size()];
         Arrays.fill(visited, false);
         order = new int[places.size()];
+        Arrays.fill(order, 0);
         currentTotalDistance = 0;
         this.radius = radius;
         this.response = response.doubleValue();
@@ -43,7 +44,7 @@ public abstract class TourOptimizer {
         distances = new long[numberOfPlaces][numberOfPlaces];
     }
 
-    public int[] findBestNearestNeighborTour(Places places, double radius) {
+    public int[] findBestNearestNeighborTour(Places places) {
         long currentBest = Long.MAX_VALUE;
         int[] bestOrder = new int[places.size()];
         double previousTime = getSeconds();
@@ -81,7 +82,6 @@ public abstract class TourOptimizer {
     }
 
     public int[] createRoute(Places places, Place start) {
-        Arrays.fill(order, 0);
         Arrays.fill(visited, false);
         
         int index = 0;
@@ -98,7 +98,7 @@ public abstract class TourOptimizer {
             this.visited[nextPlace] = true;
             index++;
             visitedCount++;
-        }        
+        } 
         
         return order;
     }
