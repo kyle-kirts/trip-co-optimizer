@@ -121,4 +121,14 @@ public class TestFindRequest{
     limitField.set(req, 10);
     assertDoesNotThrow(req::buildResponse);
   }
+
+  @Test
+  @DisplayName("jsibold: buildResponse with null limit throws RequestException")
+  public void testBuildResponseNullLimitThrowsException() throws Exception {
+    FindRequest req = new FindRequest();
+    var limitField = FindRequest.class.getDeclaredField("limit");
+    limitField.setAccessible(true);
+    limitField.set(req, null);
+    assertThrows(RequestException.class, req::buildResponse);
+  }
 }
