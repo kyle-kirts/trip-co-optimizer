@@ -49,32 +49,31 @@ public class TestTourOptimizer {
         places.add(start);
 
         optimizer.initialize(places, 1111111, "vincenty", 10000.0);
-        optimizer.initializeDistancesForPlace(places, start); 
 
         int[] expected = {3, 1, 0, 2}; 
         int[] calculated = optimizer.createRoute(places, start);
         assertArrayEquals(expected, calculated);
     }
 
-    // @Test
-    // @DisplayName("vercauteren: checking nearestNeighbor")
-    // public void testNearestNeighbor() {
-    //     TourOptimizer optimizer = new TourOptimizer() {};
+    @Test
+    @DisplayName("vercauteren: checking nearestNeighbor")
+    public void testNearestNeighbor() {
+        TourOptimizer optimizer = new TourOptimizer() {};
 
-    //     Place start = new Place("0.0", "0.0");
+        Place start = new Place("0.0", "0.0");
         
-    //     Places places = new Places();
-    //     places.add(new Place("2.0", "2.0"));
-    //     places.add(new Place("1.0", "1.0"));
-    //     places.add(new Place("3.0", "3.0"));
-    //     places.add(start);
+        Places places = new Places();
+        places.add(new Place("2.0", "2.0"));
+        places.add(new Place("1.0", "1.0"));
+        places.add(new Place("3.0", "3.0"));
+        places.add(start);
 
-    //     optimizer.initialize(places, 1111111, "vincenty", 10000.0);
+        optimizer.initialize(places, 1111111, "vincenty", 10000.0);
 
-    //     int[] expected = {3, 1, 0, 2}; 
-    //     int[] calculated = optimizer.findBestNearestNeighborTour(places);
-    //     assertArrayEquals(expected, calculated);
-    // }
+        int[] expected = {3, 1, 0, 2}; 
+        int[] calculated = optimizer.findBestNearestNeighborTour(places);
+        assertArrayEquals(expected, calculated);
+    }
 
     @Test
     @DisplayName("kyle-kirts: Check closest returns expected from 2 unvisited")
