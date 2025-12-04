@@ -50,7 +50,6 @@ public abstract class TourOptimizer {
         double previousTime = getSeconds();
         for (int i = 0; i < places.size(); i++) {
             Place currentPlace = places.get(i);
-            initializeDistancesForPlace(places, currentPlace);
             if (response <= RETURN_TIME_CUTOFF) break;
             int[] currentOrder = createRoute(places, currentPlace);
             if (currentTotalDistance < currentBest) {
@@ -58,7 +57,7 @@ public abstract class TourOptimizer {
                 currentBest = currentTotalDistance;
             }
 
-            response -= getSeconds() - previousTime;
+            response -= (getSeconds() - previousTime);
             previousTime = getSeconds();
             if (response <= RETURN_TIME_CUTOFF) break;
         }
@@ -74,8 +73,7 @@ public abstract class TourOptimizer {
             long distance = calculator.between(currentPlace, otherPlace, radius);
             distances[i][j] = distance;
             distances[j][i] = distance;
-            
-            response -= getSeconds() - previousTime;
+            response -= (getSeconds() - previousTime);
             previousTime = getSeconds();
             if (response <= RETURN_TIME_CUTOFF) return;
         }
@@ -93,6 +91,7 @@ public abstract class TourOptimizer {
         int visitedCount = 1;
 
         while (visitedCount < visited.length) {
+            initializeDistancesForPlace(places, places.get(nextPlace));
             nextPlace = closest(nextPlace);
             this.order[index] = nextPlace;
             this.visited[nextPlace] = true;
@@ -108,7 +107,7 @@ public abstract class TourOptimizer {
         int best = -1;
         Long minDistance = Long.MAX_VALUE;
         
-        for (int i = 0; i < visited.length; i++) {
+        for (int i = 0; i < distances[next].length; i++) {
             Long distance = distances[next][i];
             boolean isValidPlace = (!visited[i]) && (i != next);
             boolean isLessThan = distances[next][i] < minDistance;
@@ -119,9 +118,8 @@ public abstract class TourOptimizer {
                 minDistance = distance;
             }
             
-            if (isValidPlace && isEqualTo) best = pickRandom(i, best);
+            if (isValidPlace && isEqualTo) {best = pickRandom(i, best);}
         }
-        
         return best;
     }
 
