@@ -97,4 +97,38 @@ public class TestTourRequest {
 
         routeMatches(route, tour.getPlaces());
     }
+
+    @Test
+    @DisplayName("luzovich: Don't rotate items in list when start is already at beginning")
+    public void testDontRotateOnAlreadyStarted() {
+        Place subPlace1 = new Place("0.0", "0.0");
+        Place subPlace2 = new Place("1.0", "1.0");
+
+        Places route = new Places();
+        route.add(subPlace1);
+        route.add(subPlace2);
+
+        TourRequest tour = new TourRequest(route, 1000.0, 0.0, "vincenty");
+
+        routeMatches(route, tour.rotate(route));
+    }
+
+    @Test
+    @DisplayName("luzovich: Rotate all the way through")
+    public void testRotateAllTheWayThrough() {
+        Place subPlace1 = new Place("0.0", "0.0");
+        Place subPlace2 = new Place("1.0", "1.0");
+
+        Places route1 = new Places();
+        route1.add(subPlace1);
+        route1.add(subPlace2);
+        
+        Places route2 = new Places();
+        route2.add(subPlace2);
+        route2.add(subPlace1);
+
+        TourRequest tour = new TourRequest(route2, 1000.0, 0.0, "vincenty");
+
+        routeMatches(route2, tour.rotate(route1));
+    }
 }
