@@ -48,7 +48,7 @@ public class TestConfigRequest {
         assertTrue(conf.validFeature("tour"));
     }
 
-    /* @Test
+    @Test
     @DisplayName("luzovich: Features includes \"near\"")
     public void testFeaturesNearExists() {
        assertTrue(conf.validFeature("near"));
@@ -67,7 +67,7 @@ public class TestConfigRequest {
        conf.features.remove("tour");
        conf.features.remove("near");
        assertNull(conf.listFormulae());
-    } */
+    }
 
     @Test
     @DisplayName("luzovich: \"distances\" double-implies \"formulae\"")
@@ -107,40 +107,4 @@ public class TestConfigRequest {
     public void testRandomFieldOnHasPropertyReturnsFalse() {
         assertFalse(conf.hasProperty("some random thing goes here"));
     }
-
-    /*
-     * @Test
-     * 
-     * @DisplayName("base: Team name is correct")
-     * public void testServerName() {
-     * String name = conf.getServerName();
-     * assertEquals("Team Name", name);
-     * }
-     * 
-     * @Test
-     * 
-     * @DisplayName("base: Team number is correct")
-     * public void testTeamNumber() {
-     * String teamNumber = conf.getTeamNumber();
-     * assertEquals("t00", teamNumber);
-     * }
-     * 
-     * @Test
-     * 
-     * @DisplayName("base: Mission statement is correct")
-     * public void testMissionStatement() {
-     * String missionStatement = conf.getMissionStatement();
-     * assertEquals("Insert your team's mission statement here! Lorem ipsum odor amet, consectetuer adipiscing elit. Sociosqu nisi ut luctus dapibus platea justo justo. Diam ridiculus sem nisi consequat senectus sagittis tempus neque. Sem faucibus netus velit odio ridiculus porta. Sit vulputate sollicitudin penatibus dolor, velit eu molestie. Semper quis velit ridiculus bibendum elit. Vel sollicitudin eu quisque ligula felis eleifend, quis in curae. Metus convallis dis pellentesque posuere et sit suspendisse potenti. Lacinia dignissim duis vel urna dignissim pellentesque litora tempor. Netus vulputate commodo dolor aptent efficitur."
-     * ,
-     * missionStatement);
-     * }
-     * 
-     * @Test
-     * 
-     * @DisplayName("base: People list is expected length")
-     * public void testPeopleLength(){
-     * assertEquals(conf.getPeople().size(), 5);
-     * }
-     */
-
 }

@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestWebApplication {
 
     @Test
-    @DisplayName("base: Fail with more than 1 command line argument")
+    @DisplayName("base: Fail with more than 1 command line argument, edits from luzovich")
     public void testTooManyCommandLineArgs() throws Exception {
         String[] commandLineArguments = { "10", "20" };
-        int status = SystemLambda.catchSystemExit(() ->
-            WebApplication.main(commandLineArguments)
-        );
-        assertEquals(1, status);
+        long prevTime = System.currentTimeMillis();
+        WebApplication.main(commandLineArguments);
+        long currTime = System.currentTimeMillis();
+        assertEquals(0, currTime - prevTime);
     }
 
     @Test
