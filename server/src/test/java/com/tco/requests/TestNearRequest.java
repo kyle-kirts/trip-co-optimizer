@@ -102,5 +102,4 @@ public class TestNearRequest {
     NearRequest req = new NearRequest();
     assertDoesNotThrow(req::buildResponse);
   }
-  
 }
