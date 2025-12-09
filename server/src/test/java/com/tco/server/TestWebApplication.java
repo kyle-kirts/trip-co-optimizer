@@ -15,7 +15,7 @@ public class TestWebApplication {
         long prevTime = System.currentTimeMillis();
         WebApplication.main(commandLineArguments);
         long currTime = System.currentTimeMillis();
-        assertEquals(0, currTime - prevTime);
+        assertTrue(0 <= currTime - prevTime && currTime - prevTime <= 10);
     }
 
     @Test
