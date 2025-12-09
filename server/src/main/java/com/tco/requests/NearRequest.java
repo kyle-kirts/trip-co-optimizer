@@ -47,10 +47,6 @@ public class NearRequest extends Request {
     boolean formulaIsSupported = CalculatorFactory.getSupportedFormulae().contains(this.formula);
     boolean validRequest = true;
 
-    if (limit == null) {
-      validRequest = false;
-    }
-
     if (formulaWasProvided && !formulaIsSupported) {
       validRequest = false;
     }

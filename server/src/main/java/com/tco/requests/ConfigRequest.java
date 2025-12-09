@@ -72,8 +72,6 @@ public class ConfigRequest extends Request {
         this.requestType = "config";
     }
 
-    // TODO might need a few testing helpers for team, people, person
-
     public boolean validFeature(String feature) {
         return features.contains(feature);
     }

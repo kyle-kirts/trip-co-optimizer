@@ -15,11 +15,10 @@ public final class WebApplication {
 
         if (commandLineArguments.length > 1) {
             log.error("Too many command line arguments given. Expected 1 but found {}.", commandLineArguments.length);
-            System.exit(1);
+        } else {
+            int serverPort = getServerPort(commandLineArguments);
+            new MicroServer(serverPort);
         }
-
-        int serverPort = getServerPort(commandLineArguments);
-        new MicroServer(serverPort);
     }
 
     private WebApplication() {}
