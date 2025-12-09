@@ -118,7 +118,7 @@ public abstract class TourOptimizer {
                 minDistance = distance;
             }
             
-            if (isValidPlace && isEqualTo) {best = pickRandom(i, best);}
+            if (isValidPlace && isEqualTo) best = pickRandom(i, best);
         }
         return best;
     }

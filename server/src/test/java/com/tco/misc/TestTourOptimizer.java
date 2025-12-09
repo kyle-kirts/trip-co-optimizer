@@ -191,4 +191,27 @@ public class TestTourOptimizer {
         long[][] expected = {{0L,19L}, {19L, 0L}};
         assertArrayEquals(expected, optimizer.getDistances());
     }
+
+    @Test
+    @DisplayName("luzovich: Pick random on best & random index")
+    public void testPickRandomBothCases() {
+        TourOptimizer optimizer = new TourOptimizer() {};
+
+        boolean keepTryingType1 = true;
+        boolean keepTryingType2 = true;
+        while (keepTryingType1 || keepTryingType2) {
+            if (optimizer.pickRandom(0, 1) == 0) keepTryingType1 = false;
+            if (optimizer.pickRandom(0, 1) == 1) keepTryingType2 = false;
+        }
+        
+        return;
+    }
+
+    @Test
+    @DisplayName("luzovich: Calling improve() doesn't fail")
+    public void testCallImproveDoesntThrowException() throws Exception {
+        TourOptimizer optimizer = new TourOptimizer() {};
+
+        assertDoesNotThrow(() -> optimizer.improve());
+    }
 }
