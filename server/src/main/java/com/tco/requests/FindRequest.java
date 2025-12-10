@@ -1,8 +1,6 @@
 package com.tco.requests;
 
-import com.tco.misc.CalculatorFactory;
-import com.tco.misc.Distances;
-import com.tco.misc.Place;
+import com.tco.misc.BadRequestException;
 import com.tco.misc.Places;
 import com.tco.misc.RequestException;
 import com.tco.misc.SourceFactory;
@@ -18,7 +16,7 @@ public class FindRequest extends Request {
   public FindRequest() {
     this.requestType = "find";
     this.match = "";
-    this.source = "cities";
+    this.source = null;
     this.limit = 0;
     this.found = 0;
     this.places = new Places();
@@ -26,5 +24,28 @@ public class FindRequest extends Request {
     
   @Override
   public void buildResponse() throws RequestException {
+    if (!validateRequest()) {
+      throw new BadRequestException();
+    }
+    DataSource dataSource = SourceFactory.get(this.source);
+    this.places = dataSource.find(this.match, this.limit);
+    this.found = dataSource.found(this.match);
+  }
+
+  public boolean validateRequest() {
+    boolean validRequest = true;
+
+    if (limit == null) {
+      validRequest = false;
+    }
+
+    boolean sourceWasProvided = this.source != null;
+    boolean sourceIsSupported = SourceFactory.getSupportedSources().contains(this.source);
+
+    if (sourceWasProvided && !sourceIsSupported) {
+      validRequest = false;
+    }
+
+    return validRequest;
   }
 }
