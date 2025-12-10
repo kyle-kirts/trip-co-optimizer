@@ -469,7 +469,6 @@
 							"});",
 							"",
 							"pm.test('Places is different', () => {",
-							"console.log(JSON.parse(pm.request.body.raw).places);",
 							"pm.expect(pm.response.json().places).to.eql(JSON.parse(pm.request.body.raw).places);",
 							"});",
 							""

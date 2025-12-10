@@ -296,6 +296,298 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "vercauteren: Cities - limit must be included",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e88712c-2bf5-4539-9ef2-30056e181a6b",
+						"exec": [
+							"pm.test(\"Response is HTTP400 status\", () => {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "17bc6d37-f2fd-43f8-81e7-5922cf0f5199",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"near\",\n    \"place\": {\n        \"latitude\": \"0.0\",\n        \"longitude\": \"0.0\"\n    },\n    \"earthRadius\": 1,\n    \"distance\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Cities - 0 places",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e88712c-2bf5-4539-9ef2-30056e181a6b",
+						"exec": [
+							"pm.test(\"0 places exist in a tiny area in the atlantic ocean\", () => {",
+							"    pm.expect(pm.response.json().places).to.eql([]);",
+							"    pm.expect(pm.response.json().distances).to.eql([]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "4b8e53fd-adf5-4f77-8954-0cc1cdd55150",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"near\",\n    \"place\": {\n        \"latitude\": \"0.0\",\n        \"longitude\": \"0.0\"\n    },\n    \"earthRadius\": 9999999999,\n    \"distance\": 1,\n    \"limit\": 20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Cities - Fort Collins is near itself",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e88712c-2bf5-4539-9ef2-30056e181a6b",
+						"exec": [
+							"pm.test(\"Fort Collins is only near itself given a small distance.\", () => {",
+							"    pm.expect(pm.response.json().places.length).to.eql(1);",
+							"    pm.expect(pm.response.json().distances).to.eql([0]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "84636db9-5daa-44b8-bcea-13ca44dc4d39",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"near\",\n    \"place\": {\n        \"latitude\": \"40.5477\",\n        \"longitude\": \"-105.066\"\n    },\n    \"earthRadius\": 6731,\n    \"distance\": 5,\n    \"limit\": 20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Cities - Can only return 100 cities max",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e88712c-2bf5-4539-9ef2-30056e181a6b",
+						"exec": [
+							"pm.test(\"The limit property cannot exceed 100.\", () => {",
+							"    pm.expect(pm.response.json().places.length).to.eql(100);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "b0b01388-f496-4e15-8051-3eea24574f22",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"near\",\n    \"place\": {\n        \"latitude\": \"40.5853\",\n        \"longitude\": \"-105.0844\"\n    },\n    \"earthRadius\": 336,\n    \"distance\": 50,\n    \"limit\": 250\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Cities - lots of places exist within a large area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e88712c-2bf5-4539-9ef2-30056e181a6b",
+						"exec": [
+							"pm.test(\"lots of cities exist within a 10th of the world\", () => {",
+							"    pm.expect(pm.response.json().places.length).to.eql(20);",
+							"    pm.expect(pm.response.json().distances).to.eql([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "0673e503-8b0c-46d5-9ab9-60ee3a0e1178",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"near\",\n    \"place\": {\n        \"latitude\": \"0.0\",\n        \"longitude\": \"0.0\"\n    },\n    \"earthRadius\": 10,\n    \"distance\": 1,\n    \"limit\": 20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Airports 0 places",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e88712c-2bf5-4539-9ef2-30056e181a6b",
+						"exec": [
+							"pm.test(\"0 places exist in a tiny area in the atlantic ocean\", () => {",
+							"    pm.expect(pm.response.json().places).to.eql([]);",
+							"    pm.expect(pm.response.json().distances).to.eql([]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "05ae88b0-146a-45b4-96ca-a85386007a87",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"near\",\n    \"source\":\"airports\",\n    \"place\": {\n        \"latitude\": \"0.0\",\n        \"longitude\": \"0.0\"\n    },\n    \"earthRadius\": 9999999999,\n    \"distance\": 1,\n    \"limit\": 20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
