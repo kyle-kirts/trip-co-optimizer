@@ -541,6 +541,54 @@
 			"response": []
 		},
 		{
+			"name": "vercauteren: Airports- Can only return 100 locations max",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e88712c-2bf5-4539-9ef2-30056e181a6b",
+						"exec": [
+							"pm.test(\"The limit property cannot exceed 100.\", () => {",
+							"    pm.expect(pm.response.json().places.length).to.eql(100);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "f5085956-5167-4ad2-817f-e05dc98a1aa2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"near\",\n    \"source\": \"airports\",\n    \"place\": {\n        \"latitude\": \"40.5853\",\n        \"longitude\": \"-105.0844\"\n    },\n    \"earthRadius\": 336,\n    \"distance\": 50,\n    \"limit\": 250\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "vercauteren: Airports 0 places",
 			"event": [
 				{
@@ -570,6 +618,111 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"requestType\": \"near\",\n    \"source\":\"airports\",\n    \"place\": {\n        \"latitude\": \"0.0\",\n        \"longitude\": \"0.0\"\n    },\n    \"earthRadius\": 9999999999,\n    \"distance\": 1,\n    \"limit\": 20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Airports fort collins has an airport",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e88712c-2bf5-4539-9ef2-30056e181a6b",
+						"exec": [
+							"pm.test(\"Fort collins has at least one, if not multiple airports.\", () => {",
+							"    let len = pm.response.json().distances.length;",
+							"    for(let i = 0; i<len; i++){",
+							"        pm.expect(pm.response.json().places[i].municipality).to.include(\"Fort Collins\");",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "cb33036c-1ac3-44ba-ab1a-bf850a415bbe",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"near\",\n    \"source\":\"airports\",\n    \"place\": {\n        \"latitude\": \"40.587\",\n        \"longitude\": \"-105.083\"\n    },\n    \"earthRadius\": 3959,\n    \"distance\": 3,\n    \"limit\": 20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Airports lots of places",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e88712c-2bf5-4539-9ef2-30056e181a6b",
+						"exec": [
+							"pm.test(\"lots of airports within a big area\", () => {",
+							"    let len = pm.response.json().places.length;",
+							"    pm.expect(len).to.eql(20);",
+							"    let allowed = [0,1];",
+							"    for(let i=0; i<len; i++)",
+							"    {",
+							"        pm.expect(allowed).to.include(pm.response.json().distances[i]);",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "32d240b9-e4e1-456e-99b8-850906516a3c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"near\",\n    \"source\":\"airports\",\n    \"place\": {\n        \"latitude\": \"45.0\",\n        \"longitude\": \"-105.0\"\n    },\n    \"earthRadius\": 1,\n    \"distance\": 1,\n    \"limit\": 20\n}",
 					"options": {
 						"raw": {
 							"language": "json"
