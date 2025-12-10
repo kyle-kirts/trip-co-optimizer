@@ -3,146 +3,12 @@ package com.tco.misc;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import org.bson.Document;
-
 public class TestDataSource {
-    @Test
-    @DisplayName("jsibold: Validate DataSource.near() returns an empty Places object placeholder")
-    public void testNearReturnsEmptyPlaces() throws Exception {
-        DataSource dataSource = new DataSource() {};
 
-        Place place = new Place();
-        Integer distance = 100;
-        Double earthRadius = Double.MAX_VALUE;
-        String formula = "vincenty";
-        Integer limit = 5;
-
-        Places result = dataSource.near(place, distance, earthRadius, formula, limit);
-
-        assertNotNull(result);
-        assertEquals(0, result.size());
-    }
-
-    @Test
-    @DisplayName("jsibold: Validate DataSource.distance() returns an empty distances object placeholder")
-    public void testDistancesReturnsEmptyDistances() {
-        DataSource dataSource = new DataSource() {};
-
-        Place place = new Place();
-        Places places = new Places();
-
-        Distances result = dataSource.distances(place, places, 6371, "vincenty");
-
-        assertNotNull(result);
-        assertEquals(0, result.size());
-    }   
-
-    @Test
-    @DisplayName("vercauteren: Validate distances expected length and output")
-    public void testDistancesLength() {
-        DataSource ds = new DataSource() {};
-        Place origin = new Place("0.0","0.0");
-        Places places = new Places();
-
-        places.add(new Place("1.0","0.0"));
-        places.add(new Place("2.0", "0.0"));
-
-        Distances result = ds.distances(origin, places, 57, "vincenty");
-        assertEquals(2, result.size());
-    }
-
-    @Test
-    @DisplayName("vercauteren: Validate distances expected length and output")
-    public void testDistancesOutput() {
-        DataSource ds = new DataSource() {};
-        Place origin = new Place("0.0","0.0");
-        Places places = new Places();
-
-        places.add(new Place("1.0","0.0"));
-        places.add(new Place("2.0", "0.0"));
-
-        Distances result = ds.distances(origin, places, 57, "vincenty");
-        assertEquals(1, result.get(0));
-        assertEquals(2, result.get(1));
-    }
-
-    @Test
-    @DisplayName("schlicting: Validate select() method runs without error")
-    public void testSelectRunsWithoutError() {
-        DataSource datasource = new DataSource() {};
-        datasource.selectNear(new Place(), 100.0, 6371, 1);
-        assertEquals(datasource, datasource);
-        assertDoesNotThrow(() -> {
-            datasource.selectNear(new Place(), 100.0, 6371, 1);
-        });
-    }
-
-    @Test
-    @DisplayName("schlicting: Validate convert() method runs without error")
-    public void testConvertRunsWithoutError() throws Exception{
-        DataSource datasource = new DataSource() {};
-        datasource.convert();
-        assertEquals(datasource, datasource);
-        assertDoesNotThrow(() -> {
-            datasource.convert();
-        });
-    }
-
-    @Test
-    @DisplayName("luzovich: Default initialize() does not throw an error when called")
-    public void testEmptyInitializeCall() {
-        DataSource datasource = new DataSource() {};
-        assertDoesNotThrow(() -> {
-            datasource.initialize();
-        });
-    }
-
-    @Test
-    @DisplayName("schlicting: Validate near() method runs without error")
-    public void testNearRunsWithoutError() throws Exception {
-        DataSource datasource = new DataSource() {};
-        datasource.near(new Place(), 100.0, 6371, "vincenty", 5);
-        assertEquals(datasource, datasource);
-        assertDoesNotThrow(() -> {
-            datasource.near(new Place(), 100.0, 6371, "vincenty", 5);
-        });
-    }
-
-    @Test
-    @DisplayName("schlicting: Validate initialize() method runs without error")
-    public void testInitializeRunsWithoutError() {
-        DataSource datasource = new DataSource() {};
-        datasource.initialize();
-        assertEquals(datasource, datasource);
-        assertDoesNotThrow(() -> {
-            datasource.initialize();
-        });
-    }
-
-    @Test
-    @DisplayName("vercauteren: Validate selectMatch() method runs without error")
-    public void testSelectMatchRunsWithoutError() {
-        DataSource datasource = new DataSource() {};
-        datasource.selectMatch("GIBBERISH", 1);
-        assertEquals(datasource, datasource);
-        assertDoesNotThrow(() -> {
-            datasource.selectMatch("GIBBERISH", 1);
-        });
-    }
-
-    @Test
-    @DisplayName("kyle-kirts: limits greater than 100 are set to 100")
-    public void testCheckLimit() {
-        DataSource datasource = new DataSource() {};
-        int limit = 101;
-
-        limit = datasource.checkLimit(limit);
-        assertEquals(100, limit);
-    }
 
     @Test        
     @DisplayName("luzovich: find() with gibberish returns empty Places")
@@ -156,5 +22,105 @@ public class TestDataSource {
     public void testLimitOfFindWithManyResults() throws Exception {
         DataSource datasource = new CitiesSource();
         assertEquals(12, datasource.find("Dave", 12).size());
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: limit greater than 100 is set to 100")
+    public void testCappingLimit(){
+        DataSource source = new CitiesSource();
+        Integer limit = source.checkLimit(101);
+
+        assertEquals(100, limit);
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: valid limit less than 100 remains the same")
+    public void testCheckLimitValid(){
+        DataSource source = new CitiesSource();
+        Integer limit = source.checkLimit(99);
+
+        assertEquals(99, limit);
+    }
+
+    @Test
+    @DisplayName("jsibold: found() returns count from countMatch() on success")
+    public void testFoundReturnsCountOnSuccess() throws Exception {
+        DataSource src = new CitiesSource();
+        Integer count = src.found("Denver");
+        assertNotNull(count);
+        assertTrue(count > 0);
+    }
+
+    @Test
+    @DisplayName("jsibold: found() searches all fields via countMatch()")
+    public void testFoundSearchesAllFields() throws Exception {
+        DataSource src = new CitiesSource();
+        Integer count = src.found("Colorado");
+        assertNotNull(count);
+        assertTrue(count > 0);
+    }
+
+    @Test
+    @DisplayName("jsibold: found() returns non-zero for valid search term")
+    public void testFoundReturnsNonZeroForValidTerm() throws Exception {
+        DataSource src = new CitiesSource();
+        Integer count = src.found("Dave");
+        assertNotNull(count);
+        assertTrue(count > 0);
+    }
+
+    @Test
+    @DisplayName("jsibold: found() handles zero matches gracefully")
+    public void testFoundHandlesZeroMatches() throws Exception {
+        DataSource src = new CitiesSource();
+        Integer count = src.found("xyznonexistentcity123");
+        assertNotNull(count);
+        assertTrue(count == 0);
+    }
+
+    @Test
+    @DisplayName("jsibold: found() returns 0 on exception")
+    public void testFoundReturnsZeroOnException() throws Exception {
+        DataSource src = new MockFailingDataSource();
+        Integer count = src.found("test");
+        assertNotNull(count);
+        assertTrue(count == 0);
+    }
+
+    @Test
+    @DisplayName("jsibold: found() catches and logs exceptions without throwing")
+    public void testFoundCatchesExceptionWithoutThrowing() throws Exception {
+        DataSource src = new MockFailingDataSource();
+        assertDoesNotThrow(() -> src.found("test"));
+    }
+
+    @Test
+    @DisplayName("jsibold: found() delegates to countMatch()")
+    public void testFoundDelegatesToCountMatch() throws Exception {
+        DataSource src = SourceFactory.get("cities");
+        Integer count = src.found("some random gibberish");
+        assertNotNull(count);
+        assertTrue(count == 0);
+    }
+
+    @Test
+    @DisplayName("jsibold: found() works with AirportsSource")
+    public void testFoundWorksWithAirportsSource() throws Exception {
+        DataSource src = new AirportsSource();
+        Integer count = src.found("Denver");
+        assertNotNull(count);
+        assertTrue(count > 0);
+    }
+    
+    static class MockFailingDataSource extends DataSource {
+        @Override
+        public Places convert() throws Exception {
+            return new Places();
+        }
+
+        @Override
+        public Integer countMatch(String match) throws Exception {
+            throw new RuntimeException("Simulated database error");
+        }
     }
 }

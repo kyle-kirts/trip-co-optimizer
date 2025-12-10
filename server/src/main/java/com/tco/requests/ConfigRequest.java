@@ -40,8 +40,8 @@ public class ConfigRequest extends Request {
         features.add("config");
         features.add("distances");
         features.add("tour");
-        //features.add("near");
-        //features.add("find");
+        features.add("near");
+        features.add("find");
         return features;
     }
 
@@ -71,8 +71,6 @@ public class ConfigRequest extends Request {
     public ConfigRequest() {
         this.requestType = "config";
     }
-
-    // TODO might need a few testing helpers for team, people, person
 
     public boolean validFeature(String feature) {
         return features.contains(feature);

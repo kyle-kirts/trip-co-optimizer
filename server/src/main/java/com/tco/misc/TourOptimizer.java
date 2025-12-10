@@ -8,83 +8,97 @@ public abstract class TourOptimizer {
     protected int[] order;
     protected long[][] distances;
     protected long currentTotalDistance;
+    protected double radius;
+    protected double response;
+    protected DistanceCalculator calculator;
+    private double RETURN_TIME_CUTOFF = 0.25; // 0.05
 
-    public TourOptimizer() {
-    }
+    public TourOptimizer() {}
 
     public Places construct(Places places, double radius, String formula, Double response) {
-        initialize(places, radius, formula);
+        if (response < RETURN_TIME_CUTOFF) return places;
+        initialize(places, radius, formula, response);
+        if (response <= RETURN_TIME_CUTOFF) return places;
         int[] tour = findBestNearestNeighborTour(places);
         Places nearestNeighbor = new Places();
-        for (int i=0; i < tour.length; i++) {
+
+        for (int i = 0; i < tour.length; i++) {
             nearestNeighbor.add(places.get(tour[i]));
         }
+        
         return nearestNeighbor;
     }
 
-    public void improve() {
-    };
+    public void improve() {};
 
-    public void initialize(Places places, double radius, String formula) 
-    {
+    public void initialize(Places places, double radius, String formula, Double response) {
         visited = new boolean[places.size()];
         Arrays.fill(visited, false);
         order = new int[places.size()];
+        Arrays.fill(order, 0);
         currentTotalDistance = 0;
-        initializeDistances(places, radius, formula);
+        this.radius = radius;
+        this.response = response.doubleValue();
+        calculator = CalculatorFactory.getCalculator(formula);
+        int numberOfPlaces = places.size();
+        distances = new long[numberOfPlaces][numberOfPlaces];
     }
 
     public int[] findBestNearestNeighborTour(Places places) {
         long currentBest = Long.MAX_VALUE;
         int[] bestOrder = new int[places.size()];
-        int cutoff = (places.size() < 400) ? places.size() : 400;
-        for (int i = 0; i < cutoff; i++) {
-            int[] currentOrder = createRoute(places, places.get(i));
+        double previousTime = getSeconds();
+        for (int i = 0; i < places.size(); i++) {
+            Place currentPlace = places.get(i);
+            if (response <= RETURN_TIME_CUTOFF) break;
+            int[] currentOrder = createRoute(places, currentPlace);
             if (currentTotalDistance < currentBest) {
                 bestOrder = currentOrder;
                 currentBest = currentTotalDistance;
             }
+
+            response -= (getSeconds() - previousTime);
+            previousTime = getSeconds();
+            if (response <= RETURN_TIME_CUTOFF) break;
         }
+        
         return bestOrder;
     }
 
-    public void initializeDistances(Places places, double radius, String formula) {
-        int numberOfPlaces = places.size();
-        distances = new long[numberOfPlaces][numberOfPlaces];
-        DistanceCalculator calculator = CalculatorFactory.getCalculator(formula);
-        
-        for (int i = 0; i < numberOfPlaces; i++) {
-            GeographicCoordinate currentPlace = places.get(i);
-            for (int j = i + 1; j < numberOfPlaces; j++) {
-                GeographicCoordinate otherPlace = places.get(j);
-                long distance = calculator.between(currentPlace, otherPlace, radius);
-                distances[i][j] = distance;
-                distances[j][i] = distance;
-            }
+    public void initializeDistancesForPlace(Places places, Place currentPlace) {
+        int j = places.indexOf(currentPlace);
+        double previousTime = getSeconds();
+        for (int i = 0; i < places.size(); i++) {
+            GeographicCoordinate otherPlace = places.get(i);
+            long distance = calculator.between(currentPlace, otherPlace, radius);
+            distances[i][j] = distance;
+            distances[j][i] = distance;
+            response -= (getSeconds() - previousTime);
+            previousTime = getSeconds();
+            if (response <= RETURN_TIME_CUTOFF) return;
         }
     }
 
-    public int[] createRoute(Places places, Place start)
-    {   
-        Arrays.fill(order, -1);
+    public int[] createRoute(Places places, Place start) {
         Arrays.fill(visited, false);
+        
         int index = 0;
-
-        int nextPlace= places.getPlace(start);
+        int nextPlace = places.getPlace(start);
         this.order[index] = nextPlace;
         this.visited[nextPlace] = true;
         index++;
         
         int visitedCount = 1;
 
-        while(visitedCount < visited.length)
-        {
+        while (visitedCount < visited.length) {
+            initializeDistancesForPlace(places, places.get(nextPlace));
             nextPlace = closest(nextPlace);
             this.order[index] = nextPlace;
             this.visited[nextPlace] = true;
             index++;
             visitedCount++;
-        }
+        } 
+        
         return order;
     }
 
@@ -93,7 +107,7 @@ public abstract class TourOptimizer {
         int best = -1;
         Long minDistance = Long.MAX_VALUE;
         
-        for (int i = 0; i < visited.length; i++) {
+        for (int i = 0; i < distances[next].length; i++) {
             Long distance = distances[next][i];
             boolean isValidPlace = (!visited[i]) && (i != next);
             boolean isLessThan = distances[next][i] < minDistance;
@@ -103,8 +117,8 @@ public abstract class TourOptimizer {
                 best = i;
                 minDistance = distance;
             }
+            
             if (isValidPlace && isEqualTo) best = pickRandom(i, best);
-        
         }
         return best;
     }
@@ -114,6 +128,10 @@ public abstract class TourOptimizer {
         int nonse = random.nextInt();
         if (nonse % 2 == 0) best = i;
         return best;
+    }
+
+    protected double getSeconds() {
+        return (double) (System.currentTimeMillis() / 1000);
     }
 
     // Methods used for testing

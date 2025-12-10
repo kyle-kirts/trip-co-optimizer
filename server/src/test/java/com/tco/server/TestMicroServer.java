@@ -133,7 +133,7 @@ public class TestMicroServer {
         assertEquals(200, response.getStatusLine().getStatusCode());
     }
 
-    /* @Test
+    @Test
     @DisplayName("luzovich: Valid near request succeeds with 200 status")
     public void testValidNearRequest() throws IOException {
         String requestBodyJSON = new JSONObject()
@@ -159,5 +159,5 @@ public class TestMicroServer {
             .toString();
         HttpResponse response = postRequest("/api/find", requestBodyJSON);
         assertEquals(200, response.getStatusLine().getStatusCode());
-    } */
+    }
 }
