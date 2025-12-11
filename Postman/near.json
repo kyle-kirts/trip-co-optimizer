@@ -813,6 +813,77 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "luzovich: Cities - Near Boulder yields Boulder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd087219-9538-454c-b7aa-24fcc3cd5e41",
+						"exec": [
+							"pm.test(\"luzovich: Coordinate set close to Boulder returns Boulder when distance is 1.\", () => {",
+							"",
+							"    pm.expect(pm.response.json()).to.eql({",
+							"        \"place\": {",
+							"            \"latitude\": \"40.01766\",",
+							"            \"longitude\": \"-105.25786\"",
+							"        },",
+							"        \"distance\": 1,",
+							"        \"earthRadius\": 6370.0,",
+							"        \"limit\": 3,",
+							"        \"source\": \"cities\",",
+							"        \"places\": [",
+							"            {",
+							"                \"country\": \"United States\",",
+							"                \"latitude\": \"40.0248\",",
+							"                \"municipality\": \"Boulder\",",
+							"                \"name\": \"Boulder\",",
+							"                \"region\": \"Colorado\",",
+							"                \"longitude\": \"-105.252\"",
+							"            }",
+							"        ],",
+							"        \"distances\": [",
+							"            1",
+							"        ],",
+							"        \"requestType\": \"near\"",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "49734ce0-da8f-497b-8720-62052b09808a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"near\",\n    \"source\": \"cities\",\n    \"place\": {\n        \"latitude\": \"40.01766\",\n        \"longitude\": \"-105.25786\"\n    },\n    \"earthRadius\": 6370,\n    \"distance\": 1,\n    \"limit\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
