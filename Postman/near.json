@@ -452,6 +452,205 @@
 			"response": []
 		},
 		{
+			"name": "kyle-kirts: Airports - Server caps limit at 100",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "000d4493-a7d0-4e63-a11f-df116edd995f",
+						"exec": [
+							"const json = pm.response.json();",
+							"",
+							"pm.test(\"Limit internally should cap 100 places\", function () {",
+							"    pm.expect(json.places.length).to.eql(100);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "a8d055d5-a984-40da-ade8-496e4727eca7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\":\"near\",\n    \"source\":\"airports\",\n    \"place\": {\"latitude\": \"40.5\", \"longitude\": \"-105.1\"},\n    \"distance\": 50,\n    \"earthRadius\": 395,\n    \"limit\": 101\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kyle-kirts: Airports - Validate Response Schema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "08d4ef4d-199a-4c47-9f29-1af766d059fe",
+						"exec": [
+							"// Schema test template taken from Postman Documentation",
+							"var schema = {",
+							"  \"$id\": \"https://example.com/address.schema.json\",",
+							"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+							"  \"title\": \"near\",",
+							"  \"description\": \"near request/response\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"requestType\": {",
+							"      \"description\":\"a request for known places near a specified place.\",",
+							"      \"type\":\"string\",",
+							"      \"pattern\":\"^near$\"",
+							"    },",
+							"    \"place\": {",
+							"      \"description\":\"a place object containing geographic coordinates.\",",
+							"      \"type\":\"object\",",
+							"        \"properties\": {",
+							"          \"latitude\": {",
+							"            \"type\":\"string\",",
+							"            \"pattern\":\"^[-+]?(?:90(?:(?:\\\\.0+)?)|(?:[0-9]|[1-8][0-9])(?:(?:\\\\.[0-9]+)?))$\"",
+							"          },",
+							"          \"longitude\": {",
+							"            \"type\":\"string\",",
+							"            \"pattern\":\"^[-+]?(?:180(?:(?:\\\\.0+)?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\\\.[0-9]+)?))$\"",
+							"          }",
+							"        },",
+							"        \"required\": [\"latitude\",\"longitude\"],",
+							"        \"additionalProperties\": { \"type\": \"string\" }",
+							"    },",
+							"    \"distance\":{",
+							"      \"description\":\"the maximum distance from place in earth radius units\",",
+							"      \"type\":\"integer\",",
+							"      \"minimum\":1,",
+							"      \"maximum\":50",
+							"    },",
+							"    \"earthRadius\":{",
+							"      \"description\":\"the radius of the earth in some unit of measure\",",
+							"      \"type\":\"number\",",
+							"      \"minimum\":1",
+							"    },",
+							"    \"formula\":{",
+							"      \"description\":\"a formula included in the formulae property of the config response.\",",
+							"      \"type\":\"string\"",
+							"    },",
+							"    \"source\":{",
+							"      \"description\":\"a source included in the sources property of the config response.\",",
+							"      \"type\":\"string\"",
+							"    },",
+							"    \"limit\": {",
+							"      \"description\":\"the maximum number of matching places that may be returned.\",",
+							"      \"type\":\"integer\",",
+							"      \"minimum\":1",
+							"    },",
+							"    \"places\": {",
+							"      \"description\": \"a list of places\",",
+							"      \"type\":\"array\",",
+							"      \"items\": {",
+							"        \"type\":\"object\",",
+							"        \"properties\": {",
+							"          \"latitude\": {",
+							"            \"type\":\"string\",",
+							"            \"pattern\":\"^[-+]?(?:90(?:(?:\\\\.0+)?)|(?:[0-9]|[1-8][0-9])(?:(?:\\\\.[0-9]+)?))$\"",
+							"          },",
+							"          \"longitude\": {",
+							"            \"type\":\"string\",",
+							"            \"pattern\":\"^[-+]?(?:180(?:(?:\\\\.0+)?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\\\.[0-9]+)?))$\"",
+							"          },",
+							"          \"municipality\": {",
+							"            \"type\":\"string\"",
+							"          },",
+							"          \"region\": {",
+							"            \"type\":\"string\"",
+							"          },",
+							"          \"country\": {",
+							"            \"type\":\"string\"",
+							"          }",
+							"        },",
+							"        \"required\": [\"latitude\",\"longitude\",\"municipality\",\"region\",\"country\"],",
+							"        \"additionalProperties\": { \"type\": \"string\" }",
+							"      },",
+							"      \"minitems\": 0",
+							"    },",
+							"    \"distances\":{",
+							"      \"description\":\"the great circle distance between the specified place and the items in the places list\",",
+							"      \"type\":\"array\",",
+							"      \"items\": {",
+							"        \"type\":\"integer\",",
+							"        \"minimum\": 0",
+							"      },",
+							"      \"minItems\": 0",
+							"    }",
+							"  },",
+							"  \"required\":[\"requestType\", \"place\", \"distance\", \"earthRadius\", \"limit\", \"places\", \"distances\"],",
+							"  \"additionalProperties\": false",
+							"}",
+							"",
+							"pm.test('Schema validation', () => {",
+							"  pm.response.to.have.jsonSchema (schema);",
+							"});",
+							"",
+							"var data = pm.response.json();",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"pm.expect(tv4.validate(data, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "66b1929d-2f44-4ca9-9439-ccc55e4f5998",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\":\"near\",\n    \"source\":\"airports\",\n    \"place\": {\"latitude\": \"40.5\", \"longitude\": \"-105.1\"},\n    \"distance\": 50,\n    \"earthRadius\": 395,\n    \"limit\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "vercauteren: Cities - limit must be included",
 			"event": [
 				{
