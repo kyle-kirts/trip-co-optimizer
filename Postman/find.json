@@ -254,9 +254,9 @@
 					"script": {
 						"id": "ea34f915-03d8-4c10-bf18-5357c715bb8c",
 						"exec": [
-							"pm.test(\"0 places exist that match a gibberish string\", () => {",
-							"    pm.expect(pm.response.json().places).to.eql([]);",
-							"    pm.expect(pm.response.json().found).to.eql(0);",
+							"pm.test(\"Fort Collins Downtown Airport has a single match\", () => {",
+							"    pm.expect(pm.response.json().places.length).to.eql(1);",
+							"    pm.expect(pm.response.json().found).to.eql(1);",
 							"});",
 							"",
 							""
@@ -276,7 +276,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"source\":\"airports\",\r\n    \"match\": \"SDkjvbrvbS:LKFDSdeubvbrgfjnvnbbfg\",\r\n    \"limit\": 10\r\n}",
+					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"source\":\"airports\",\r\n    \"match\": \"Fort Collins Downtown Airport\",\r\n    \"limit\": 10\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -354,8 +354,8 @@
 					"script": {
 						"id": "685c5295-b373-4d65-b72b-907f77664a76",
 						"exec": [
-							"pm.test(\"0 places exist that match a gibberish string\", () => {",
-							"    pm.expect(pm.response.json().limit).to.eql(100);",
+							"pm.test(\"the places limit will stop at 100, even if given more.\", () => {",
+							"    pm.expect(pm.response.json().places.length).to.eql(100);",
 							"});"
 						],
 						"type": "text/javascript",
@@ -373,7 +373,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"requestType\": \"find\",\n    \"source\":\"cities\",\n    \"match\": \"\",\n    \"limit\":250\n}",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"source\":\"airports\",\n    \"match\": \"\",\n    \"limit\":250\n}",
 					"options": {
 						"raw": {
 							"language": "json"
