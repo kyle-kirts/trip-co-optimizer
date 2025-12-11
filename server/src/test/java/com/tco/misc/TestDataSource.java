@@ -43,6 +43,15 @@ public class TestDataSource {
     }
 
     @Test
+    @DisplayName("kyle-kirts: Limit 100 stays 100")
+    public void testLimitAs100(){
+         DataSource source = new CitiesSource();
+        Integer limit = source.checkLimit(100);
+
+        assertEquals(100, limit);
+    }
+
+    @Test
     @DisplayName("jsibold: found() returns count from countMatch() on success")
     public void testFoundReturnsCountOnSuccess() throws Exception {
         DataSource src = new CitiesSource();
