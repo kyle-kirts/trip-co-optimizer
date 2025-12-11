@@ -62,7 +62,7 @@ public class CitiesSource extends DataSource {
         try(MongoClient mongoClient = MongoClients.create(Credential.URL)) {
             MongoDatabase database = mongoClient.getDatabase("cs314");
             this.collection = database.getCollection("cities");
-            selectMatch(match, limit);
+            selectMatch(match, checkLimit(limit));
             results = convert();
             return results;
         }
