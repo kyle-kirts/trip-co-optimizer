@@ -298,6 +298,160 @@
 			"response": []
 		},
 		{
+			"name": "kyle-kirts: Cities - Middle of Ocean returns empty lists",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4865ab6-62f9-4f3d-8017-c3a5d0b83695",
+						"exec": [
+							"const json = pm.response.json();",
+							"",
+							"pm.test(\"Coordinates in ocean returns nothing\", function () {",
+							"    pm.expect(json.places.length).to.eql(0);",
+							"    pm.expect(json.distances.length).to.eql(0);",
+							"    pm.expect(json.places.length).to.eql(json.distances.length);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "6967e955-83c9-4c21-8dee-91f9fcc82bd9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\":\"near\",\n    \"place\": {\"latitude\": \"0.0\", \"longitude\": \"0.0\"},\n    \"distance\": 50,\n    \"earthRadius\": 3959,\n    \"limit\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kyle-kirts: Cities - Limit is internally capped at 100",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3da5c7b6-7127-4be1-a28e-63323e8275ef",
+						"exec": [
+							"const json = pm.response.json();",
+							"",
+							"pm.test(\"Limit internally should cap 100 places\", function () {",
+							"    pm.expect(json.places.length).to.eql(100);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "609ca988-25db-4a0a-839c-460b28ed9b6f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\":\"near\",\n    \"place\": {\"latitude\": \"40.5\", \"longitude\": \"-105.1\"},\n    \"distance\": 50,\n    \"earthRadius\": 395,\n    \"limit\": 101\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kyle-kirts: Cities - # Distances = # Places",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "563e04ef-609e-406c-a87c-c2f82dfb111d",
+						"exec": [
+							"const json = pm.response.json();",
+							"",
+							"pm.test(\"Number of distances in the list equal to number of places\", function () {",
+							"    pm.expect(json.places.length).to.eql(8);",
+							"    pm.expect(json.distances.length).to.eql(8);",
+							"    pm.expect(json.places.length).to.eql(json.distances.length);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "f23b15c6-35bc-4056-bd71-5a55a506fc91",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\":\"near\",\n    \"place\": {\"latitude\": \"40.5\", \"longitude\": \"-105.1\"},\n    \"distance\": 50,\n    \"earthRadius\": 3959,\n    \"limit\": 8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "vercauteren: Cities - limit must be included",
 			"event": [
 				{
