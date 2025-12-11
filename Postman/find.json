@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "af756873-0aae-463c-8c6e-4c6789b42fd2",
+		"_postman_id": "a0586c1d-06d8-4100-be2a-f4d753b8bfa6",
 		"name": "find",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_uid": "48546433-af756873-0aae-463c-8c6e-4c6789b42fd2"
+		"_uid": "48547255-a0586c1d-06d8-4100-be2a-f4d753b8bfa6"
 	},
 	"item": [
 		{
@@ -12,7 +12,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3e88712c-2bf5-4539-9ef2-30056e181a6b",
+						"id": "c0558f6a-0e76-4e03-9056-1a945effc9bc",
 						"exec": [
 							"pm.test(\"Response is HTTP200 status\", () => {",
 							"    pm.response.to.have.status(200);",
@@ -23,7 +23,7 @@
 					}
 				}
 			],
-			"id": "c0fecfcb-615e-4b77-b175-68913925ca28",
+			"id": "0737e11e-6d49-4f72-aa01-9b89e067eab2",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -33,6 +33,150 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"requestType\": \"find\",\n    \"match\": \"denver\",\n    \"limit\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Cities - find 0 places",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea34f915-03d8-4c10-bf18-5357c715bb8c",
+						"exec": [
+							"pm.test(\"0 places exist that match a gibberish string\", () => {",
+							"    pm.expect(pm.response.json().places).to.eql([]);",
+							"    pm.expect(pm.response.json().found).to.eql(0);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "b0caef5c-5399-40a8-8925-c34e52c817c5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"SDkjvbrvbS:LKFDSdeubvbrgfjnvnbbfg\",\r\n    \"limit\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Cities - find maximum places",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37bafd2c-1c15-4702-9625-1e1bd11e377e",
+						"exec": [
+							"pm.test(\"0 places exist that match a gibberish string\", () => {",
+							"    pm.expect(pm.response.json().places.length).to.eql(100);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "47f0cbbc-5606-4847-af6b-ead00e2691a9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"match\": \"\",\n    \"limit\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: Cities -limit must be included",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "685c5295-b373-4d65-b72b-907f77664a76",
+						"exec": [
+							"pm.test(\"0 places exist that match a gibberish string\", () => {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "ad1c6401-48a7-465c-ab50-63d435559857",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"match\": \"\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
