@@ -884,6 +884,60 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Jsibold: Airports near are within distance limit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3b2823d1-d351-4113-a76c-f971ea48cec9",
+						"exec": [
+							"pm.test(\"Jsibold: Airports near are within distance limit\", function () {\r",
+							"    let r = pm.response.json();\r",
+							"    pm.expect(r.requestType).to.eql(\"near\");\r",
+							"    pm.expect(r.distance).to.be.within(1,50);\r",
+							"    pm.expect(r.limit).to.eql(1);\r",
+							"    pm.expect(r.place.latitude).to.match(/^-?\\d/);\r",
+							"    pm.expect(r.place.longitude).to.match(/^-?\\d/);\r",
+							"    pm.expect(r.places.length).to.be.at.most(1);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "8376b186-bf66-4e01-afd3-61971c8752fa",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestType\": \"near\",\r\n  \"place\": { \"latitude\": \"0\", \"longitude\": \"0\" },\r\n  \"distance\": 50,\r\n  \"earthRadius\": 6371,\r\n  \"limit\": 1\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
