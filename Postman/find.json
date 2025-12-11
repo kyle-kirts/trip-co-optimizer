@@ -392,6 +392,78 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "luzovich: Airports - Find",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd087219-9538-454c-b7aa-24fcc3cd5e41",
+						"exec": [
+							"pm.test(\"luzovich: Coordinate set close to DIA returns DIA when distance is 1.\", () => {",
+							"",
+							"    pm.expect(pm.response.json()).to.eql({",
+							"        \"place\": {",
+							"            \"latitude\": \"39.85616\",",
+							"            \"longitude\": \"-104.67906\"",
+							"        },",
+							"        \"distance\": 1,",
+							"        \"earthRadius\": 6370.0,",
+							"        \"limit\": 7,",
+							"        \"source\": \"airports\",",
+							"        \"places\": [",
+							"            {",
+							"                \"country\": \"United States\",",
+							"                \"ident\": \"KDEN\",",
+							"                \"latitude\": \"39.861698150635\",",
+							"                \"name\": \"Denver International Airport\",",
+							"                \"municipality\": \"Denver\",",
+							"                \"region\": \"Colorado\",",
+							"                \"longitude\": \"-104.672996521\"",
+							"            }",
+							"        ],",
+							"        \"distances\": [",
+							"            1",
+							"        ],",
+							"        \"requestType\": \"near\"",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "f0941f00-c8a5-4232-8c9e-573b01bc8702",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"tour\",\n    \"places\": [],\n    \"earthRadius\": 1,\n    \"response\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
