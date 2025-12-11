@@ -741,6 +741,78 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "luzovich: Airports - Near DIA yields DIA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd087219-9538-454c-b7aa-24fcc3cd5e41",
+						"exec": [
+							"pm.test(\"luzovich: Coordinate set close to DIA returns DIA when distance is 1.\", () => {",
+							"",
+							"    pm.expect(pm.response.json()).to.eql({",
+							"        \"place\": {",
+							"            \"latitude\": \"39.85616\",",
+							"            \"longitude\": \"-104.67906\"",
+							"        },",
+							"        \"distance\": 1,",
+							"        \"earthRadius\": 6370.0,",
+							"        \"limit\": 7,",
+							"        \"source\": \"airports\",",
+							"        \"places\": [",
+							"            {",
+							"                \"country\": \"United States\",",
+							"                \"ident\": \"KDEN\",",
+							"                \"latitude\": \"39.861698150635\",",
+							"                \"name\": \"Denver International Airport\",",
+							"                \"municipality\": \"Denver\",",
+							"                \"region\": \"Colorado\",",
+							"                \"longitude\": \"-104.672996521\"",
+							"            }",
+							"        ],",
+							"        \"distances\": [",
+							"            1",
+							"        ],",
+							"        \"requestType\": \"near\"",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "a3dae407-3244-45d2-aa19-940328b2d8e4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"near\",\n    \"source\": \"airports\",\n    \"place\": {\n        \"latitude\": \"39.85616\",\n        \"longitude\": \"-104.67906\"\n    },\n    \"earthRadius\": 6370,\n    \"distance\": 1,\n    \"limit\": 7\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
