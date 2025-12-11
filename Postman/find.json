@@ -392,6 +392,70 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "luzovich: Cities - Find Arvada (the right one) when query is Arvada",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd087219-9538-454c-b7aa-24fcc3cd5e41",
+						"exec": [
+							"pm.test(\"luzovich: Find Arvada (the right one) when query is Arvada.\", () => {",
+							"",
+							"    pm.expect(pm.response.json()).to.eql({",
+							"        \"match\": \"arvada\",",
+							"        \"source\": \"cities\",",
+							"        \"limit\": 1,",
+							"        \"found\": 2,",
+							"        \"places\": [",
+							"            {",
+							"                \"country\": \"United States\",",
+							"                \"latitude\": \"39.832\",",
+							"                \"municipality\": \"Arvada\",",
+							"                \"name\": \"Arvada\",",
+							"                \"region\": \"Colorado\",",
+							"                \"longitude\": \"-105.151\"",
+							"            }",
+							"        ],",
+							"        \"requestType\": \"find\"",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "f0941f00-c8a5-4232-8c9e-573b01bc8702",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"source\": \"cities\",\n    \"match\": \"arvada\",\n    \"limit\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
