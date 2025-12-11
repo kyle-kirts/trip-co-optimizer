@@ -456,6 +456,71 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "luzovich: Airports - Find Broomfield airport when query is rocky mountain metro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd087219-9538-454c-b7aa-24fcc3cd5e41",
+						"exec": [
+							"pm.test(\"luzovich: Find Broomfield airport (the right one) when query is \\\"rocky mountain metro\\\".\", () => {",
+							"",
+							"    pm.expect(pm.response.json()).to.eql({",
+							"        \"match\": \"rocky mountain metro\",",
+							"        \"source\": \"airports\",",
+							"        \"limit\": 1,",
+							"        \"found\": 1,",
+							"        \"places\": [",
+							"            {",
+							"                \"country\": \"United States\",",
+							"                \"ident\": \"KBJC\",",
+							"                \"latitude\": \"39.908798\",",
+							"                \"name\": \"Rocky Mountain Metropolitan Airport\",",
+							"                \"municipality\": \"Denver\",",
+							"                \"region\": \"Colorado\",",
+							"                \"longitude\": \"-105.116997\"",
+							"            }",
+							"        ],",
+							"        \"requestType\": \"find\"",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "b4f5ffa5-20f2-4bd1-9104-f630e75a20bc",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"source\": \"airports\",\n    \"match\": \"rocky mountain metro\",\n    \"limit\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
