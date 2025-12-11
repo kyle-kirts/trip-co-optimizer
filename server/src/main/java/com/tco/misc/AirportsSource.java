@@ -48,7 +48,7 @@ public class AirportsSource extends DataSource {
         results = new Places();
 
         try (Connection connection = DriverManager.getConnection(Credential.URL, Credential.USER, Credential.PASSWORD)) {
-            selectMatch(match, limit, connection);
+            selectMatch(match, checkLimit(limit), connection);
             results = convert();
             return results;
         }
