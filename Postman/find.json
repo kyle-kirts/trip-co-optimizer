@@ -110,7 +110,7 @@
 					"script": {
 						"id": "37bafd2c-1c15-4702-9625-1e1bd11e377e",
 						"exec": [
-							"pm.test(\"0 places exist that match a gibberish string\", () => {",
+							"pm.test(\"lots of places should include a ' ' character\", () => {",
 							"    pm.expect(pm.response.json().places.length).to.eql(100);",
 							"});"
 						],
@@ -129,7 +129,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"requestType\": \"find\",\n    \"match\": \"\",\n    \"limit\": 100\n}",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"match\": \"\",\n    \"source\":\"cities\",\n    \"limit\": 100\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -150,14 +150,14 @@
 			"response": []
 		},
 		{
-			"name": "vercauteren: Cities -limit must be included",
+			"name": "vercauteren: Cities - limit must be included",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "685c5295-b373-4d65-b72b-907f77664a76",
 						"exec": [
-							"pm.test(\"0 places exist that match a gibberish string\", () => {",
+							"pm.test(\"returns 400 without 'limit' property\", () => {",
 							"    pm.response.to.have.status(400);",
 							"});"
 						],
@@ -177,6 +177,203 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"requestType\": \"find\",\n    \"match\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: airports - 0 places",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea34f915-03d8-4c10-bf18-5357c715bb8c",
+						"exec": [
+							"pm.test(\"0 places exist that match a gibberish string\", () => {",
+							"    pm.expect(pm.response.json().places).to.eql([]);",
+							"    pm.expect(pm.response.json().found).to.eql(0);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "6c0cd25c-1f66-418e-bc00-dbb4b8c00fb5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"source\":\"airports\",\r\n    \"match\": \"SDkjvbrvbS:LKFDSdeubvbrgfjnvnbbfg\",\r\n    \"limit\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: airports - Fort Collins Downtown Airport",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea34f915-03d8-4c10-bf18-5357c715bb8c",
+						"exec": [
+							"pm.test(\"Fort Collins Downtown Airport has a single match\", () => {",
+							"    pm.expect(pm.response.json().places.length).to.eql(1);",
+							"    pm.expect(pm.response.json().found).to.eql(1);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "6682a61d-f8af-45d0-85df-052d110141e2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"source\":\"airports\",\r\n    \"match\": \"Fort Collins Downtown Airport\",\r\n    \"limit\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: airports - \"Dave\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea34f915-03d8-4c10-bf18-5357c715bb8c",
+						"exec": [
+							"pm.test(\"Many places exist with the match 'Dave'\", () => {",
+							"    pm.expect(pm.response.json().places.length).to.eql(10);",
+							"    pm.expect(pm.response.json().found).to.greaterThan(10);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "3febe079-67d7-4099-ab53-321962f4433c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"source\":\"airports\",\r\n    \"match\": \"Dave\",\r\n    \"limit\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vercauteren: airports - limit cannot exceed 100",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "685c5295-b373-4d65-b72b-907f77664a76",
+						"exec": [
+							"pm.test(\"the places limit will stop at 100, even if given more.\", () => {",
+							"    pm.expect(pm.response.json().places.length).to.eql(100);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "91d3fd65-fb90-444e-b41f-2f0d109bdb4a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"source\":\"airports\",\n    \"match\": \"\",\n    \"limit\":250\n}",
 					"options": {
 						"raw": {
 							"language": "json"
