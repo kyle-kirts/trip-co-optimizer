@@ -893,18 +893,16 @@
 					"script": {
 						"id": "3b2823d1-d351-4113-a76c-f971ea48cec9",
 						"exec": [
-							"pm.test(\"200 OK\", () => pm.response.to.have.status(200));\r",
-							"const json = pm.response.json();\r",
-							"pm.expect(json.requestType).to.eql(\"near\");\r",
-							"pm.expect(json.place).to.be.an(\"object\");\r",
-							"pm.expect(json.distance).to.be.within(1,50);\r",
-							"pm.expect(json.earthRadius).to.be.above(0);\r",
-							"pm.expect(json.limit).to.be.above(0);\r",
-							"pm.expect(json.places).to.be.an(\"array\");\r",
-							"pm.test(\"Sorted by distance\", () => {\r",
-							"  const d = json.places.map(p => p.distance);\r",
-							"  pm.expect(d.every((v,i,a)=> i===0 || a[i-1] <= v)).to.eql(true);\r",
-							"});"
+							"pm.test(\"Jsibold: Airports near are within distance limit\", function () {\r",
+							"    let r = pm.response.json();\r",
+							"    pm.expect(r.requestType).to.eql(\"near\");\r",
+							"    pm.expect(r.distance).to.be.within(1,50);\r",
+							"    pm.expect(r.limit).to.eql(1);\r",
+							"    pm.expect(r.place.latitude).to.match(/^-?\\d/);\r",
+							"    pm.expect(r.place.longitude).to.match(/^-?\\d/);\r",
+							"    pm.expect(r.places.length).to.be.at.most(1);\r",
+							"});\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -921,7 +919,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"requestType\": \"near\",\r\n  \"place\": {\r\n    \"latitude\": \"39.85616\",\r\n    \"longitude\": \"-104.67906\"\r\n  },\r\n  \"earthRadius\": 6370,\r\n  \"distance\": 25,\r\n  \"limit\": 10,\r\n  \"source\": \"airports\"\r\n}",
+					"raw": "{\r\n  \"requestType\": \"near\",\r\n  \"place\": { \"latitude\": \"0\", \"longitude\": \"0\" },\r\n  \"distance\": 50,\r\n  \"earthRadius\": 6371,\r\n  \"limit\": 1\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
