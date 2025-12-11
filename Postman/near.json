@@ -886,7 +886,7 @@
 			"response": []
 		},
 		{
-			"name": "Jsibold: Airports near Denver sorted by ascending distance",
+			"name": "Jsibold: Airports near are within distance limit",
 			"event": [
 				{
 					"listen": "test",
