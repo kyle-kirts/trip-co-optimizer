@@ -1,12 +1,14 @@
 package com.tco.misc;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -216,6 +218,23 @@ public class TestAirportsSource {
         Integer count = src.countMatch("Colorado");
         assertNotNull(count);
         assertTrue(count > 0);
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: countMatch() returns 0 when no matches")
+    public void testNoMathcesFound() throws Exception{
+        AirportsSource src = new AirportsSource();
+        Integer count = src.countMatch("Kalkd;SDLKHF;adf");
+        assertEquals(0, count);
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: find() isn't null for 'Colorado'")
+    public void testFindColorado(){
+        AirportsSource src = new AirportsSource();
+        Places findResults = src.find("Colorado", 5);
+
+        assertNotNull(findResults);
     }
 
     //TODO: rework this test with TWR block instead of initialize?

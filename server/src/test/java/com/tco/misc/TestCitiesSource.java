@@ -7,6 +7,7 @@ import com.mongodb.client.MongoDatabase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -54,6 +55,16 @@ public class TestCitiesSource {
         assertTrue(places.get(0).get("region") instanceof String);
         assertTrue(places.get(0).get("latitude") instanceof String);
         assertTrue(places.get(0).get("longitude") instanceof String);
+    }
+
+    @Test
+    @DisplayName("kyle-kirts: Test conversioni of Fort Collins")
+    public void testConvertFortCollins() throws RequestException {
+        CitiesSource source = new CitiesSource();
+        Place place = new Place("40.5477", "-105.066");
+        Places places = source.near(place, 100000000, 395.0, 1);
+
+        assertEquals("Fort Collins",places.get(0).get("municipality"));
     }
 
     @Test
