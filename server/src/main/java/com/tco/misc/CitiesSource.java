@@ -25,14 +25,14 @@ public class CitiesSource extends DataSource {
 
     static class Credential {
         static final int PORT = 27017;
-        // shared user with read-only access
-        static final String USER = "cs314-db";
-        static final String PASSWORD = "REDACTED";
+        // read-only database user, supplied via environment variables
+        static final String USER = System.getenv("TCO_DB_USER");
+        static final String PASSWORD = System.getenv("TCO_DB_PASSWORD");
 
         static final String DOCKER_SOURCE = "localhost";
         static final String SOURCE = "cilantro";
         
-        static final String URL = String.format("mongodb://cs314-db:REDACTED@%s:27017/cs314?authSource=cs314", 
+        static final String URL = String.format("mongodb://%s:%s@%s:27017/cs314?authSource=cs314", USER, PASSWORD, 
             runningDocker() ? DOCKER_SOURCE : SOURCE);
 
         private static boolean runningDocker() {

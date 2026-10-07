@@ -13,9 +13,9 @@ public class AirportsSource extends DataSource {
     ResultSet selectResults;
     static class Credential {
         static final int PORT = 27017;
-        // shared user with read-only access
-        static final String USER = "cs314-db";
-        static final String PASSWORD = "REDACTED";
+        // read-only database user, supplied via environment variables
+        static final String USER = System.getenv("TCO_DB_USER");
+        static final String PASSWORD = System.getenv("TCO_DB_PASSWORD");
 
         static final String DOCKER_SOURCE = "localhost";
         static final String SOURCE = "faure.cs.colostate.edu";
