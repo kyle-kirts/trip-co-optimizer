@@ -1,7 +1,5 @@
 # Trip Co-Optimizer
 
-![Gold Rushers](images/team-image.png)
-
 A REST API for planning trips. Given a list of places, it calculates the great-circle distances between them, builds a short round-trip tour, and searches airport and city data by name or proximity. It was built by a five-person team ("Gold Rushers") over a semester of two-week sprints in CS314 Software Engineering at Colorado State University (Fall 2025).
 
 ## Features
